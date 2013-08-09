@@ -1,4 +1,6 @@
-1. Licence
+1. Copywrite
+
+2. Licence
 
 The MIT License (MIT)
 Copyright (c) 2013 Robert Paj¹k
