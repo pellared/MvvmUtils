@@ -1,0 +1,23 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewModels="clr-namespace:Pellared.SalaryBook.ViewModels"
+    xmlns:views="clr-namespace:Pellared.SalaryBook.Views">
+    
+    <!-- Navigation -->
+    <DataTemplate DataType="{x:Type viewModels:MainSalaryViewModel}">
+        <views:MainSalaryView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewModels:EditSalaryViewModel}">
+        <views:EditSalaryView HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </DataTemplate>
+
+    <!-- Dialogs -->
+    <DataTemplate DataType="{x:Type viewModels:DeleteSalaryDialogViewModel}">
+        <views:DeleteSalaryView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type viewModels:SalaryDialogViewModel}">
+        <views:SalaryView />
+    </DataTemplate>
+</ResourceDictionary>

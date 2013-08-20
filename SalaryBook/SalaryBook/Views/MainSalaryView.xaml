@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Pellared.SalaryBook.Views.MainSalaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:Pellared.SalaryBook.Properties"
+             xmlns:views="clr-namespace:Pellared.SalaryBook.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance ViewModels:MainSalaryViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <views:SalaryTableView Grid.Row="0" DataContext="{Binding SalaryTableViewModel}" />
+
+        <Expander Grid.Row="1" Header="{x:Static properties:Resources.AddingNewSalaryText}" ExpandDirection="Down" IsExpanded="False">
+            <views:AddSalaryView Margin="25 10" DataContext="{Binding AddSalaryViewModel}"/>
+        </Expander>
+
+    </Grid>
+</UserControl>

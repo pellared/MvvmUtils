@@ -1,0 +1,7 @@
+﻿<vm:EditableSalaryViewModel 
+    xmlns:vm="clr-namespace:Pellared.SalaryBook.ViewModels"
+    FirstName="Jan"
+    LastName="Kowalski"
+    SalaryValue="1234"
+    BirthDate="01-02-1987"
+    />

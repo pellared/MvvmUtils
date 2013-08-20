@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Pellared.SalaryBook.Views.SalaryTableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:Pellared.SalaryBook.Properties"
+             xmlns:viewModels="clr-namespace:Pellared.SalaryBook.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:SalaryTableViewModel}">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="Salaries" Source="{Binding Salaries}" d:DesignSource="{d:DesignData Source=/SampleData/SalaryTableData.xaml}" />
+    </UserControl.Resources>
+    <DockPanel>       
+        <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True" >
+            <Menu>
+                <MenuItem Header="{x:Static properties:Resources.ExportText}">
+                    <MenuItem Header="CSV" Command="{Binding ExportCommand}" CommandParameter="{x:Static viewModels:FileType.Csv}"/>
+                    <MenuItem Header="XML" Command="{Binding ExportCommand}" CommandParameter="{x:Static viewModels:FileType.Xml}"/>
+                </MenuItem>
+                <MenuItem Header="{x:Static properties:Resources.ImportText}">
+                    <MenuItem Header="CSV" Command="{Binding ImportCommand}" CommandParameter="{x:Static viewModels:FileType.Csv}"/>
+                    <MenuItem Header="XML" Command="{Binding ImportCommand}" CommandParameter="{x:Static viewModels:FileType.Xml}"/>
+                </MenuItem>
+            </Menu>
+        </ToolBar>
+
+        <StackPanel
+            DockPanel.Dock="Bottom"
+            Margin="25 0 0 10"
+            Orientation="Horizontal">
+           
+            <Button 
+                Content="{x:Static properties:Resources.ShowSalaryText}" 
+                Height="24" Width="75" HorizontalAlignment="Left"
+                Command="{Binding ShowSalaryCommand}"/>
+            <Button 
+                Margin="10 0 0 0"
+                Content="{x:Static properties:Resources.EditSalaryText}"
+                Height="24" Width="75" HorizontalAlignment="Left"
+                Command="{Binding EditSalaryCommand}"/>
+            <Button 
+                Margin="10 0 0 0"
+                Content="{x:Static properties:Resources.DeleteSalaryText}"
+                Height="24" Width="75" HorizontalAlignment="Left"
+                Command="{Binding DeleteSalaryCommand}"/>
+            
+        </StackPanel>
+
+        <DataGrid 
+            BorderBrush="{StaticResource GridBorder}" Margin="25 10"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            ItemsSource="{Binding Source={StaticResource Salaries}}"
+            SelectedItem="{Binding SelectedSalary}"
+            >
+            <DataGrid.Columns>
+                <DataGridTextColumn MinWidth="80"  Header="{x:Static properties:Resources.FirstNameText}" Binding="{Binding FirstName}" />
+                <DataGridTextColumn MinWidth="120" Header="{x:Static properties:Resources.LastNameText}" Binding="{Binding LastName}" />
+                <DataGridTextColumn MinWidth="40" Header="{x:Static properties:Resources.AgeText}" Binding="{Binding BirthDate, Converter={StaticResource DateTimeToYearsConverter}}" />
+                <DataGridTextColumn MinWidth="80" Header="{x:Static properties:Resources.SalaryText}" Binding="{Binding SalaryValue}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="Pellared.SalaryBook.Views.EditableSalaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:Pellared.SalaryBook.Properties"
+             xmlns:toolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="176" d:DesignWidth="277.6" d:DataContext="{d:DesignData Source=/SampleData/EditableSalaryData.xaml}">
+    <StackPanel>
+        <Grid>
+            <Grid.Resources>
+                <ControlTemplate x:Key="InputErrorTemplate">
+                    <DockPanel>
+                        <Ellipse 
+							DockPanel.Dock="Right" 
+							Margin="2,0"
+							ToolTip="{Binding ElementName=adorner, 
+								Path=AdornedElement.(Validation.Errors).CurrentItem.ErrorContent}"
+							Width="10" Height="10"   
+							>
+                            <Ellipse.Fill>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="#11FF1111" Offset="0" />
+                                    <GradientStop Color="#FFFF0000" Offset="1" />
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <AdornedElementPlaceholder x:Name="adorner" />
+                    </DockPanel>
+                </ControlTemplate>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Validation.ErrorTemplate" Value="{StaticResource InputErrorTemplate}" />
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip">
+                                <Setter.Value>
+                                    <Binding Path="(Validation.Errors).CurrentItem.ErrorContent" RelativeSource="{x:Static RelativeSource.Self}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="DatePicker">
+                    <Setter Property="Validation.ErrorTemplate" Value="{StaticResource InputErrorTemplate}" />
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip">
+                                <Setter.Value>
+                                    <Binding Path="(Validation.Errors).CurrentItem.ErrorContent" RelativeSource="{x:Static RelativeSource.Self}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static properties:Resources.FirstNameText}"  />
+            <AdornerDecorator Grid.Row="0" Grid.Column="1" Margin="5" >
+                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            </AdornerDecorator>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static properties:Resources.LastNameText}" />
+            <AdornerDecorator Grid.Row="1" Grid.Column="1" Margin="5">
+                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+            </AdornerDecorator>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static properties:Resources.BirthDateText}" />
+            <AdornerDecorator Grid.Row="2" Grid.Column="1" Margin="5">
+                <DatePicker SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+            </AdornerDecorator>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static properties:Resources.SalaryText}" />
+            <toolkit:DoubleUpDown Grid.Row="3" Grid.Column="1" Margin="5" FormatString="C2" Value="{Binding SalaryValue, UpdateSourceTrigger=PropertyChanged}" ShowButtonSpinner="False" />
+        </Grid>
+
+        <TextBlock Text="{Binding Error}" Foreground="Red" FontWeight="Bold" />
+    </StackPanel>
+</UserControl>
