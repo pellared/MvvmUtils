@@ -1,7 +1,10 @@
-1. Copywrite
+1. Contact
+Robert Paj¹k
+pellared@hotmail.com
+http://rpajak.com/
+
 
 2. Licence
-
 The MIT License (MIT)
 Copyright (c) 2013 Robert Paj¹k
 
