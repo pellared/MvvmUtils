@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryBook", "SalaryBook\SalaryBook.csproj", "{FF06D253-9A89-4CC2-8A66-A850370554F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{0B3542DD-847D-4F9A-B986-CE7038BC1D20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmUtils", "MvvmUtils\MvvmUtils.csproj", "{0B3542DD-847D-4F9A-B986-CE7038BC1D20}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryBook.WinForms", "SalaryBook.WinForms\SalaryBook.WinForms.csproj", "{2C1C0C60-022E-4BD4-9CC4-767BEE115BBF}"
 EndProject
@@ -15,24 +15,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryBook.Tests", "SalaryBook.Tests\SalaryBook.Tests.csproj", "{D02C3786-8832-4A26-94E9-5944C3D4037F}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://plkrk-v-crc0210.pl.abb.com:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = SalaryBook\\SalaryBook.csproj
-		SccProjectName1 = SalaryBook
-		SccLocalPath1 = SalaryBook
-		SccProjectUniqueName2 = Infrastructure\\Infrastructure.csproj
-		SccProjectName2 = Infrastructure
-		SccLocalPath2 = Infrastructure
-		SccProjectUniqueName3 = SalaryBook.WinForms\\SalaryBook.WinForms.csproj
-		SccProjectName3 = SalaryBook.WinForms
-		SccLocalPath3 = SalaryBook.WinForms
-		SccProjectUniqueName4 = SalaryBook.Tests\\SalaryBook.Tests.csproj
-		SccProjectName4 = SalaryBook.Tests
-		SccLocalPath4 = SalaryBook.Tests
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms

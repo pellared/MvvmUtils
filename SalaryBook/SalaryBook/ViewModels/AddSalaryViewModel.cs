@@ -8,7 +8,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-using Pellared.Infrastructure.ViewModel;
+using Pellared.MvvmUtils.ViewModel;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Messages;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-using Pellared.Infrastructure.Validation;
+using Pellared.MvvmUtils.Validation;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Properties;
 

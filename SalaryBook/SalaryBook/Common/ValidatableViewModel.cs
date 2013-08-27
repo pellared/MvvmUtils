@@ -7,9 +7,9 @@ using System.Linq.Expressions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 
-using Pellared.Infrastructure;
-using Pellared.Infrastructure.Validation;
-using Pellared.Infrastructure.ViewModel;
+using Pellared.MvvmUtils;
+using Pellared.MvvmUtils.Validation;
+using Pellared.MvvmUtils.ViewModel;
 
 namespace Pellared.SalaryBook.Common
 {

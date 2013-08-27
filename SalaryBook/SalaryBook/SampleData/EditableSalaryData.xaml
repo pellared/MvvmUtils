@@ -4,4 +4,4 @@
     LastName="Kowalski"
     SalaryValue="1234"
     BirthDate="01-02-1987"
-    />
+    x:Class="Pellared.SalaryBook.SampleData.c__ccm_mvvm_utils_salarybook_salarybook_sampledata_editablesalarydata_xaml" />

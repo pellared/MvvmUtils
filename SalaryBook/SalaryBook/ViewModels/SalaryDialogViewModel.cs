@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Pellared.Infrastructure.Services.Modal;
+using Pellared.MvvmUtils.Services.Modal;
 using Pellared.SalaryBook.Entities;
 
 namespace Pellared.SalaryBook.ViewModels

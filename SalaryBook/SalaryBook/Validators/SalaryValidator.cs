@@ -1,9 +1,8 @@
 ﻿using System;
 
-using Pellared.Infrastructure.Validation;
-
 using FluentValidation;
 
+using Pellared.MvvmUtils.Validation;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Properties;
 

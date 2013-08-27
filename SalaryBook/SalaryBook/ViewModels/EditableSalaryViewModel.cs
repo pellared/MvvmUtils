@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 
-using Pellared.Infrastructure;
-using Pellared.Infrastructure.Validation;
-using Pellared.Infrastructure.ViewModel;
+using Pellared.MvvmUtils;
+using Pellared.MvvmUtils.Validation;
+using Pellared.MvvmUtils.ViewModel;
 using Pellared.SalaryBook.Common;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Validators;

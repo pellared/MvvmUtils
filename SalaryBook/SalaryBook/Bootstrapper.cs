@@ -11,10 +11,10 @@ using System.Windows.Markup;
 
 using Autofac;
 
-using Pellared.Infrastructure.Services.Dialog;
-using Pellared.Infrastructure.Services.Modal;
-using Pellared.Infrastructure.Threading;
-using Pellared.Infrastructure.Validation;
+using Pellared.MvvmUtils.Services.Dialog;
+using Pellared.MvvmUtils.Services.Modal;
+using Pellared.MvvmUtils.Threading;
+using Pellared.MvvmUtils.Validation;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.IO;
 using Pellared.SalaryBook.Services;

@@ -5,10 +5,9 @@ using System.Linq.Expressions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Pellared.Infrastructure;
-
 using FluentAssertions;
 
+using Pellared.MvvmUtils;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.IO;
 

@@ -3,7 +3,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-using Pellared.Infrastructure.Services.Modal;
+using Pellared.MvvmUtils.Services.Modal;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Properties;
 
