@@ -147,6 +147,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="IO\CsvSalariesExporter.cs" />
     <Compile Include="IO\CsvSalariesImporter.cs" />
+    <Compile Include="IO\SalaryFileInfo.cs" />
     <Compile Include="IO\ImportExportManager.cs" />
     <Compile Include="IO\ISalariesExporter.cs" />
     <Compile Include="IO\ISalariesImporter.cs" />

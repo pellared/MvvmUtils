@@ -124,7 +124,6 @@ namespace Pellared.SalaryBook.ViewModels
         public void EndEdit()
         {
             memento = null;
-            Clear();
         }
 
         public void Clear()

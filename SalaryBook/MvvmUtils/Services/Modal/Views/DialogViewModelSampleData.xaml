@@ -1,0 +1,3 @@
+﻿<Views:ModalViewModelStub
+    xmlns:Views="clr-namespace:Pellared.MvvmUtils.Services.Modal.Views" Title="Dialog View Title"
+    Closed="False" />

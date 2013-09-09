@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:properties="clr-namespace:Pellared.SalaryBook.Properties"
              xmlns:viewModels="clr-namespace:Pellared.SalaryBook.ViewModels"
+             xmlns:io="clr-namespace:Pellared.SalaryBook.IO"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance viewModels:SalaryTableViewModel}">
     <UserControl.Resources>
@@ -14,13 +15,10 @@
         <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True" >
             <Menu>
                 <MenuItem Header="{x:Static properties:Resources.ExportText}">
-                    <MenuItem Header="CSV" Command="{Binding ExportCommand}" CommandParameter="{x:Static viewModels:FileType.Csv}"/>
-                    <MenuItem Header="XML" Command="{Binding ExportCommand}" CommandParameter="{x:Static viewModels:FileType.Xml}"/>
+                    <MenuItem Header="CSV" Command="{Binding ExportCommand}" CommandParameter="{x:Static io:FileType.Csv}"/>
+                    <MenuItem Header="XML" Command="{Binding ExportCommand}" CommandParameter="{x:Static io:FileType.Xml}"/>
                 </MenuItem>
-                <MenuItem Header="{x:Static properties:Resources.ImportText}">
-                    <MenuItem Header="CSV" Command="{Binding ImportCommand}" CommandParameter="{x:Static viewModels:FileType.Csv}"/>
-                    <MenuItem Header="XML" Command="{Binding ImportCommand}" CommandParameter="{x:Static viewModels:FileType.Xml}"/>
-                </MenuItem>
+                <MenuItem Header="{x:Static properties:Resources.ImportText}" Command="{Binding ImportCommand}" />
             </Menu>
         </ToolBar>
 

@@ -22,22 +22,10 @@ using Pellared.SalaryBook.Services;
 
 namespace Pellared.SalaryBook.ViewModels
 {
-    public enum FileType
-    {
-        Csv,
-        Xml
-    }
-
     public class SalaryTableViewModel : ViewModelBase
     {
-        private const string CsvDescription = "csv";
-        private const string CsvExtension = "txt";
-        private const string XmlDescription = "xml";
-        private const string XmlExtension = "xml";
-
         private readonly INavigationService navigationService;
         private readonly IDialogService dialogService;
-        private readonly IUiDispatcher uiDispatcher;
         private readonly IModalService modalService;
         private readonly ImportExportManager importExportManager;
         private readonly IValidator<ISalary> salaryValidator;
@@ -52,7 +40,6 @@ namespace Pellared.SalaryBook.ViewModels
         {
             this.navigationService = navigationService;
             this.dialogService = dialogService;
-            this.uiDispatcher = uiDispatcher;
             this.modalService = modalService;
             this.importExportManager = importExportManager;
             this.salaryValidator = salaryValidator;
@@ -61,7 +48,7 @@ namespace Pellared.SalaryBook.ViewModels
             editSalaryCommand = new RelayCommand(EditSalary, CanEditSalary);
             deleteSalaryCommand = new RelayCommand(DeleteSalary, CanDeleteSalary);
             exportCommand = new RelayCommand<FileType>(Export, CanExport);
-            importCommand = new RelayCommand<FileType>(Import, CanImport);
+            importCommand = new RelayCommand(Import);
 
             Salary[] salaries = new[]
                                 {
@@ -198,108 +185,62 @@ namespace Pellared.SalaryBook.ViewModels
 
         private void Export(FileType fileType)
         {
-            string description;
-            string extension;
-
-            switch (fileType)
-            {
-                case FileType.Csv:
-                    description = CsvDescription;
-                    extension = CsvExtension;
-                    break;
-                case FileType.Xml:
-                    description = XmlDescription;
-                    extension = XmlExtension;
-                    break;
-                default:
-                    return;
-            }
-
-            string filePath = dialogService.ShowSaveFileDialog(
-                                                               extension,
-                                                               string.Format(
-                                                                             Resources.OpenFileDialogText, description,
-                                                                             extension));
+            var fileInfo = new SalaryFileInfo(fileType);
+            string filePath = dialogService.ShowSaveFileDialog(fileInfo.Extension, string.Format(Resources.OpenFileDialogText, fileInfo.Description, fileInfo.Extension));
             if (string.IsNullOrEmpty(filePath))
                 return;
 
-            Task.Factory.StartNew(
-                                  () =>
-                                  {
-                                      using (var csvFileWriter = new StreamWriter(filePath))
-                                          switch (fileType)
-                                          {
-                                              case FileType.Csv:
-                                                  importExportManager.CsvSalariesExporter.Export(GetSalaries(), csvFileWriter);
-                                                  break;
-                                              case FileType.Xml:
-                                                  importExportManager.XmlSalariesExporter.Export(GetSalaries(), csvFileWriter);
-                                                  break;
-                                          }
-                                  });
+            ExportAsync(fileType, filePath);
+        }
+
+        private Task ExportAsync(FileType fileType, string filePath)
+        {
+            return Task.Run(() => ExportImpl(fileType, filePath));
+        }
+
+        private void ExportImpl(FileType fileType, string filePath)
+        {
+            using (var csvFileWriter = new StreamWriter(filePath))
+            {
+                importExportManager.Export(GetSalaries(), csvFileWriter, fileType);
+            }
         }
 
         #endregion
 
         #region Import command
 
-        private readonly RelayCommand<FileType> importCommand;
+        private readonly RelayCommand importCommand;
 
         public ICommand ImportCommand
         {
             get { return importCommand; }
         }
 
-        private bool CanImport(FileType fileType)
+        private async void Import()
         {
-            return true;
-        }
-
-        private void Import(FileType fileType)
-        {
-            string description;
-            string extension;
-
-            switch (fileType)
-            {
-                case FileType.Csv:
-                    description = CsvDescription;
-                    extension = CsvExtension;
-                    break;
-                case FileType.Xml:
-                    description = XmlDescription;
-                    extension = XmlExtension;
-                    break;
-                default:
-                    return;
-            }
-
-            string filePath =
-                    dialogService.ShowOpenFileDialog(string.Format(Resources.OpenFileDialogText, description, extension));
+            string filePath = dialogService.ShowOpenFileDialog(string.Format(Resources.OpenFileDialogText, SalaryFileInfo.CsvDescription, SalaryFileInfo.CsvExtension, SalaryFileInfo.XmlDescription, SalaryFileInfo.XmlExtension));
             if (string.IsNullOrEmpty(filePath))
                 return;
 
-            Task.Factory.StartNew(
-                                  () =>
-                                  {
-                                      IEnumerable<Salary> importedCollection = null;
+            string extension = Path.GetExtension(filePath).Substring(1);
+            var fileInfo = new SalaryFileInfo(extension);
 
-                                      using (var csvFileReader = new StreamReader(filePath))
-                                          switch (fileType)
-                                          {
-                                              case FileType.Csv:
-                                                  importedCollection =
-                                                          importExportManager.CsvSalariesImporter.Import(csvFileReader);
-                                                  break;
-                                              case FileType.Xml:
-                                                  importedCollection =
-                                                          importExportManager.XmlSalariesImporter.Import(csvFileReader);
-                                                  break;
-                                          }
+            IEnumerable<Salary> importedCollection = await ImportAsync(filePath, fileInfo.FileType);
+            AddSalaries(importedCollection);
+        }
 
-                                      if (importedCollection != null)
-                                          uiDispatcher.Invoke(ImportSalaries, importedCollection);
-                                  });
+        private Task<IEnumerable<Salary>> ImportAsync(string filePath, FileType fileType)
+        {
+            return Task.Run(() => ImportImpl(filePath, fileType));
+        }
+
+        private IEnumerable<Salary> ImportImpl(string filePath, FileType fileType)
+        {
+            using (var fileReader = new StreamReader(filePath))
+            {
+                return importExportManager.Import(fileReader, fileType);
+            }
         }
 
         #endregion
@@ -320,10 +261,10 @@ namespace Pellared.SalaryBook.ViewModels
         private void LoadSalaries(IEnumerable<Salary> salaries)
         {
             Salaries = new ObservableCollection<EditableSalaryViewModel>();
-            ImportSalaries(salaries);
+            AddSalaries(salaries);
         }
 
-        private void ImportSalaries(IEnumerable<Salary> importedCollection)
+        private void AddSalaries(IEnumerable<Salary> importedCollection)
         {
             foreach (var item in importedCollection)
             {

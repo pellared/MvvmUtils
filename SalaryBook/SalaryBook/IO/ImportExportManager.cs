@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Pellared.SalaryBook.Entities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -24,24 +26,34 @@ namespace Pellared.SalaryBook.IO
             this.xmlSalariesExporter = xmlSalariesExporter;
         }
 
-        public ISalariesImporter CsvSalariesImporter
+        public IEnumerable<Salary> Import(TextReader reader, FileType fileType)
         {
-            get { return csvSalariesImporter; }
+            switch (fileType)
+            {
+                case FileType.Csv:
+                    return csvSalariesImporter.Import(reader);
+                case FileType.Xml:
+                    return xmlSalariesImporter.Import(reader);
+                default:
+                    throw new ArgumentOutOfRangeException("fileType");
+            }
         }
 
-        public ISalariesExporter CsvSalariesExporter
+        public void Export(IEnumerable<Salary> salaries, TextWriter writer, FileType fileType)
         {
-            get { return csvSalariesExporter; }
+            switch (fileType)
+            {
+                case FileType.Csv:
+                    csvSalariesExporter.Export(salaries, writer);
+                    break;
+                case FileType.Xml:
+                    xmlSalariesExporter.Export(salaries, writer);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("fileType");
+            }
         }
 
-        public ISalariesImporter XmlSalariesImporter
-        {
-            get { return xmlSalariesImporter; }
-        }
 
-        public ISalariesExporter XmlSalariesExporter
-        {
-            get { return xmlSalariesExporter; }
-        }
     }
 }

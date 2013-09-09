@@ -121,7 +121,7 @@
     <value>Pole wymagane</value>
   </data>
   <data name="OpenFileDialogText" xml:space="preserve">
-    <value>Pliki {0} (*.{1})|*.{1}|Wszystkie pliki (*.*)|*.*</value>
+    <value>Pliki {0} (*.{1})|*.{1}|Pliki {2} (*.{3})|*.{3}|Wszystkie pliki (*.*)|*.*</value>
   </data>
   <data name="FirstNameText" xml:space="preserve">
     <value>Imię</value>
@@ -182,5 +182,8 @@
   </data>
   <data name="ComplexBirthDateValidatationErrorText" xml:space="preserve">
     <value>Pracownik musi mieć co najmniej 18 lat.</value>
+  </data>
+  <data name="SaveFileDialogText" xml:space="preserve">
+    <value>Pliki {0} (*.{1})|*.{1}|Wszystkie pliki (*.*)|*.*</value>
   </data>
 </root>
