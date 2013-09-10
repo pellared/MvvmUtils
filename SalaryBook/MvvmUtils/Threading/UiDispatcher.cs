@@ -6,7 +6,7 @@ namespace Pellared.Utils.Mvvm.Threading
     public class UiDispatcher : IUiDispatcher
     {
         private readonly static UiDispatcher current = new UiDispatcher();
-
+        
         public static UiDispatcher Current { get { return current; } }
 
         private readonly SynchronizationContext synchronizationContext;
