@@ -1,4 +1,4 @@
-﻿namespace Pellared.MvvmUtils.Services.Modal.Views
+﻿namespace Pellared.Utils.Mvvm.Services.Modal.Views
 {
     internal class ModalViewModelStub : IModalViewModel
     {

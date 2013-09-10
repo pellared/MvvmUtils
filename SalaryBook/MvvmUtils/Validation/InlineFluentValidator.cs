@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Pellared.MvvmUtils.Validation
+namespace Pellared.Utils.Mvvm.Validation
 {
     public class InlineFluentValidator<TObject> : FluentValidator<TObject>
     {

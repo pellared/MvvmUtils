@@ -1,4 +1,4 @@
-﻿namespace Pellared.MvvmUtils.Services.Modal
+﻿namespace Pellared.Utils.Mvvm.Services.Modal
 {
     public interface IModalService
     {

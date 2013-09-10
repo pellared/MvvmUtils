@@ -134,9 +134,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvvmUtils\MvvmUtils.csproj">
+    <ProjectReference Include="..\MvvmUtils\Utils.Mvvm.csproj">
       <Project>{0b3542dd-847d-4f9a-b986-ce7038bc1d20}</Project>
-      <Name>MvvmUtils</Name>
+      <Name>Utils.Mvvm</Name>
     </ProjectReference>
     <ProjectReference Include="..\SalaryBook\SalaryBook.csproj">
       <Project>{ff06d253-9a89-4cc2-8a66-a850370554f5}</Project>

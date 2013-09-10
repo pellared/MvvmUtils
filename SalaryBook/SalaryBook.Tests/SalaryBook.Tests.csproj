@@ -70,13 +70,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvvmUtils\MvvmUtils.csproj">
+    <ProjectReference Include="..\MvvmUtils\Utils.Mvvm.csproj">
       <Project>{0B3542DD-847D-4F9A-B986-CE7038BC1D20}</Project>
-      <Name>MvvmUtils</Name>
+      <Name>Utils.Mvvm</Name>
     </ProjectReference>
     <ProjectReference Include="..\SalaryBook\SalaryBook.csproj">
       <Project>{FF06D253-9A89-4CC2-8A66-A850370554F5}</Project>
       <Name>SalaryBook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{ef8ffb5c-ed67-4484-af45-0b071e5d442c}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

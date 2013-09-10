@@ -5,7 +5,7 @@ using System.Text;
 
 using Microsoft.Win32;
 
-namespace Pellared.MvvmUtils.Services.Dialog
+namespace Pellared.Utils.Mvvm.Services.Dialog
 {
     public class DialogService : IDialogService
     {

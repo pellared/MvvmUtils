@@ -1,6 +1,6 @@
 using System;
 
-namespace Pellared.MvvmUtils.Threading
+namespace Pellared.Utils.Mvvm.Threading
 {
     public interface IUiDispatcher 
     {

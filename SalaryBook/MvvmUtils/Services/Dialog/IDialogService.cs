@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pellared.MvvmUtils.Services.Dialog
+namespace Pellared.Utils.Mvvm.Services.Dialog
 {
     public interface IDialogService
     {

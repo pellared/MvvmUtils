@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Pellared.MvvmUtils.Threading
+namespace Pellared.Utils.Mvvm.Threading
 {
     public class UiDispatcher : IUiDispatcher
     {

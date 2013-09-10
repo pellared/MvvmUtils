@@ -3,9 +3,9 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-using Pellared.MvvmUtils.Services.Modal;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Properties;
+using Pellared.Utils.Mvvm.Services.Modal;
 
 namespace Pellared.SalaryBook.ViewModels
 {

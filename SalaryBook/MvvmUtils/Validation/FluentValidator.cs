@@ -3,7 +3,7 @@ using System.Linq;
 
 using FluentValidation.Results;
 
-namespace Pellared.MvvmUtils.Validation
+namespace Pellared.Utils.Mvvm.Validation
 {
     public class FluentValidator<TObject> : IValidator<TObject>
     {

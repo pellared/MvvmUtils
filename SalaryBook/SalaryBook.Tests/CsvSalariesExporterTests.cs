@@ -7,9 +7,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using FluentAssertions;
 
-using Pellared.MvvmUtils;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.IO;
+using Pellared.Utils;
+using Pellared.Utils.Mvvm;
 
 namespace Pellared.SalaryBook.Tests
 {
@@ -131,7 +132,7 @@ namespace Pellared.SalaryBook.Tests
 
         private static int GetColumnIndex<T>(Expression<Func<Salary, T>> columnSelector, string[] columnNames)
         {
-            string columnName = ReflectionUtils.ExtractPropertyName(columnSelector);
+            string columnName = ExpressionUtils.ExtractPropertyName(columnSelector);
             int columnIndex = Array.FindIndex(columnNames, x => x == columnName);
             if (columnIndex == -1)
                 Assert.Fail("column not found");

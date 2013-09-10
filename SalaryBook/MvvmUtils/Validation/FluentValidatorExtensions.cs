@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using FluentValidation;
 using FluentValidation.Results;
 
-namespace Pellared.MvvmUtils.Validation
+namespace Pellared.Utils.Mvvm.Validation
 {
     public static class FluentValidatorExtensions
     {

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace Pellared.MvvmUtils.Services.Modal.Views
+namespace Pellared.Utils.Mvvm.Services.Modal.Views
 {
     public static class WindowEx
     {

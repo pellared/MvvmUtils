@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Pellared.MvvmUtils.Validation
+namespace Pellared.Utils.Mvvm.Validation
 {
     public class DelegateValidator<TObject> : IValidator<TObject> 
     {
@@ -16,7 +16,7 @@ namespace Pellared.MvvmUtils.Validation
         }
 
         public DelegateValidator(Expression<Func<TObject, object>> propertySelector, Func<TObject, string> validation)
-            : this(ReflectionUtils.ExtractPropertyName(propertySelector), validation)
+            : this(ExpressionUtils.ExtractPropertyName(propertySelector), validation)
         { }
 
         public IEnumerable<ValidationError> Validate(TObject instance)

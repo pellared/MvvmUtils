@@ -10,15 +10,14 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-using Pellared.MvvmUtils.Services.Dialog;
-using Pellared.MvvmUtils.Services.Modal;
-using Pellared.MvvmUtils.Threading;
-using Pellared.MvvmUtils.Validation;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.IO;
 using Pellared.SalaryBook.Messages;
 using Pellared.SalaryBook.Properties;
 using Pellared.SalaryBook.Services;
+using Pellared.Utils.Mvvm.Services.Dialog;
+using Pellared.Utils.Mvvm.Services.Modal;
+using Pellared.Utils.Mvvm.Validation;
 
 namespace Pellared.SalaryBook.ViewModels
 {

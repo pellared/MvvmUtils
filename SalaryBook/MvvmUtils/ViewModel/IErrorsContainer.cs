@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
-namespace Pellared.MvvmUtils.ViewModel
+namespace Pellared.Utils.Mvvm.ViewModel
 {
     public interface IErrorsContainer<T> {
         /// <summary>

@@ -287,9 +287,13 @@
     <Resource Include="Book-icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvvmUtils\MvvmUtils.csproj">
+    <ProjectReference Include="..\MvvmUtils\Utils.Mvvm.csproj">
       <Project>{0b3542dd-847d-4f9a-b986-ce7038bc1d20}</Project>
-      <Name>MvvmUtils</Name>
+      <Name>Utils.Mvvm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{EF8FFB5C-ED67-4484-AF45-0B071E5D442C}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

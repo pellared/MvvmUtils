@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Pellared.MvvmUtils.Validation;
+using Pellared.Utils.Mvvm.Validation;
 
-namespace Pellared.MvvmUtils.ViewModel
+namespace Pellared.Utils.Mvvm.ViewModel
 {
     public class ValidationProvider
     {

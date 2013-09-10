@@ -1,4 +1,4 @@
-﻿namespace Pellared.MvvmUtils
+﻿namespace Pellared.Utils
 {
     public interface IMemento<T> 
     {

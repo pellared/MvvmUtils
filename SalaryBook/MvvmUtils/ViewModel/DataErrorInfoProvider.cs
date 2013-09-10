@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace Pellared.MvvmUtils.ViewModel
+namespace Pellared.Utils.Mvvm.ViewModel
 {
     public class DataErrorInfoProvider<TError> : IDataErrorInfo
     {

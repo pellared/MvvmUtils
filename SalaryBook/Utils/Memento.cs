@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Pellared.MvvmUtils
+namespace Pellared.Utils
 {
     public class Memento<T> : IMemento<T>
     {

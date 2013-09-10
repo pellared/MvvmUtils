@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 
-namespace Pellared.MvvmUtils.ViewModel
+namespace Pellared.Utils.Mvvm.ViewModel
 {
     /// <summary>
     /// Monitors the PropertyChanged event of an object that implements INotifyPropertyChanged,
@@ -51,7 +51,7 @@ namespace Pellared.MvvmUtils.ViewModel
             if (expression == null)
                 throw new ArgumentNullException("expression");
 
-            string propertyName = ReflectionUtils.ExtractPropertyName(expression);
+            string propertyName = ExpressionUtils.ExtractPropertyName(expression);
             if (String.IsNullOrEmpty(propertyName))
                 throw new ArgumentException("'expression' did not provide a property name.");
 
@@ -82,7 +82,7 @@ namespace Pellared.MvvmUtils.ViewModel
             if (expression == null)
                 throw new ArgumentNullException("expression");
 
-            string propertyName = ReflectionUtils.ExtractPropertyName(expression);
+            string propertyName = ExpressionUtils.ExtractPropertyName(expression);
             if (String.IsNullOrEmpty(propertyName))
                 throw new ArgumentException("'expression' did not provide a property name.");
 

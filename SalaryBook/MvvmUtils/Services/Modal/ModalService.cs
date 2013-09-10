@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Forms;
 
-using Pellared.MvvmUtils.Services.Modal.Views;
+using Pellared.Utils.Mvvm.Services.Modal.Views;
 
-namespace Pellared.MvvmUtils.Services.Modal
+namespace Pellared.Utils.Mvvm.Services.Modal
 {
     public class ModalService : IModalService
     {

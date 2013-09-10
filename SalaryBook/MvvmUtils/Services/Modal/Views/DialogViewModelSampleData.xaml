@@ -1,3 +1,4 @@
 ﻿<Views:ModalViewModelStub
-    xmlns:Views="clr-namespace:Pellared.MvvmUtils.Services.Modal.Views" Title="Dialog View Title"
-    Closed="False" />
+    xmlns:Views="clr-namespace:Pellared.Utils.Mvvm.Services.Modal.Views" Title="Dialog View Title"
+    Closed="False"
+    x:Class="Pellared.Utils.Mvvm.Services.Modal.Views.e__ccm_mvvm_utils_salarybook_mvvmutils_services_modal_views_dialogviewmodelsampledata_xaml" />

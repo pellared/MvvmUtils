@@ -2,9 +2,9 @@
 
 using FluentValidation;
 
-using Pellared.MvvmUtils.Validation;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Properties;
+using Pellared.Utils.Mvvm.Validation;
 
 namespace Pellared.SalaryBook.Validators
 {

@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Pellared.MvvmUtils.ViewModel
+namespace Pellared.Utils.Mvvm.ViewModel
 {
     /// <summary>
     /// Manages validation errors for an object, notifying when the error state changes.
@@ -78,7 +78,7 @@ namespace Pellared.MvvmUtils.ViewModel
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public void ClearErrors<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> propertyExpression)
         {
-            var propertyName = ReflectionUtils.ExtractPropertyName(propertyExpression);
+            var propertyName = ExpressionUtils.ExtractPropertyName(propertyExpression);
             ClearErrors(propertyName);
         }
 
@@ -105,7 +105,7 @@ namespace Pellared.MvvmUtils.ViewModel
         public void SetErrors<TEntity, TProperty>(
                 Expression<Func<TEntity, TProperty>> propertyExpression, IEnumerable<T> propertyErrors)
         {
-            var propertyName = ReflectionUtils.ExtractPropertyName(propertyExpression);
+            var propertyName = ExpressionUtils.ExtractPropertyName(propertyExpression);
             SetErrors(propertyName, propertyErrors);
         }
 
