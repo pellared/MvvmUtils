@@ -85,7 +85,8 @@ namespace Pellared.SalaryBook
         private void RegisterCommonServices()
         {
             containerBuilder.RegisterInstance<IDialogService>(new DialogService());
-            containerBuilder.RegisterInstance<IUiDispatcher>(UiDispatcher.Current);
+            // now using async
+            // containerBuilder.RegisterInstance<IUiDispatcher>(UiDispatcher.Current);
         }
 
         private void RegisterDialogService()

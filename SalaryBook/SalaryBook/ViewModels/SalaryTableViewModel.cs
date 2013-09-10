@@ -33,7 +33,6 @@ namespace Pellared.SalaryBook.ViewModels
         public SalaryTableViewModel(
                 INavigationService navigationService,
                 IDialogService dialogService,
-                IUiDispatcher uiDispatcher,
                 IModalService modalService,
                 ImportExportManager importExportManager,
                 IValidator<ISalary> salaryValidator)
