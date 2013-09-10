@@ -40,6 +40,7 @@
     <Compile Include="Collections\Cache.cs" />
     <Compile Include="Collections\RecentSet.cs" />
     <Compile Include="CommonExtensions.cs" />
+    <Compile Include="DisposableObject.cs" />
     <Compile Include="ExpressionUtils.cs" />
     <Compile Include="IMemento.cs" />
     <Compile Include="LinqExtensions.cs" />
