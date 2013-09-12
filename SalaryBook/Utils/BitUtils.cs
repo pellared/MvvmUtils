@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Pellared.Utils
@@ -8,18 +9,21 @@ namespace Pellared.Utils
     {
         public static byte DecimalToBcd(int dec)
         {
-            Debug.Assert(dec < 100, "Number is above 99");
+            if (dec < 100) throw new ArgumentOutOfRangeException("dec", "Number is above 99");
+
             return (byte)(((dec / 10) << 4) + (dec % 10));
         }
 
         public static int BcdToDecimal(byte bcd)
         {
-            Debug.Assert((bcd >> 4) < 10, "High digit is above 9");
-            Debug.Assert((bcd % 16) < 10, "Low digit is above 9");
+
+            if ((bcd >> 4) < 10) throw new ArgumentOutOfRangeException("bcd", "High digit is above 9");
+            if ((bcd % 16) < 10) throw new ArgumentOutOfRangeException("bcd", "Low digit is above 9");
+
             return ((bcd >> 4) * 10) + bcd % 16;
         }
 
-        public static int BcdToDecimal(byte[] bcd)
+        public static int BcdToDecimal(IEnumerable<byte> bcd)
         {
             int result = 0;
             int exping = 1;
@@ -35,18 +39,17 @@ namespace Pellared.Utils
         /// <summary>
         /// Creates an array from a BitArray.
         /// </summary>
-        /// <remarks>BitArray class: http://msdn.microsoft.com/en-us/library/system.collections.bitarray.aspx </remarks>
         /// <param name="bits">BitArray instance.</param>
         /// <returns>Array of bytes.</returns>
         public static byte[] ToByteArray(this BitArray bits, bool fromOldestBit)
         {
-            int numBytes = bits.Count / 8;
-            if (bits.Count % 8 != 0) numBytes++;
+            int numBytes = bits.Length / 8;
+            if (bits.Length % 8 != 0) numBytes++;
 
             byte[] bytes = new byte[numBytes];
             int byteIndex = 0, bitIndex = 0;
 
-            for (int i = 0; i < bits.Count; i++)
+            for (int i = 0; i < bits.Length; i++)
             {
                 if (bits[i])
                     if (fromOldestBit)
@@ -66,7 +69,7 @@ namespace Pellared.Utils
         }
 
         /// <summary>
-        /// Get the bit valie in a byte.
+        /// Get the bit value in a byte.
         /// </summary>
         /// <param name="pByte">The byte where the value is encoded.</param>
         /// <param name="bitNo">The number of the bit (zero-based index).</param>
@@ -77,7 +80,7 @@ namespace Pellared.Utils
         }
 
         /// <summary>
-        /// Set the bit valie in a byte.
+        /// Set the bit value in a byte.
         /// </summary>
         /// <param name="pByte">The byte where the value is encoded.</param>
         /// <param name="bitNo">The number of the bit (zero-based index).</param>
@@ -90,7 +93,6 @@ namespace Pellared.Utils
                 result = Convert.ToByte(pByte | (1 << bitNo));
             else
                 result = Convert.ToByte(pByte & ~(1 << bitNo));
-            ////pByte = result;
             return result;
         }
 
@@ -104,8 +106,6 @@ namespace Pellared.Utils
         public static byte GetValue(this byte pByte, byte youngestBitNo, byte oldestBitNo)
         {
             byte value = Convert.ToByte(pByte >> youngestBitNo);
-
-            //byte mask = Convert.ToByte(Pow(2, oldestBitNo - youngestBitNo));
             int count = oldestBitNo - youngestBitNo + 1;
             byte mask = Convert.ToByte((1 << count) - 1);
 
@@ -115,9 +115,9 @@ namespace Pellared.Utils
         }
 
         /// <summary>
-        /// Get the bit valie in a byte.
+        /// Get the bit value in a byte.
         /// </summary>
-        /// <param name="pByte">The byte where the value is encoded.</param>
+        /// <param name="array">The byte where the value is encoded.</param>
         /// <param name="bitNo">The number of the bit (zero-based index).</param>
         /// <returns>Value of the bit.</returns>
         public static bool GetBit(this byte[] array, int bitNo)
@@ -129,7 +129,7 @@ namespace Pellared.Utils
         /// <summary>
         /// Set the bit valie in a byte.
         /// </summary>
-        /// <param name="pByte">The byte where the value is encoded.</param>
+        /// <param name="array">The byte where the value is encoded.</param>
         /// <param name="bitNo">The number of the bit (zero-based index).</param>
         /// <param name="value">Value of the bit.</param>
         /// <returns>Byte with changed bit.</returns>

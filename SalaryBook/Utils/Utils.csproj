@@ -43,7 +43,6 @@
     <Compile Include="DisposableObject.cs" />
     <Compile Include="ExpressionUtils.cs" />
     <Compile Include="IMemento.cs" />
-    <Compile Include="LinqExtensions.cs" />
     <Compile Include="Memento.cs" />
     <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
