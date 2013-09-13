@@ -52,8 +52,11 @@ namespace Pellared.Utils
 
         protected void HasUnmanagedResources()
         {
-            hasUnmanagedResources = true;
-            GC.ReRegisterForFinalize(this);
+            if (!hasUnmanagedResources)
+            {
+                hasUnmanagedResources = true;
+                GC.ReRegisterForFinalize(this);
+            }
         }
 
         protected void ThrowIfDisposed()
