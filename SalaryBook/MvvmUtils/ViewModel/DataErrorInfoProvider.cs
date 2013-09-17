@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Pellared.Utils.Mvvm.ViewModel
@@ -12,6 +13,9 @@ namespace Pellared.Utils.Mvvm.ViewModel
 
         public DataErrorInfoProvider(Func<IEnumerable<TError>, string> errorsFormatter, params IErrorsContainer<TError>[] errorsContainers)
         {
+            Contract.Requires<ArgumentNullException>(errorsFormatter != null, "errorsFormatter");
+            Contract.Requires<ArgumentNullException>(errorsContainers != null, "errorsContainers");
+
             this.errorsContainers = errorsContainers.ToList();
             this.errorsFormatter = errorsFormatter;
         }

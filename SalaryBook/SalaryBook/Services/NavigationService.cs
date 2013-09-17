@@ -19,6 +19,7 @@ namespace Pellared.SalaryBook.Services
 
         public void Navigate(object viewModel)
         {
+            
             mainViewModel.CurrentViewModel = viewModel;
         }
 

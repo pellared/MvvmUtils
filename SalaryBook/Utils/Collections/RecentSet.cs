@@ -1,13 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Pellared.Utils.Collections
 {
+    public class ItemTrimedArgs<T>  : EventArgs
+    {
+        public ItemTrimedArgs(T item)
+        {
+            Item = item;
+        }
+
+        public T Item { get; private set; }
+    }
+
     public class RecentSet<T> : IEnumerable<T>
     {
-        public delegate void ItemTrimedHandler(T item);
-
-        public event ItemTrimedHandler ItemTrimed = delegate { };
+        public event EventHandler<ItemTrimedArgs<T>> ItemTrimed = delegate { };
 
         private readonly List<T> list;
         private readonly int maxSize = -1;
@@ -63,7 +72,7 @@ namespace Pellared.Utils.Collections
             {
                 while (list.Count > maxSize)
                 {
-                    ItemTrimed(list.ElementAt(list.Count - 1));
+                    ItemTrimed(this, new ItemTrimedArgs<T>(list.Last()));
                     list.RemoveAt(list.Count - 1);
                 }
             }

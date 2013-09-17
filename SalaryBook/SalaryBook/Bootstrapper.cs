@@ -19,6 +19,7 @@ using Pellared.SalaryBook.ViewModels;
 using Pellared.Utils.Mvvm.Services.Dialog;
 using Pellared.Utils.Mvvm.Services.Modal;
 using Pellared.Utils.Mvvm.Validation;
+using System.Diagnostics.Contracts;
 
 namespace Pellared.SalaryBook
 {
@@ -37,6 +38,8 @@ namespace Pellared.SalaryBook
 
         public Bootstrapper(WindowArgs windowArgs)
         {
+            Contract.Requires<ArgumentNullException>(windowArgs != null, "windowArgs");
+
             if (windowArgs.MainForm != null && windowArgs.MainWindow != null) throw new ArgumentException("windowArgs contains more than one main view");
 
             this.windowArgs = windowArgs;

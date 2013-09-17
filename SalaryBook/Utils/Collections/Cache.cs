@@ -48,7 +48,7 @@ namespace Pellared.Utils.Collections
 
         public void Remove(TKey id)
         {
-            RemoveFromBuffer(id);
+            buffer.Remove(id);
             recentSet.Remove(id);
         }
 
@@ -57,9 +57,9 @@ namespace Pellared.Utils.Collections
             return buffer;
         }
 
-        private void RemoveFromBuffer(TKey id)
+        private void RemoveFromBuffer(object sender, ItemTrimedArgs<TKey> args)
         {
-            buffer.Remove(id);
+            buffer.Remove(args.Item);
         }
     }
 }

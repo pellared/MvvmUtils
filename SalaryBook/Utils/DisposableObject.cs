@@ -18,12 +18,12 @@ namespace Pellared.Utils
 
         ~DisposableObject()
         {
-            CallDispose(false);
+            Dispose(false);
         }
 
         public void Dispose()
         {
-            CallDispose(true);
+            Dispose(true);
             if (hasUnmanagedResources)
             {
                 GC.SuppressFinalize(this);
@@ -72,18 +72,16 @@ namespace Pellared.Utils
             }
         }
 
-        private void CallDispose(bool disposeManagedResources)
+        private void Dispose(bool disposeManagedResources)
         {
             if (IsDisposed)
             {
                 throw new InvalidOperationException("Dispose called on an object that is already disposed.");
-                return;
             }
 
             if (IsDisposing)
             {
                 throw new InvalidOperationException("Dispose called on an object that is currently disposing.");
-                return;
             }
 
             IsDisposing = true;

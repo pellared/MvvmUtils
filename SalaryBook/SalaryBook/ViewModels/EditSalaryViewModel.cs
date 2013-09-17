@@ -4,6 +4,8 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 
 using Pellared.SalaryBook.Services;
+using System.Diagnostics.Contracts;
+using System;
 
 namespace Pellared.SalaryBook.ViewModels
 {
@@ -25,6 +27,9 @@ namespace Pellared.SalaryBook.ViewModels
         public EditSalaryViewModel(INavigationService navigationService,
                                    EditableSalaryViewModel editableSalary)
         {
+            Contract.Requires<ArgumentNullException>(navigationService != null, "navigationService");
+            Contract.Requires<ArgumentNullException>(editableSalary != null, "editableSalary");
+
             this.navigationService = navigationService;
             editableSalaryViewModel = editableSalary;
 

@@ -17,7 +17,7 @@ namespace Pellared.SalaryBook.IO
         {
             using (var csv = new CsvReader(reader))
             {
-                var result = csv.GetRecords<Salary>().ToArray();
+                var result = csv.GetRecords<Salary>();
                 return result;
             }
         }
