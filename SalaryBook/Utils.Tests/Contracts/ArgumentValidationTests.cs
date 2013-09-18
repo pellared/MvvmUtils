@@ -14,7 +14,7 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void IsNotNull_ArgumentIsNotNull_NoException()
         {
-            ArgumentValidation<string> validation = new ArgumentValidation<string>(new Argument<string>("value", "argumentName"));
+            ArgumentValidator<string> validation = new ArgumentValidator<string>(new Argument<string>("value", "argumentName"));
             Action act = () => validation.IsNotNull();
             act.ShouldNotThrow();
         }
@@ -22,7 +22,7 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void IsNotNull_WhenArgumentNull_ThrowsArgumentNullException()
         {
-            ArgumentValidation<string> validation = new ArgumentValidation<string>(new Argument<string>(null, "argumentName"));
+            ArgumentValidator<string> validation = new ArgumentValidator<string>(new Argument<string>(null, "argumentName"));
             Action act = () => validation.IsNotNull();
             act.ShouldThrow<ArgumentNullException>();
         }
@@ -30,7 +30,7 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Is_WhenConditionPasses_NoException()
         {
-            ArgumentValidation<int> validation = new ArgumentValidation<int>(new Argument<int>(1, "argumentName"));
+            ArgumentValidator<int> validation = new ArgumentValidator<int>(new Argument<int>(1, "argumentName"));
             Action act = () => validation.Is(x => x > 0);
             act.ShouldNotThrow();
         }
@@ -38,7 +38,7 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Is_WhenConditionFails_ThrowsArgumentException()
         {
-            ArgumentValidation<int> validation = new ArgumentValidation<int>(new Argument<int>(1, "argumentName"));
+            ArgumentValidator<int> validation = new ArgumentValidator<int>(new Argument<int>(1, "argumentName"));
             Action act = () => validation.Is(x => x < 0);
             act.ShouldThrow<ArgumentException>();
         }  
