@@ -46,5 +46,11 @@ namespace Pellared.Utils
             else
                 throw new ArgumentException("Property in expression is static.");
         }
+
+        public static string GetParameterName<T>(Expression<Func<T>> parameterExpression)
+        {
+            dynamic body = parameterExpression.Body;
+            return body.Member.Name;
+        }
     }
 }

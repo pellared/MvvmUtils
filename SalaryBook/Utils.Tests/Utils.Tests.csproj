@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="Contracts\ArgumentValidationTests.cs" />
     <Compile Include="Contracts\ArgumentValidatorExtensions\ArgumentValidatorTests_IsNotNull.cs" />
-    <Compile Include="Contracts\RequireTests.cs" />
+    <Compile Include="Contracts\CheckTests.cs" />
     <Compile Include="Contracts\Samples.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

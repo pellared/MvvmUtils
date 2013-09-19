@@ -8,22 +8,22 @@ using System;
 namespace Pellared.Utils.Tests.Contracts
 {
     [TestClass]
-    public class RequireTests
+    public class CheckTests
     {
         [TestMethod]
         public void Argument_LocalArgument_ResultHasGoodArgumentValue()
         {
             string argument = "value";
-            ArgumentValidator<string> result = Require.Argument(() => argument);
-            result.Argument.Value.Should().Be(argument);
+            Argument<string> result = Check.Argument(() => argument);
+            result.Value.Should().Be(argument);
         }
 
         [TestMethod]
         public void Argument_LocalArgumentHasValue_ResultHasGoodArgumentName()
         {
             string argument = "value";
-            ArgumentValidator<string> result = Require.Argument(() => argument);
-            result.Argument.Name.Should().Be("argument");
+            Argument<string> result = Check.Argument(() => argument);
+            result.Name.Should().Be("argument");
         }
 
         private string field = "value";
@@ -31,15 +31,15 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Argument_FieldArgumentHasValue_ResultHasGoodArgumentName()
         {
-            ArgumentValidator<string> result = Require.Argument(() => field);
-            result.Argument.Name.Should().Be("field");
+            Argument<string> result = Check.Argument(() => field);
+            result.Name.Should().Be("field");
         }
 
         [TestMethod]
         public void Argument_FieldArgument_ResultHasGoodArgumentValue()
         {
-            ArgumentValidator<string> result = Require.Argument(() => field);
-            result.Argument.Value.Should().Be(field);
+            Argument<string> result = Check.Argument(() => field);
+            result.Value.Should().Be(field);
         }
 
         private string Property { get { return "value"; } }
@@ -47,43 +47,43 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Argument_PropertyArgumentHasValue_ResultHasGoodArgumentName()
         {
-            ArgumentValidator<string> result = Require.Argument(() => Property);
-            result.Argument.Name.Should().Be("Property");
+            Argument<string> result = Check.Argument(() => Property);
+            result.Name.Should().Be("Property");
         }
 
         [TestMethod]
         public void Argument_PropertyArgument_ResultHasGoodArgumentValue()
         {
-            ArgumentValidator<string> result = Require.Argument(() => Property);
-            result.Argument.Value.Should().Be(Property);
+            Argument<string> result = Check.Argument(() => Property);
+            result.Value.Should().Be(Property);
         }
 
-        private ArgumentValidator<string> ArgumentAsParameter(string parameter)
+        private Argument<string> ArgumentAsParameter(string parameter)
         {
-            return Require.Argument(() => parameter);
+            return Check.Argument(() => parameter);
         }
 
         [TestMethod]
         public void Argument_ParameterArgumentHasValue_ResultHasGoodArgumentName()
         {
             string argument = "value";
-            ArgumentValidator<string> result = ArgumentAsParameter(argument);
-            result.Argument.Name.Should().Be("parameter");
+            Argument<string> result = ArgumentAsParameter(argument);
+            result.Name.Should().Be("parameter");
         }
 
         [TestMethod]
         public void Argument_ParameterArgument_ResultHasGoodArgumentValue()
         {
             string argument = "value";
-            ArgumentValidator<string> result = ArgumentAsParameter(argument);
-            result.Argument.Value.Should().Be(argument);
+            Argument<string> result = ArgumentAsParameter(argument);
+            result.Value.Should().Be(argument);
         }
 
         [TestMethod]
         public void Argument_ConstArgument_ThrowsException()
         {
             const string argument = "value";
-            Action act = () => Require.Argument(() => argument);
+            Action act = () => Check.Argument(() => argument);
             act.ShouldThrow<Exception>();
         }
     }

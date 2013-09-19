@@ -106,12 +106,11 @@
     <Compile Include="Collections\Cache.cs" />
     <Compile Include="Collections\RecentSet.cs" />
     <Compile Include="CommonExtensions.cs" />
-    <Compile Include="Contracts\Argument.cs" />
-    <Compile Include="Contracts\ArgumentValidator.cs" />
-    <Compile Include="Contracts\ArgumentValidatorExtensions.cs" />
-    <Compile Include="Contracts\ArgumentValidator.IsNotNullOrWhiteSpace.cs" />
-    <Compile Include="Contracts\ArgumentValidator.IsNotNull.cs" />
-    <Compile Include="Contracts\Require.cs" />
+    <Compile Include="Argument.cs" />
+    <Compile Include="Contracts\ArgumentValidations.cs" />
+    <Compile Include="Contracts\ArgumentValidations.IsNotNullOrWhiteSpace.cs" />
+    <Compile Include="Contracts\ArgumentValidations.IsNotNull.cs" />
+    <Compile Include="Contracts\Check.cs" />
     <Compile Include="DisposableObject.cs" />
     <Compile Include="ExpressionUtils.cs" />
     <Compile Include="IMemento.cs" />

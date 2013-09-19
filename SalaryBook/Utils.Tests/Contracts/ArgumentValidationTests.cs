@@ -14,7 +14,7 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Is_WhenConditionPasses_NoException()
         {
-            ArgumentValidator<int> validation = new ArgumentValidator<int>(new Argument<int>(1, "argumentName"));
+            Argument<int> validation = new Argument<int>(1, "argumentName");
             Action act = () => validation.Is(x => x > 0);
             act.ShouldNotThrow();
         }
@@ -22,7 +22,7 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Is_WhenConditionFails_ThrowsArgumentException()
         {
-            ArgumentValidator<int> validation = new ArgumentValidator<int>(new Argument<int>(1, "argumentName"));
+            Argument<int> validation = new Argument<int>(1, "argumentName");
             Action act = () => validation.Is(x => x < 0);
             act.ShouldThrow<ArgumentException>();
         }
@@ -31,7 +31,7 @@ namespace Pellared.Utils.Tests.Contracts
         public void IsWithConditionDescription_WhenConditionFails_FormatedConditionDescriptionInExceptionMessage()
         {
             const string conditionDescription = "{0} is {1}";
-            ArgumentValidator<int> validation = new ArgumentValidator<int>(new Argument<int>(1, "argumentName"));
+            Argument<int> validation = new Argument<int>(1, "argumentName");
             Action act = () => validation.Is(x => x < 0, conditionDescription);
             act.ShouldThrow<Exception>().WithMessage("argumentName is 1", ComparisonMode.EquivalentSubstring);
         }
