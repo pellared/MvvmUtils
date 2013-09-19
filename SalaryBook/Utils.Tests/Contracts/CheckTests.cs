@@ -14,7 +14,7 @@ namespace Pellared.Utils.Tests.Contracts
         public void Argument_LocalArgument_ResultHasGoodArgumentValue()
         {
             string argument = "value";
-            Argument<string> result = Check.Argument(() => argument);
+            Argument<string> result = Check.If(() => argument);
             result.Value.Should().Be(argument);
         }
 
@@ -22,7 +22,7 @@ namespace Pellared.Utils.Tests.Contracts
         public void Argument_LocalArgumentHasValue_ResultHasGoodArgumentName()
         {
             string argument = "value";
-            Argument<string> result = Check.Argument(() => argument);
+            Argument<string> result = Check.If(() => argument);
             result.Name.Should().Be("argument");
         }
 
@@ -31,14 +31,14 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Argument_FieldArgumentHasValue_ResultHasGoodArgumentName()
         {
-            Argument<string> result = Check.Argument(() => field);
+            Argument<string> result = Check.If(() => field);
             result.Name.Should().Be("field");
         }
 
         [TestMethod]
         public void Argument_FieldArgument_ResultHasGoodArgumentValue()
         {
-            Argument<string> result = Check.Argument(() => field);
+            Argument<string> result = Check.If(() => field);
             result.Value.Should().Be(field);
         }
 
@@ -47,20 +47,20 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Argument_PropertyArgumentHasValue_ResultHasGoodArgumentName()
         {
-            Argument<string> result = Check.Argument(() => Property);
+            Argument<string> result = Check.If(() => Property);
             result.Name.Should().Be("Property");
         }
 
         [TestMethod]
         public void Argument_PropertyArgument_ResultHasGoodArgumentValue()
         {
-            Argument<string> result = Check.Argument(() => Property);
+            Argument<string> result = Check.If(() => Property);
             result.Value.Should().Be(Property);
         }
 
         private Argument<string> ArgumentAsParameter(string parameter)
         {
-            return Check.Argument(() => parameter);
+            return Check.If(() => parameter);
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace Pellared.Utils.Tests.Contracts
         public void Argument_ConstArgument_ThrowsException()
         {
             const string argument = "value";
-            Action act = () => Check.Argument(() => argument);
+            Action act = () => Check.If(() => argument);
             act.ShouldThrow<Exception>();
         }
     }

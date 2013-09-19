@@ -1,32 +1,32 @@
-﻿using System;
-using System.Diagnostics.Contracts;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using Pellared.Utils.Contracts;
-
+﻿using CuttingEdge.Conditions;
 using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Pellared.Utils.Contracts;
+using System;
+using System.Diagnostics.Contracts;
 
 namespace Pellared.Utils.Tests.Contracts
 {
     [TestClass]
-    public class Samples
+    public class CheckSamples
     {
-        public void CodeContracts(string argument)
+        public void Sample(string argument)
         {
-            Contract.Requires(argument != null);
-            Contract.Requires(argument != string.Empty, "you cannot insert empty here!");
+            Check.If(() => argument)
+                .IsNotNull()
+                .IsNotNullOrWhiteSpace(arg => new OutOfMemoryException(arg.Name + " caused a memory leak"));
         }
 
         [TestMethod]
-        public void CodeContractsTest()
+        public void CheckTest()
         {
-            CodeContracts(string.Empty);
+            Action act = () => Sample(string.Empty);
+            act.ShouldThrow<OutOfMemoryException>().WithMessage("*argument caused a memory leak*");
         }
 
         private void NormalUsage(string argument)
         {
-            Check.Argument(() => argument)
+            Check.If(() => argument)
                 .IsNotNullOrWhiteSpace()
                 .Is(x => x.Length >= 5);
 
@@ -51,9 +51,9 @@ namespace Pellared.Utils.Tests.Contracts
 
         private int ParsePostiveNumber(string number)
         {
-            Argument<string> numberArgument = Check.Argument(() => number)
+            Argument<string> numberArgument = Check.If(() => number)
                 .IsNotNullOrWhiteSpace();
-            
+
             int result;
             bool parsed = int.TryParse(number, out result);
 
