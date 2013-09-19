@@ -14,7 +14,7 @@ namespace Pellared.Utils.Contracts
         }
 
         public static ArgumentValidator<string> IsNotNullOrWhiteSpace<TException>(this ArgumentValidator<string> validation, Func<Argument<string>, TException> exceptionDelegate)
-            where TException : ArgumentException
+            where TException : Exception
         {
             return validation.Is(IsNotNullOrWhiteSpace, exceptionDelegate);
         }
@@ -26,8 +26,7 @@ namespace Pellared.Utils.Contracts
 
         public static ArgumentValidator<string> IsNotNullOrWhiteSpace(this ArgumentValidator<string> validation)
         {
-            string conditionDescription = validation.BuildConditionDescription(IsNotNullOrWhiteSpaceConditionDescription);
-            return validation.IsNotNullOrWhiteSpace(conditionDescription);
+            return validation.IsNotNullOrWhiteSpace(IsNotNullOrWhiteSpaceConditionDescription);
         }
     }
 }

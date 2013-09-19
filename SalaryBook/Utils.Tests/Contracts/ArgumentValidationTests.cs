@@ -12,22 +12,6 @@ namespace Pellared.Utils.Tests.Contracts
     public class ArgumentValidationTests
     {
         [TestMethod]
-        public void IsNotNull_ArgumentIsNotNull_NoException()
-        {
-            ArgumentValidator<string> validation = new ArgumentValidator<string>(new Argument<string>("value", "argumentName"));
-            Action act = () => validation.IsNotNull();
-            act.ShouldNotThrow();
-        }
-
-        [TestMethod]
-        public void IsNotNull_WhenArgumentNull_ThrowsArgumentNullException()
-        {
-            ArgumentValidator<string> validation = new ArgumentValidator<string>(new Argument<string>(null, "argumentName"));
-            Action act = () => validation.IsNotNull();
-            act.ShouldThrow<ArgumentNullException>();
-        }
-
-        [TestMethod]
         public void Is_WhenConditionPasses_NoException()
         {
             ArgumentValidator<int> validation = new ArgumentValidator<int>(new Argument<int>(1, "argumentName"));
@@ -41,6 +25,15 @@ namespace Pellared.Utils.Tests.Contracts
             ArgumentValidator<int> validation = new ArgumentValidator<int>(new Argument<int>(1, "argumentName"));
             Action act = () => validation.Is(x => x < 0);
             act.ShouldThrow<ArgumentException>();
-        }  
+        }
+
+        [TestMethod]
+        public void IsWithConditionDescription_WhenConditionFails_FormatedConditionDescriptionInExceptionMessage()
+        {
+            const string conditionDescription = "{0} is {1}";
+            ArgumentValidator<int> validation = new ArgumentValidator<int>(new Argument<int>(1, "argumentName"));
+            Action act = () => validation.Is(x => x < 0, conditionDescription);
+            act.ShouldThrow<Exception>().WithMessage("argumentName is 1", ComparisonMode.EquivalentSubstring);
+        }
     }
 }

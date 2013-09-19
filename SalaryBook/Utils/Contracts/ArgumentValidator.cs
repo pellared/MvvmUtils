@@ -16,7 +16,7 @@ namespace Pellared.Utils.Contracts
         }
 
         public ArgumentValidator<T> Is<TException>(Func<T, bool> condition, Func<Argument<T>, TException> exceptionDelegate)
-            where TException : ArgumentException
+            where TException : Exception
         {
             if (!condition(Argument.Value))
             {
@@ -28,6 +28,7 @@ namespace Pellared.Utils.Contracts
 
         public ArgumentValidator<T> Is(Func<T, bool> condition, string conditionDescription = "")
         {
+            conditionDescription = BuildConditionDescription(conditionDescription);
             return Is(condition, arg => new ArgumentException(conditionDescription, arg.Name));
         }
 
