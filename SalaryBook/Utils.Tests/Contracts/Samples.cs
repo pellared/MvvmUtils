@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,7 +12,19 @@ namespace Pellared.Utils.Tests.Contracts
     [TestClass]
     public class Samples
     {
-        public void NormalUsage(string argument)
+        public void CodeContracts(string argument)
+        {
+            Contract.Requires(argument != null);
+            Contract.Requires(argument != string.Empty, "you cannot insert empty here!");
+        }
+
+        [TestMethod]
+        public void CodeContractsTest()
+        {
+            CodeContracts(string.Empty);
+        }
+
+        private void NormalUsage(string argument)
         {
             Check.Argument(() => argument)
                 .IsNotNullOrWhiteSpace()
@@ -36,7 +49,7 @@ namespace Pellared.Utils.Tests.Contracts
             act.ShouldThrow<ArgumentException>();
         }
 
-        public int ParsePostiveNumber(string number)
+        private int ParsePostiveNumber(string number)
         {
             Argument<string> numberArgument = Check.Argument(() => number)
                 .IsNotNullOrWhiteSpace();

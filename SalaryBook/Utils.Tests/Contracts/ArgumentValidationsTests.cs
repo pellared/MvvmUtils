@@ -9,7 +9,7 @@ using FluentAssertions;
 namespace Pellared.Utils.Tests.Contracts
 {
     [TestClass]
-    public class ArgumentValidationTests
+    public class ArgumentValidationsTests
     {
         [TestMethod]
         public void Is_WhenConditionPasses_NoException()

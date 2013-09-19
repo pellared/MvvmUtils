@@ -6,10 +6,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Pellared.Utils.Contracts;
 
-namespace Pellared.Utils.Tests.Contracts.ArgumentExtensions
+namespace Pellared.Utils.Tests.Contracts
 {
     [TestClass]
-    public class ArgumentTests_IsNotNull
+    public class ArgumentValidatonsTests_IsNotNull
     {
         [TestMethod]
         public void NoArguments_ArgumentIsNotNull_NoException()
