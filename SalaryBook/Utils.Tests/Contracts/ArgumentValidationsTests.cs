@@ -26,14 +26,5 @@ namespace Pellared.Utils.Tests.Contracts
             Action act = () => validation.Is(x => x < 0);
             act.ShouldThrow<ArgumentException>();
         }
-
-        [TestMethod]
-        public void IsWithConditionDescription_WhenConditionFails_FormatedConditionDescriptionInExceptionMessage()
-        {
-            const string conditionDescription = "{0} is {1}";
-            Argument<int> validation = new Argument<int>(1, "argumentName");
-            Action act = () => validation.Is(x => x < 0, conditionDescription);
-            act.ShouldThrow<Exception>().WithMessage("argumentName is 1", ComparisonMode.EquivalentSubstring);
-        }
     }
 }

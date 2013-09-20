@@ -51,7 +51,7 @@ namespace Pellared.Utils.Tests.Contracts
 
         private int ParsePostiveNumber(string number)
         {
-            Argument<string> numberArgument = Check.If(() => number)
+            IArgument<string> numberArgument = Check.If(() => number)
                 .IsNotNullOrWhiteSpace();
 
             int result;

@@ -19,7 +19,7 @@ namespace Pellared.SalaryBook.Common
         private DataErrorInfoProvider<ValidationError> dataErrorInfoProvider;
 
         private ErrorsContainer<ValidationError> errorsContainer;
-        private ValidationProvider validationProvider;
+        private ValidationProvider<ValidationError> validationProvider;
 
         private bool validationOnPropertyChangedEnabled;
 
@@ -38,7 +38,7 @@ namespace Pellared.SalaryBook.Common
         {
             errorsContainer = new ErrorsContainer<ValidationError>(OnErrorsChanged);
             dataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(ArrayFormat.First, errorsContainer);
-            validationProvider = new ValidationProvider(errorsContainer, Validation);
+            validationProvider = new ValidationProvider<ValidationError>(errorsContainer, Validation, error => error.PropertyName);
             
             validationOnPropertyChangedEnabled = true;
         }

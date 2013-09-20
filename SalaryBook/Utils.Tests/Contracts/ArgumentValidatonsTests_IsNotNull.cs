@@ -34,15 +34,5 @@ namespace Pellared.Utils.Tests.Contracts
             Action act = () => validation.IsNotNull(arg => new InvalidOperationException());
             act.ShouldThrow<InvalidOperationException>();
         }
-
-        [TestMethod]
-        public void ConditionDescrption_ArgumentNull_FormatedConditionDescriptionInExceptionMessage()
-        {
-            Argument<string> validation = new Argument<string>(null, "argumentName");
-            const string conditionDescription = "{0} is {1}";
-
-            Action act = () => validation.IsNotNull(conditionDescription);
-            act.ShouldThrow<Exception>().WithMessage("argumentName is ", ComparisonMode.EquivalentSubstring);
-        }
     }
 }

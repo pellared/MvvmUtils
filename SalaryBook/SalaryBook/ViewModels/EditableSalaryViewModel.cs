@@ -20,11 +20,11 @@ namespace Pellared.SalaryBook.ViewModels
         private Memento<EditableSalaryViewModel> memento;
 
         private readonly ErrorsContainer<ValidationError> secondPhaseErrorsContainer;
-        private readonly ValidationProvider secondPhaseValidationProvider;
+        private readonly ValidationProvider<ValidationError> secondPhaseValidationProvider;
 
 #if DEBUG
         /// <summary>
-        /// Design-time contructor
+        /// Design-time constructor
         /// </summary>
         public EditableSalaryViewModel()
         {
@@ -42,7 +42,7 @@ namespace Pellared.SalaryBook.ViewModels
             this.salaryValidator = salaryValidator;
 
             secondPhaseErrorsContainer = new ErrorsContainer<ValidationError>(OnErrorsChanged);
-            secondPhaseValidationProvider = new ValidationProvider(secondPhaseErrorsContainer, SecondPhaseValidation);
+            secondPhaseValidationProvider = new ValidationProvider<ValidationError>(secondPhaseErrorsContainer, SecondPhaseValidation, error => error.PropertyName);
             DataErrorInfoProvider.AddErrorsContainer(secondPhaseErrorsContainer);
         }
 

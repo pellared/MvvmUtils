@@ -15,7 +15,7 @@ namespace Pellared.Utils.Mvvm.Validation
                 {
                     string error = customValidation(x);
                     if (string.IsNullOrEmpty(error)) return null;
-                    return new ValidationFailure(string.Empty, error);
+                    return new ValidationFailure(string.Empty, error, x);
                 });
         }
     }

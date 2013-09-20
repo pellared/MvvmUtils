@@ -6,26 +6,28 @@ using Pellared.Utils.Mvvm.Validation;
 
 namespace Pellared.Utils.Mvvm.ViewModel
 {
-    public class ValidationProvider
+    public class ValidationProvider<TError>
     {
-        private readonly IErrorsContainer<ValidationError> errorsContainer;
-        private readonly Func<IEnumerable<ValidationError>> validation;
+        private readonly IErrorsContainer<TError> errorsContainer;
+        private readonly Func<IEnumerable<TError>> validation;
+        private readonly Func<TError, string> propertyNameSelector;
 
-        public ValidationProvider(IErrorsContainer<ValidationError> errorsContainer, Func<IEnumerable<ValidationError>> validation)
+        public ValidationProvider(IErrorsContainer<TError> errorsContainer, Func<IEnumerable<TError>> validation, Func<TError, string> propertyNameSelector)
         {
             this.errorsContainer = errorsContainer;
             this.validation = validation;
+            this.propertyNameSelector = propertyNameSelector;
         }
 
         public void Validate()
         {
             errorsContainer.ClearAllErrors();
 
-            IEnumerable<ValidationError> errors = validation();
+            IEnumerable<TError> errors = validation();
             if (errors != null)
             {
-                var propertyErrors = errors.GroupBy(x => x.PropertyName);
-                foreach (IGrouping<string, ValidationError> validationErrors in propertyErrors)
+                var propertyErrors = errors.GroupBy(propertyNameSelector);
+                foreach (IGrouping<string, TError> validationErrors in propertyErrors)
                 {
                     errorsContainer.SetErrors(validationErrors.Key, validationErrors);
                 }

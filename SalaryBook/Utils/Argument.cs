@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Pellared.Utils
 {
-    public class Argument<T> : Pellared.Utils.IArgument<T>
+    public class Argument<T> : IArgument<T>
     {
         public Argument(T value, string name)
         {
