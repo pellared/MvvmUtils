@@ -26,7 +26,7 @@ namespace Pellared.Utils.Contracts
 
         public static IArgument<string> IsNotNullOrWhiteSpace(this IArgument<string> argument)
         {
-            return argument.IsNotNullOrWhiteSpace(IsNotNullOrWhiteSpaceConditionDescription);
+            return argument.IsNotNullOrWhiteSpace(string.Format(IsNotNullOrWhiteSpaceConditionDescription, argument.Name, argument.Value));
         }
     }
 }

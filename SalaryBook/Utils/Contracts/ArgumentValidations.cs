@@ -19,19 +19,7 @@ namespace Pellared.Utils.Contracts
 
         public static IArgument<T> Is<T>(this IArgument<T> argument, Func<T, bool> condition, string conditionDescription = "")
         {
-            conditionDescription = argument.BuildConditionDescription(conditionDescription);
             return argument.Is(condition, arg => new ArgumentException(conditionDescription, arg.Name));
-        }
-
-        /// <summary>
-        /// Returns formated condition description.
-        /// </summary>
-        /// <param name="argument">Object with extension method.</param>
-        /// <param name="format">{0} for argument's name, {1} for argument's value.</param>
-        /// <returns>Formated condition description</returns>
-        public static string BuildConditionDescription<T>(this IArgument<T> argument, string format)
-        {
-            return string.Format(format, argument.Name, argument.Value);
         }
     }
 }

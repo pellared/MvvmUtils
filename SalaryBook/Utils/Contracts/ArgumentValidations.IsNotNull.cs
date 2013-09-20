@@ -23,14 +23,13 @@ namespace Pellared.Utils.Contracts
         public static IArgument<T> IsNotNull<T>(this IArgument<T> argument, string conditionDescription)
             where T : class
         {
-            conditionDescription = argument.BuildConditionDescription(conditionDescription);
             return argument.IsNotNull(arg => new ArgumentNullException(arg.Name, conditionDescription));
         }
 
         public static IArgument<T> IsNotNull<T>(this IArgument<T> argument)
             where T : class
         {
-            return argument.IsNotNull(IsNotNullConditionDescription);
+            return argument.IsNotNull(string.Format(IsNotNullConditionDescription, argument.Name, argument.Value));
         }
     }
 }

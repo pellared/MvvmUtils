@@ -26,7 +26,7 @@ namespace Pellared.Utils.Contracts
 
         public static IArgument<string> IsNotNullOrEmpty(this IArgument<string> argument)
         {
-            return argument.IsNotNullOrEmpty(IsNotNullOrEmptyConditionDescription);
+            return argument.IsNotNullOrEmpty(string.Format(IsNotNullOrEmptyConditionDescription, argument.Name, argument.Value));
         }
     }
 }
