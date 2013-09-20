@@ -18,6 +18,7 @@ using Pellared.SalaryBook.Services;
 using Pellared.Utils.Mvvm.Services.Dialog;
 using Pellared.Utils.Mvvm.Services.Modal;
 using Pellared.Utils.Mvvm.Validation;
+using System.Threading;
 
 namespace Pellared.SalaryBook.ViewModels
 {
@@ -116,6 +117,8 @@ namespace Pellared.SalaryBook.ViewModels
             Salary salary = SelectedSalary.CreateEntity();
             SalaryDialogViewModel salaryDialogViewModel = new SalaryDialogViewModel(salary);
             modalService.Open(salaryDialogViewModel);
+            Thread.Sleep(1000);
+            salaryDialogViewModel.Closed = true;
         }
 
         #endregion
@@ -160,7 +163,7 @@ namespace Pellared.SalaryBook.ViewModels
         {
             Salary salary = SelectedSalary.CreateEntity();
             DeleteSalaryDialogViewModel deleteSalaryDialogViewModel = new DeleteSalaryDialogViewModel(salary);
-            modalService.Open(deleteSalaryDialogViewModel);
+            modalService.OpenModal(deleteSalaryDialogViewModel);
             if (deleteSalaryDialogViewModel.Result)
                 Salaries.Remove(SelectedSalary);
         }
@@ -184,7 +187,7 @@ namespace Pellared.SalaryBook.ViewModels
         private void Export(FileType fileType)
         {
             var fileInfo = new SalaryFileInfo(fileType);
-            string filePath = dialogService.ShowSaveFileDialog(fileInfo.Extension, string.Format(Resources.OpenFileDialogText, fileInfo.Description, fileInfo.Extension));
+            string filePath = dialogService.ShowSaveFileDialog(fileInfo.Extension, string.Format(Resources.OpenFileDialogText, SalaryFileInfo.CsvDescription, SalaryFileInfo.CsvExtension, SalaryFileInfo.XmlDescription, SalaryFileInfo.XmlExtension));
             if (string.IsNullOrEmpty(filePath))
                 return;
 

@@ -2,6 +2,7 @@
 {
     public interface IModalService
     {
-        void Open(IModalViewModel viewModel, bool canMinimize = false);
+        void Open(IDialogViewModel viewModel, bool canMinimize = false);
+        void OpenModal(IDialogViewModel viewModel, bool canMinimize = false);
     }
 }

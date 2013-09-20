@@ -1,6 +1,6 @@
 ﻿namespace Pellared.Utils.Mvvm.Services.Modal.Views
 {
-    internal class ModalViewModelStub : IModalViewModel
+    internal class DialogViewModelStub : IDialogViewModel
     {
         public bool Closed { get; set; }
         public string Title { get; set; }

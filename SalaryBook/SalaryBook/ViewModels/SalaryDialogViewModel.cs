@@ -5,7 +5,7 @@ using Pellared.Utils.Mvvm.Services.Modal;
 
 namespace Pellared.SalaryBook.ViewModels
 {
-    public class SalaryDialogViewModel : IModalViewModel
+    public class SalaryDialogViewModel : IDialogViewModel
     {
         private readonly Salary salary;
 

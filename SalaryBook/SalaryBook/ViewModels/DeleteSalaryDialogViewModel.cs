@@ -9,7 +9,7 @@ using Pellared.Utils.Mvvm.Services.Modal;
 
 namespace Pellared.SalaryBook.ViewModels
 {
-    public class DeleteSalaryDialogViewModel : ViewModelBase, IModalViewModel
+    public class DeleteSalaryDialogViewModel : ViewModelBase, IDialogViewModel
     {
         private readonly Salary salary;
 

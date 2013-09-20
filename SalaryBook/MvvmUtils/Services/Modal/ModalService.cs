@@ -22,19 +22,37 @@ namespace Pellared.Utils.Mvvm.Services.Modal
             this.ownerForm = ownerForm;
         }
 
-        public void Open(IModalViewModel viewModel, bool canMinimize = false)
+        public void Open(IDialogViewModel viewModel, bool canMinimize = false)
         {
+            viewModel.Closed = false;
             if (ownerWindow != null)
             {
-                ModalWindow.OpenModal(viewModel, ownerWindow, canMinimize);
+                ClosableWindow.Open(viewModel, ownerWindow, false, canMinimize);
             }
             else if (ownerForm != null)
             {
-                ModalWindow.OpenModal(viewModel, ownerForm, canMinimize);
+                ClosableWindow.Open(viewModel, ownerForm, false, canMinimize);
             }
             else
             {
-                ModalWindow.OpenModal(viewModel, canMinimize);
+                ClosableWindow.Open(viewModel, false, canMinimize);
+            }
+        }
+
+        public void OpenModal(IDialogViewModel viewModel, bool canMinimize = false)
+        {
+            viewModel.Closed = false;
+            if (ownerWindow != null)
+            {
+                ClosableWindow.Open(viewModel, ownerWindow, true, canMinimize);
+            }
+            else if (ownerForm != null)
+            {
+                ClosableWindow.Open(viewModel, ownerForm, true, canMinimize);
+            }
+            else
+            {
+                ClosableWindow.Open(viewModel, true, canMinimize);
             }
         }
     }
