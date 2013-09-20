@@ -13,24 +13,24 @@ namespace Pellared.Utils.Contracts
             return result;
         }
 
-        public static Argument<T> IsNotNull<T, TException>(this Argument<T> validator, Func<Argument<T>, TException> exceptionDelegate)
+        public static IArgument<T> IsNotNull<T, TException>(this IArgument<T> argument, Func<IArgument<T>, TException> exceptionDelegate)
             where T : class
             where TException : Exception
         {
-            return validator.Is(IsNotNull, exceptionDelegate);
-        }
-         
-        public static Argument<T> IsNotNull<T>(this Argument<T> validator, string conditionDescription)
-            where T : class
-        {
-            conditionDescription = validator.BuildConditionDescription(conditionDescription);
-            return validator.IsNotNull(arg => new ArgumentNullException(arg.Name, conditionDescription));
+            return argument.Is(IsNotNull, exceptionDelegate);
         }
 
-        public static Argument<T> IsNotNull<T>(this Argument<T> validator)
+        public static IArgument<T> IsNotNull<T>(this IArgument<T> argument, string conditionDescription)
             where T : class
         {
-            return validator.IsNotNull(IsNotNullConditionDescription);
+            conditionDescription = argument.BuildConditionDescription(conditionDescription);
+            return argument.IsNotNull(arg => new ArgumentNullException(arg.Name, conditionDescription));
+        }
+
+        public static IArgument<T> IsNotNull<T>(this IArgument<T> argument)
+            where T : class
+        {
+            return argument.IsNotNull(IsNotNullConditionDescription);
         }
     }
 }

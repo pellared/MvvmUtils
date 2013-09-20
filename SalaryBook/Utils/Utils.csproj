@@ -110,15 +110,20 @@
     <Compile Include="Contracts\ArgumentValidations.cs" />
     <Compile Include="Contracts\ArgumentValidations.IsNotNullOrWhiteSpace.cs" />
     <Compile Include="Contracts\ArgumentValidations.IsNotNull.cs" />
+    <Compile Include="Contracts\ArgumentValidations.IsOfType.cs" />
     <Compile Include="Contracts\Check.cs" />
     <Compile Include="DisposableObject.cs" />
     <Compile Include="ExpressionUtils.cs" />
+    <Compile Include="IArgument.cs" />
     <Compile Include="IMemento.cs" />
     <Compile Include="Memento.cs" />
     <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionUtils.cs" />
     <Compile Include="Regexes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contracts\ArgumentValidations.IsNotNullOrEmpty.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

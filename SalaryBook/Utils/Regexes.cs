@@ -5,8 +5,10 @@ namespace Pellared.Utils
 {
     public static class Regexes
     {
-        public static Regex Number { get { return new Regex(@"^\d+$"); } }
+        public const string NumberRegex = @"^\d+$";
+        public static Regex Number { get { return new Regex(NumberRegex); } }
 
-        public static Regex Email { get { return new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"); } }
+        public const string EmailRegex = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+        public static Regex Email { get { return new Regex(EmailRegex); } }
     }
 }

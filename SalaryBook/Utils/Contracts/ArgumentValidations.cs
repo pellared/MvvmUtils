@@ -6,7 +6,7 @@ namespace Pellared.Utils.Contracts
 {
     public static partial class ArgumentValidations
     {
-        public static Argument<T> Is<T, TException>(this Argument<T> argument, Func<T, bool> condition, Func<Argument<T>, TException> exceptionDelegate)
+        public static IArgument<T> Is<T, TException>(this IArgument<T> argument, Func<T, bool> condition, Func<IArgument<T>, TException> exceptionDelegate)
             where TException : Exception
         {
             if (!condition(argument.Value))
@@ -17,7 +17,7 @@ namespace Pellared.Utils.Contracts
             return argument;
         }
 
-        public static Argument<T> Is<T>(this Argument<T> argument, Func<T, bool> condition, string conditionDescription = "")
+        public static IArgument<T> Is<T>(this IArgument<T> argument, Func<T, bool> condition, string conditionDescription = "")
         {
             conditionDescription = argument.BuildConditionDescription(conditionDescription);
             return argument.Is(condition, arg => new ArgumentException(conditionDescription, arg.Name));
@@ -29,7 +29,7 @@ namespace Pellared.Utils.Contracts
         /// <param name="argument">Object with extension method.</param>
         /// <param name="format">{0} for argument's name, {1} for argument's value.</param>
         /// <returns>Formated condition description</returns>
-        public static string BuildConditionDescription<T>(this Argument<T> argument, string format)
+        public static string BuildConditionDescription<T>(this IArgument<T> argument, string format)
         {
             return string.Format(format, argument.Name, argument.Value);
         }
