@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Pellared.Utils.Mvvm.Validation;
-
 namespace Pellared.Utils.Mvvm.ViewModel
 {
     public class ValidationProvider<TError>

@@ -146,6 +146,7 @@
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -176,6 +177,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\ValidatableViewModel.cs" />
+    <Compile Include="Common\Validation\CompositeValidator.cs" />
+    <Compile Include="Common\Validation\DataAnnotationsValidator.cs" />
+    <Compile Include="Common\Validation\DelegateValidator.cs" />
+    <Compile Include="Common\Validation\FluentValidator.cs" />
+    <Compile Include="Common\Validation\FluentValidatorExtensions.cs" />
+    <Compile Include="Common\Validation\Generic\CompositeValidator.cs" />
+    <Compile Include="Common\Validation\Generic\DelegateValidator.cs" />
+    <Compile Include="Common\Validation\Generic\IValidator.cs" />
+    <Compile Include="Common\Validation\InlineFluentValidator.cs" />
+    <Compile Include="Common\Validation\IValidator.cs" />
+    <Compile Include="Common\Validation\ValidationError.cs" />
     <Compile Include="Converters\DateTimeToYearsConverter.cs" />
     <Compile Include="Entities\Salary.cs" />
     <Compile Include="Bootstrapper.cs" />

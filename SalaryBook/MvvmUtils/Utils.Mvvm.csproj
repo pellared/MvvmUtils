@@ -120,7 +120,6 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
@@ -134,17 +133,9 @@
   <ItemGroup>
     <Compile Include="Services\Modal\Views\ModalViewModelStub.cs" />
     <Compile Include="Threading\IUiDispatcher.cs" />
-    <Compile Include="Validation\DelegateValidator.cs" />
     <Compile Include="ViewModel\DataErrorInfoProvider.cs" />
     <Compile Include="ViewModel\ErrorContainer.cs" />
     <Compile Include="Threading\UiDispatcher.cs" />
-    <Compile Include="Validation\InlineFluentValidator.cs" />
-    <Compile Include="Validation\CompositeValidator.cs" />
-    <Compile Include="Validation\Generic\DelegateValidator.cs" />
-    <Compile Include="Validation\FluentValidator.cs" />
-    <Compile Include="Validation\FluentValidatorExtensions.cs" />
-    <Compile Include="Validation\IValidator.cs" />
-    <Compile Include="Validation\ValidationError.cs" />
     <Compile Include="Services\Modal\IModalViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ArrayFormatter.cs" />
@@ -154,9 +145,6 @@
     <Compile Include="Services\Modal\IModalService.cs" />
     <Compile Include="Services\Dialog\IDialogService.cs" />
     <Compile Include="Services\Dialog\DialogService.cs" />
-    <Compile Include="Validation\Generic\CompositeValidator.cs" />
-    <Compile Include="Validation\DataAnnotationsValidator.cs" />
-    <Compile Include="Validation\Generic\IValidator.cs" />
     <Compile Include="Services\Modal\Views\WindowEx.cs" />
     <Compile Include="Services\Modal\Views\ModalWindow.xaml.cs">
       <DependentUpon>ModalWindow.xaml</DependentUpon>

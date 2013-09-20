@@ -22,7 +22,9 @@ namespace Pellared.Utils.Mvvm.ViewModel
 
         public DataErrorInfoProvider(ArrayFormat arrayFormat, params IErrorsContainer<TError>[] errorsContainers)
             : this(ArrayFormatter.GetErrorFormatter(arrayFormat) as Func<IEnumerable<TError>, string>, errorsContainers)
-        { }
+        {
+            Contract.Requires<ArgumentNullException>(errorsContainers != null, "errorsContainers");
+        }
 
         public virtual string ObjectPropertyName { get { return string.Empty; } }
 
