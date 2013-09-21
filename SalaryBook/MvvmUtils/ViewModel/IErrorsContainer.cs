@@ -5,9 +5,10 @@ using System.Linq.Expressions;
 
 namespace Pellared.Utils.Mvvm.ViewModel
 {
-    public interface IErrorsContainer<T> {
+    public interface IErrorsContainer<T>
+    {
         /// <summary>
-        /// Gets a value indicating whether the object has validation errors. 
+        /// Gets a value indicating whether the object has validation errors.
         /// </summary>
         bool HasErrors { get; }
 

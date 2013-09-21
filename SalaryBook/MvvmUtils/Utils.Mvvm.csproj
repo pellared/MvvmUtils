@@ -134,6 +134,7 @@
     <Compile Include="Services\Modal\IWindowViewModel.cs" />
     <Compile Include="Services\Modal\Views\DialogViewModelStub.cs" />
     <Compile Include="Threading\IUiDispatcher.cs" />
+    <Compile Include="ViewModel\ConcurrentObservableCollection.cs" />
     <Compile Include="ViewModel\DataErrorInfoProvider.cs" />
     <Compile Include="ViewModel\ErrorContainer.cs" />
     <Compile Include="Threading\UiDispatcher.cs" />
