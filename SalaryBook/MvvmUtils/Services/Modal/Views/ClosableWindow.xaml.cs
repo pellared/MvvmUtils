@@ -16,45 +16,25 @@ namespace Pellared.Utils.Mvvm.Services.Modal.Views
         public ClosableWindow()
         {
             InitializeComponent();
+
+            Loaded += ClosableWindowLoaded;
         }
 
-        public static void Open(IDialogViewModel viewModel, bool modal, bool canMinimize = false)
+        private void ClosableWindowLoaded(object sender, RoutedEventArgs e)
         {
-            ClosableWindow dialog = CreateModalWindow(viewModel, canMinimize);
-            ShowWindow(viewModel, dialog, modal);
-        }
-
-        public static void Open(IDialogViewModel viewModel, Window owner, bool modal, bool canMinimize = false)
-        {
-            ClosableWindow dialog = CreateModalWindow(viewModel, canMinimize);
-            if (owner != null)
+            var windowViewModel = DataContext as IWindowViewModel;
+            if (windowViewModel != null)
             {
-                dialog.Owner = owner;
-                dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                windowViewModel.OnLoaded();
             }
-
-            ShowWindow(viewModel, dialog, modal);
         }
 
-        public static void Open(IDialogViewModel viewModel, Form owner, bool modal, bool canMinimize = false)
-        {
-            ClosableWindow dialog = CreateModalWindow(viewModel, canMinimize);
-            if (owner != null)
-            {
-                WindowInteropHelper helper = new WindowInteropHelper(dialog);
-                helper.Owner = owner.Handle;
-                dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            }
-
-            ShowWindow(viewModel, dialog, modal);
-        }
-
-        private static ClosableWindow CreateModalWindow(IDialogViewModel viewModel, bool canMinimize)
+        public static ClosableWindow CreateClosableWindow(IDialogViewModel viewModel, bool canMinimize = false)
         {
             ClosableWindow dialog = new ClosableWindow
             {
-                    Content = viewModel,
-                    DataContext = viewModel,
+                Content = viewModel,
+                DataContext = viewModel,
             };
 
             if (canMinimize)
@@ -65,18 +45,42 @@ namespace Pellared.Utils.Mvvm.Services.Modal.Views
             return dialog;
         }
 
-        private static void ShowWindow(IDialogViewModel viewModel, ClosableWindow dialog, bool modal)
+        public static ClosableWindow CreateClosableWindow(IDialogViewModel viewModel, Window owner, bool canMinimize = false)
         {
-            if (modal)
+            ClosableWindow dialog = CreateClosableWindow(viewModel, canMinimize);
+            if (owner != null)
             {
-                dialog.ShowDialog();
-                viewModel.Closed = true;
+                dialog.Owner = owner;
+                dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
-            else
+
+            return dialog;
+        }
+
+        public static ClosableWindow CreateClosableWindow(IDialogViewModel viewModel, Form owner, bool canMinimize = false)
+        {
+            ClosableWindow dialog = CreateClosableWindow(viewModel, canMinimize);
+            if (owner != null)
             {
-                dialog.Closed += (sender, args) => viewModel.Closed = true;
-                dialog.Show();
+                WindowInteropHelper helper = new WindowInteropHelper(dialog);
+                helper.Owner = owner.Handle;
+                dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
+
+            return dialog;
+        }
+
+        public static void ShowDialog(IDialogViewModel viewModel, ClosableWindow dialog)
+        {
+            dialog.ShowDialog();
+            viewModel.Closed = true;
+        }
+
+        public static void ShowWindow(IWindowViewModel viewModel, ClosableWindow dialog)
+        {
+            dialog.Closing += (sender, args) => viewModel.OnClosing(args);
+            dialog.Closed += (sender, args) => viewModel.Closed = true;
+            dialog.Show();
         }
     }
 }

@@ -115,9 +115,8 @@ namespace Pellared.SalaryBook.ViewModels
         private void ShowSalary()
         {
             Salary salary = SelectedSalary.CreateEntity();
-            SalaryDialogViewModel salaryDialogViewModel = new SalaryDialogViewModel(salary);
+            SalaryDialogViewModel salaryDialogViewModel = new SalaryDialogViewModel(salary, dialogService);
             modalService.Open(salaryDialogViewModel);
-            Thread.Sleep(1000);
             salaryDialogViewModel.Closed = true;
         }
 

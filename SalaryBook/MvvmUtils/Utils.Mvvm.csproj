@@ -131,6 +131,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\Modal\IWindowViewModel.cs" />
     <Compile Include="Services\Modal\Views\DialogViewModelStub.cs" />
     <Compile Include="Threading\IUiDispatcher.cs" />
     <Compile Include="ViewModel\DataErrorInfoProvider.cs" />

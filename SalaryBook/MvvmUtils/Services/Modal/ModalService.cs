@@ -1,7 +1,6 @@
-﻿using System.Windows;
+﻿using Pellared.Utils.Mvvm.Services.Modal.Views;
+using System.Windows;
 using System.Windows.Forms;
-
-using Pellared.Utils.Mvvm.Services.Modal.Views;
 
 namespace Pellared.Utils.Mvvm.Services.Modal
 {
@@ -10,7 +9,9 @@ namespace Pellared.Utils.Mvvm.Services.Modal
         private readonly Window ownerWindow;
         private readonly Form ownerForm;
 
-        public ModalService() {}
+        public ModalService()
+        {
+        }
 
         public ModalService(Window ownerWindow)
         {
@@ -22,38 +23,37 @@ namespace Pellared.Utils.Mvvm.Services.Modal
             this.ownerForm = ownerForm;
         }
 
-        public void Open(IDialogViewModel viewModel, bool canMinimize = false)
+        public void Open(IWindowViewModel viewModel, bool canMinimize = false)
         {
-            viewModel.Closed = false;
-            if (ownerWindow != null)
-            {
-                ClosableWindow.Open(viewModel, ownerWindow, false, canMinimize);
-            }
-            else if (ownerForm != null)
-            {
-                ClosableWindow.Open(viewModel, ownerForm, false, canMinimize);
-            }
-            else
-            {
-                ClosableWindow.Open(viewModel, false, canMinimize);
-            }
+            var window = CreateWindow(viewModel, canMinimize);
+            ClosableWindow.ShowWindow(viewModel, window);
         }
 
         public void OpenModal(IDialogViewModel viewModel, bool canMinimize = false)
         {
+            var window = CreateWindow(viewModel, canMinimize);
+            ClosableWindow.ShowDialog(viewModel, window);
+        }
+
+        private ClosableWindow CreateWindow(IDialogViewModel viewModel, bool canMinimize)
+        {
             viewModel.Closed = false;
+
+            ClosableWindow window;
             if (ownerWindow != null)
             {
-                ClosableWindow.Open(viewModel, ownerWindow, true, canMinimize);
+                window = ClosableWindow.CreateClosableWindow(viewModel, ownerWindow, canMinimize);
             }
             else if (ownerForm != null)
             {
-                ClosableWindow.Open(viewModel, ownerForm, true, canMinimize);
+                window = ClosableWindow.CreateClosableWindow(viewModel, ownerForm, canMinimize);
             }
             else
             {
-                ClosableWindow.Open(viewModel, true, canMinimize);
+                window = ClosableWindow.CreateClosableWindow(viewModel, canMinimize);
             }
+
+            return window;
         }
     }
 }

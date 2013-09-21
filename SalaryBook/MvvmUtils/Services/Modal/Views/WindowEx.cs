@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -29,10 +30,24 @@ namespace Pellared.Utils.Mvvm.Services.Modal.Views
             if (closed)
             {
                 var window = d as Window;
-                if (window != null && window.IsActive)
-                    window.DialogResult = true;
+                if (window != null)
+                {
+                    if (window.IsModal())
+                    {
+                        window.DialogResult = true;
+                    }
+                    else
+                    {
+                        window.Close();
+                    }
+                }
             }
 
+        }
+
+        public static bool IsModal(this Window window)
+        {
+            return (bool)typeof(Window).GetField("_showingAsDialog", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(window);
         }
 
         #endregion

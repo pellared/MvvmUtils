@@ -2,16 +2,20 @@
 
 using Pellared.SalaryBook.Entities;
 using Pellared.Utils.Mvvm.Services.Modal;
+using System.ComponentModel;
+using Pellared.Utils.Mvvm.Services.Dialog;
 
 namespace Pellared.SalaryBook.ViewModels
 {
-    public class SalaryDialogViewModel : IDialogViewModel
+    public class SalaryDialogViewModel : IWindowViewModel
     {
         private readonly Salary salary;
+        private readonly IDialogService dialogService;
 
-        public SalaryDialogViewModel(Salary salary)
+        public SalaryDialogViewModel(Salary salary, IDialogService dialogService)
         {
             this.salary = salary;
+            this.dialogService = dialogService;
         }
 
         public bool Closed { get; set; }
@@ -39,6 +43,19 @@ namespace Pellared.SalaryBook.ViewModels
         public double SalaryValue
         {
             get { return salary.SalaryValue; }
+        }
+
+        public void OnLoaded()
+        {
+        }
+
+        public void OnClosing(CancelEventArgs args)
+        {
+            CustomDialogResults result = dialogService.ShowMessage("Czy na pewno zamknąć okno?", "Pytanie", CustomDialogIcons.Question, CustomDialogButtons.YesNo);
+            if (result != CustomDialogResults.Yes)
+            {
+                args.Cancel = true;
+            }
         }
     }
 }
