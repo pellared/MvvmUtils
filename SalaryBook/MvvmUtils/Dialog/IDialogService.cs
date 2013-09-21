@@ -43,6 +43,8 @@ namespace Pellared.Utils.Mvvm.Services.Dialog
 
     public interface IDialogService
     {
+        void Open(IWindowViewModel viewModel, bool canMinimize = false);
+        void OpenModal(IDialogViewModel viewModel, bool canMinimize = false);
         string ShowOpenFileDialog(string filter);
         string ShowSaveFileDialog(string defaultExtension, string filter);
         void ShowMessage(string message, string caption, CustomDialogIcons icon);

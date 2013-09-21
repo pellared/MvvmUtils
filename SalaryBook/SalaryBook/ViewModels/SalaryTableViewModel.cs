@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.IO;
 using Pellared.SalaryBook.Messages;
 using Pellared.SalaryBook.Properties;
 using Pellared.SalaryBook.Services;
 using Pellared.Utils.Mvvm.Services.Dialog;
-using Pellared.Utils.Mvvm.Services.Modal;
 using Pellared.Utils.Mvvm.Validation;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Pellared.SalaryBook.ViewModels
 {
@@ -26,20 +23,17 @@ namespace Pellared.SalaryBook.ViewModels
     {
         private readonly INavigationService navigationService;
         private readonly IDialogService dialogService;
-        private readonly IModalService modalService;
         private readonly ImportExportManager importExportManager;
         private readonly IValidator<ISalary> salaryValidator;
 
         public SalaryTableViewModel(
                 INavigationService navigationService,
                 IDialogService dialogService,
-                IModalService modalService,
                 ImportExportManager importExportManager,
                 IValidator<ISalary> salaryValidator)
         {
             this.navigationService = navigationService;
             this.dialogService = dialogService;
-            this.modalService = modalService;
             this.importExportManager = importExportManager;
             this.salaryValidator = salaryValidator;
 
@@ -116,11 +110,11 @@ namespace Pellared.SalaryBook.ViewModels
         {
             Salary salary = SelectedSalary.CreateEntity();
             SalaryDialogViewModel salaryDialogViewModel = new SalaryDialogViewModel(salary, dialogService);
-            modalService.Open(salaryDialogViewModel);
+            dialogService.Open(salaryDialogViewModel);
             salaryDialogViewModel.Closed = true;
         }
 
-        #endregion
+        #endregion ShowSalary command
 
         #region EditSalary command
 
@@ -142,7 +136,7 @@ namespace Pellared.SalaryBook.ViewModels
             navigationService.Navigate(editSalaryViewModel);
         }
 
-        #endregion
+        #endregion EditSalary command
 
         #region DeleteSalary command
 
@@ -162,12 +156,12 @@ namespace Pellared.SalaryBook.ViewModels
         {
             Salary salary = SelectedSalary.CreateEntity();
             DeleteSalaryDialogViewModel deleteSalaryDialogViewModel = new DeleteSalaryDialogViewModel(salary);
-            modalService.OpenModal(deleteSalaryDialogViewModel);
+            dialogService.OpenModal(deleteSalaryDialogViewModel);
             if (deleteSalaryDialogViewModel.Result)
                 Salaries.Remove(SelectedSalary);
         }
 
-        #endregion
+        #endregion DeleteSalary command
 
         #region Export command
 
@@ -206,7 +200,7 @@ namespace Pellared.SalaryBook.ViewModels
             }
         }
 
-        #endregion
+        #endregion Export command
 
         #region Import command
 
@@ -243,7 +237,7 @@ namespace Pellared.SalaryBook.ViewModels
             }
         }
 
-        #endregion
+        #endregion Import command
 
         private void OnSalaryAdded(SalaryAddedMessage message)
         {

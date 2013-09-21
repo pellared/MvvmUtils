@@ -1,10 +1,61 @@
 ﻿using Microsoft.Win32;
+using Pellared.Utils.Mvvm.Services.Dialog.Views;
 using System.Windows;
 
 namespace Pellared.Utils.Mvvm.Services.Dialog
 {
     public class DialogService : IDialogService
     {
+        private readonly Window ownerWindow;
+        private readonly System.Windows.Forms.Form ownerForm;
+
+        public DialogService()
+        {
+        }
+
+        public DialogService(Window ownerWindow)
+        {
+            this.ownerWindow = ownerWindow;
+        }
+
+        public DialogService(System.Windows.Forms.Form ownerForm)
+        {
+            this.ownerForm = ownerForm;
+        }
+
+        public void Open(IWindowViewModel viewModel, bool canMinimize = false)
+        {
+            var window = CreateWindow(viewModel, canMinimize);
+            ClosableWindow.ShowWindow(viewModel, window);
+        }
+
+        public void OpenModal(IDialogViewModel viewModel, bool canMinimize = false)
+        {
+            var window = CreateWindow(viewModel, canMinimize);
+            ClosableWindow.ShowDialog(viewModel, window);
+        }
+
+        private ClosableWindow CreateWindow(IDialogViewModel viewModel, bool canMinimize)
+        {
+            viewModel.Closed = false;
+
+            ClosableWindow window;
+            if (ownerWindow != null)
+            {
+                window = ClosableWindow.CreateClosableWindow(viewModel, ownerWindow, canMinimize);
+            }
+            else if (ownerForm != null)
+            {
+                window = ClosableWindow.CreateClosableWindow(viewModel, ownerForm, canMinimize);
+            }
+            else
+            {
+                window = ClosableWindow.CreateClosableWindow(viewModel, canMinimize);
+            }
+
+            return window;
+        }
+
         public string ShowOpenFileDialog(string filter)
         {
             var dlg = new OpenFileDialog

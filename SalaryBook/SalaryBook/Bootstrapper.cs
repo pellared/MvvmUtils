@@ -17,7 +17,6 @@ using Pellared.SalaryBook.Services;
 using Pellared.SalaryBook.Validators;
 using Pellared.SalaryBook.ViewModels;
 using Pellared.Utils.Mvvm.Services.Dialog;
-using Pellared.Utils.Mvvm.Services.Modal;
 using Pellared.Utils.Mvvm.Validation;
 using System.Diagnostics.Contracts;
 
@@ -66,7 +65,6 @@ namespace Pellared.SalaryBook
         private void ConfigureContainer()
         {
             RegisterViewModels();
-            RegisterCommonServices();
             RegisterDialogService();
             RegisterNavigationService();
             RegisterOtherServices();
@@ -84,21 +82,14 @@ namespace Pellared.SalaryBook
             containerBuilder.RegisterInstance(mainViewModel);
         }
 
-        private void RegisterCommonServices()
-        {
-            containerBuilder.RegisterInstance<IDialogService>(new DialogService());
-            // now using async
-            // containerBuilder.RegisterInstance<IUiDispatcher>(UiDispatcher.Current);
-        }
-
         private void RegisterDialogService()
         {
             if (windowArgs.MainWindow != null)
-                containerBuilder.RegisterInstance<IModalService>(new ModalService(windowArgs.MainWindow));
+                containerBuilder.RegisterInstance<IDialogService>(new DialogService(windowArgs.MainWindow));
             else if (windowArgs.MainForm != null)
-                containerBuilder.RegisterInstance<IModalService>(new ModalService(windowArgs.MainForm));
+                containerBuilder.RegisterInstance<IDialogService>(new DialogService(windowArgs.MainForm));
             else
-                containerBuilder.RegisterInstance<IModalService>(new ModalService());
+                containerBuilder.RegisterInstance<IDialogService>(new DialogService());
         }
 
         private void RegisterNavigationService()

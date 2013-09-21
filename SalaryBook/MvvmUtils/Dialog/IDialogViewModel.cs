@@ -1,4 +1,4 @@
-﻿namespace Pellared.Utils.Mvvm.Services.Modal
+﻿namespace Pellared.Utils.Mvvm.Services.Dialog
 {
     public interface IDialogViewModel
     {
