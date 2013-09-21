@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
-using Pellared.Utils.Mvvm.Services.Dialog.Views;
+using Pellared.Utils.Mvvm.Dialog.Views;
+using System;
+using System.Diagnostics.Contracts;
 using System.Windows;
 
-namespace Pellared.Utils.Mvvm.Services.Dialog
+namespace Pellared.Utils.Mvvm.Dialog
 {
     public class DialogService : IDialogService
     {

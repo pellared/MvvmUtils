@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
 
-namespace Pellared.Utils.Mvvm.Services.Dialog.Views
+namespace Pellared.Utils.Mvvm.Dialog.Views
 {
     /// <summary>
     /// Interaction logic for ModalWindow.xaml

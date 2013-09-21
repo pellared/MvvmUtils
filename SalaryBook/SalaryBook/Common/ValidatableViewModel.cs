@@ -10,7 +10,6 @@ using GalaSoft.MvvmLight.Messaging;
 using Pellared.Utils.Mvvm;
 using Pellared.Utils.Mvvm.Validation;
 using Pellared.Utils.Mvvm.ViewModel;
-using System.Diagnostics.Contracts;
 
 namespace Pellared.SalaryBook.Common
 {
@@ -120,8 +119,6 @@ namespace Pellared.SalaryBook.Common
 
         protected void OnErrorsChanged(string propertyName)
         {
-            Contract.Requires<ArgumentNullException>(DataErrorInfoProvider != null, "DataErrorInfoProvider");
-
             if (propertyName == DataErrorInfoProvider.ObjectPropertyName)
             {
                 // object error

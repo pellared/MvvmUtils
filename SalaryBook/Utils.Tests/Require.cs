@@ -12,7 +12,7 @@ namespace Pellared.Utils.Tests
             Contract.Requires(argumentExpression != null);
 
             T value = argumentExpression.Compile()();
-            string argumentName = ExpressionUtils.GetParameterName(argumentExpression);
+            string argumentName = ExpressionUtils.ExtractParameterName(argumentExpression);
             return Condition.Requires(value, argumentName);
         }
     }
@@ -25,7 +25,7 @@ namespace Pellared.Utils.Tests
             Contract.Requires(argumentExpression != null);
 
             TEntity value = argumentExpression.Compile()();
-            string argumentName = ExpressionUtils.GetParameterName(argumentExpression);
+            string argumentName = ExpressionUtils.ExtractParameterName(argumentExpression);
             return Condition.WithExceptionOnFailure<TException>().Requires(value, argumentName);
         }
     }

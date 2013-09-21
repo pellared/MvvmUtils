@@ -17,7 +17,7 @@ namespace Pellared.Utils
                 throw new ArgumentNullException("argumentExpression");
 
             Value = argumentExpression.Compile()();
-            Name = ExpressionUtils.GetParameterName(argumentExpression);
+            Name = ExpressionUtils.ExtractParameterName(argumentExpression);
         }
 
         public T Value { get; private set; }

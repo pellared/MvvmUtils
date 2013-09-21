@@ -1,9 +1,9 @@
-﻿<Window x:Class="Pellared.Utils.Mvvm.Services.Dialog.Views.ClosableWindow"
+﻿<Window x:Class="Pellared.Utils.Mvvm.Dialog.Views.ClosableWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:Views="clr-namespace:Pellared.Utils.Mvvm.Services.Dialog.Views"
+        xmlns:Views="clr-namespace:Pellared.Utils.Mvvm.Dialog.Views"
         mc:Ignorable="d" 
          
         Height="100" Width="300" 

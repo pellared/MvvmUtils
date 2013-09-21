@@ -1,5 +1,5 @@
 ﻿using Pellared.SalaryBook.Entities;
-using Pellared.Utils.Mvvm.Services.Dialog;
+using Pellared.Utils.Mvvm.Dialog;
 using System;
 using System.ComponentModel;
 

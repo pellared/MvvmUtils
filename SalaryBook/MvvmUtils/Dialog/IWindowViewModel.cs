@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pellared.Utils.Mvvm.Services.Dialog
+namespace Pellared.Utils.Mvvm.Dialog
 {
     public interface IWindowViewModel : IDialogViewModel
     {

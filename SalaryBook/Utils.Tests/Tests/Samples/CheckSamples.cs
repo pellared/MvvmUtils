@@ -77,7 +77,7 @@ namespace Pellared.Utils.Tests.Contracts
         {
             string parameter = "-5";
             Action act = () => ParsePostiveNumber(parameter);
-            act.ShouldThrow<ArgumentException>().WithMessage("Is not a positive number", ComparisonMode.EquivalentSubstring);
+            act.ShouldThrow<ArgumentException>().WithMessage("*Is not a positive number*");
         }
 
         [TestMethod]

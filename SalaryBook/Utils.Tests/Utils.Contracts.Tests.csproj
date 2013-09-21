@@ -6,8 +6,8 @@
     <ProjectGuid>{8269681C-535A-46F0-B346-D6E5AEA0335A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pellared.Utils.Tests</RootNamespace>
-    <AssemblyName>Pellared.Utils.Tests</AssemblyName>
+    <RootNamespace>Pellared.Utils.Contracts.Tests</RootNamespace>
+    <AssemblyName>Pellared.Utils.Contracts.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -31,7 +31,7 @@
     <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
     <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
     <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
-    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
     <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
     <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
     <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
@@ -101,7 +101,7 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
-    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CuttingEdge.Conditions">
@@ -109,6 +109,9 @@
     </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.2.1.0.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="Seterlund.CodeGuard">
+      <HintPath>..\packages\Seterlund.CodeGuard.2.3.2\lib\net40\Seterlund.CodeGuard.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -127,13 +130,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Contracts\ArgumentValidationsTests.cs" />
-    <Compile Include="Contracts\ArgumentValidatonsTests_IsNotNull.cs" />
-    <Compile Include="Contracts\CheckTests.cs" />
-    <Compile Include="Contracts\Samples\CheckSamples.cs" />
-    <Compile Include="Contracts\Samples\ConditionSamples.cs" />
-    <Compile Include="Contracts\Samples\ContractSamples.cs" />
-    <Compile Include="Contracts\Samples\RequireSamples.cs" />
+    <Compile Include="API\Argument.cs" />
+    <Compile Include="API\Contracts\ArgumentValidations.cs" />
+    <Compile Include="API\Contracts\ArgumentValidations.IsNotNull.cs" />
+    <Compile Include="API\Contracts\ArgumentValidations.IsNotNullOrEmpty.cs" />
+    <Compile Include="API\Contracts\ArgumentValidations.IsNotNullOrWhiteSpace.cs" />
+    <Compile Include="API\Contracts\ArgumentValidations.IsOfType.cs" />
+    <Compile Include="API\Contracts\Check.cs" />
+    <Compile Include="Tests\ArgumentValidationsTests.cs" />
+    <Compile Include="Tests\ArgumentValidatonsTests_IsNotNull.cs" />
+    <Compile Include="Tests\CheckTests.cs" />
+    <Compile Include="Tests\Samples\CheckSamples.cs" />
+    <Compile Include="Tests\Samples\ConditionSamples.cs" />
+    <Compile Include="Tests\Samples\ContractSamples.cs" />
+    <Compile Include="Tests\Samples\GuardSamples.cs" />
+    <Compile Include="Tests\Samples\RequireSamples.cs" />
     <Compile Include="ContractTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Require.cs" />

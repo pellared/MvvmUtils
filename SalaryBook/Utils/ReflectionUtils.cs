@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -10,6 +11,8 @@ namespace Pellared.Utils
     {
         public static IEnumerable<PropertyInfo> GetPropertyInfos(Type type)
         {
+            Contract.Requires<ArgumentNullException>(type != null, "type");
+
             return type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
         }
 
@@ -19,7 +22,7 @@ namespace Pellared.Utils
             Type sourceType = source.GetType();
             Type targetType = target.GetType();
 
-            if (!IsSubType(targetType, sourceType)) return false;
+            if (!targetType.IsAssignableFrom(sourceType)) return false;
 
             foreach (PropertyInfo propertyInfo in GetPropertyInfos(sourceType))
             {
@@ -57,7 +60,7 @@ namespace Pellared.Utils
         }
 
         [Obsolete]
-        private static T GetPropertyValue<T>(object obj, String propertyName)
+        private static T GetPropertyValue<T>(object obj, string propertyName)
         {
             object result = GetPropertyValue(obj, propertyName);
             if (result == null)
@@ -65,19 +68,6 @@ namespace Pellared.Utils
 
             // throws InvalidCastException if types are incompatible
             return (T)result;
-        }
-
-        [Obsolete]
-        private static bool IsSubType(Type child, Type parent)
-        {
-            // return true on same type
-            while (true)
-            {
-                if (child == null) return false;
-                if (child == parent) return true;
-
-                child = child.BaseType;
-            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pellared.Utils.Mvvm.Services.Dialog
+namespace Pellared.Utils.Mvvm.Dialog
 {
     /// <summary>
     /// Available Button options. 

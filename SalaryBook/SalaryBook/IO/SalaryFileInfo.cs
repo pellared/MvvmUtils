@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,8 +40,6 @@ namespace Pellared.SalaryBook.IO
 
         public SalaryFileInfo(string extension)
         {
-            Contract.Requires<ArgumentNullException>(extension != null, "extension");
-
             switch (extension.ToLowerInvariant())
             {
                 case CsvExtension:

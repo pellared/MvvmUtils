@@ -1,4 +1,4 @@
-﻿namespace Pellared.Utils.Mvvm.Services.Dialog.Views
+﻿namespace Pellared.Utils.Mvvm.Dialog.Views
 {
     internal class DialogViewModelStub : IDialogViewModel
     {
