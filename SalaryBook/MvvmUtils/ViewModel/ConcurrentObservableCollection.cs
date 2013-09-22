@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.Contracts;
 using System.Windows.Threading;
 
 namespace Pellared.Utils.Mvvm.ViewModel
@@ -36,6 +37,8 @@ namespace Pellared.Utils.Mvvm.ViewModel
         /// <param name="items">The source collection.</param>
         public void Add(IEnumerable<T> items)
         {
+            Contract.Requires<ArgumentNullException>(items != null, "items");
+
             this.SuspendCollectionChangeNotification();
             try
             {
@@ -58,6 +61,8 @@ namespace Pellared.Utils.Mvvm.ViewModel
         /// <param name="items">The source collection.</param>
         public void Remove(IEnumerable<T> items)
         {
+            Contract.Requires<ArgumentNullException>(items != null, "items");
+
             this.SuspendCollectionChangeNotification();
             try
             {

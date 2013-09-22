@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -19,6 +20,7 @@ namespace Pellared.Utils.Mvvm.Dialog.Views
 
         public static void SetClosed(Window target, bool value)
         {
+            Contract.Requires<ArgumentNullException>(target != null, "target");
             target.SetValue(ClosedProperty, value);
         }
 
@@ -45,57 +47,16 @@ namespace Pellared.Utils.Mvvm.Dialog.Views
 
         }
 
+        
+
+        #endregion
+
         public static bool IsModal(this Window window)
         {
+            Contract.Requires<ArgumentNullException>(window != null, "window");
+
             return (bool)typeof(Window).GetField("_showingAsDialog", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(window);
         }
-
-        #endregion
-
-        #region HideWindowButtons attached DependencyProperty
-
-        private const int GwlStyle = -16;
-        private const uint WsSysmenu = 0x80000;
-
-        public static readonly DependencyProperty HideWindowButtonsProperty =
-          DependencyProperty.RegisterAttached(
-            "HideWindowButtons",
-            typeof(bool),
-            typeof(WindowEx),
-            new PropertyMetadata(HideWindowButtonsChanged));
-
-        public static void SetHideWindowButtons(Window element, bool value)
-        {
-            element.SetValue(HideWindowButtonsProperty, value);
-        }
-
-        private static void HideWindowButtonsChanged(
-                DependencyObject d,
-                DependencyPropertyChangedEventArgs e)
-        {
-            bool hideWindowButtons = (bool)e.NewValue;
-            if (hideWindowButtons)
-            {
-                var window = d as Window;
-                if (window != null)
-                {
-                    window.SourceInitialized += delegate
-                    {
-                        HideWindowButtons(window);
-                    };
-                }
-            }
-        }
-
-        public static void HideWindowButtons(Window window)
-        {
-            var hwnd = new WindowInteropHelper(window).Handle;
-            NativeMethods.SetWindowLong(hwnd, GwlStyle, NativeMethods.GetWindowLong(hwnd, GwlStyle) & (~WsSysmenu));
-        }
-
-
-
-        #endregion
     }
 
     internal static class NativeMethods

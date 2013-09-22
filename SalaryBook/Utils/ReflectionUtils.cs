@@ -16,6 +16,41 @@ namespace Pellared.Utils
             return type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
         }
 
+        public static object GetPropertyValue(object obj, string propertyName)
+        {
+            Contract.Requires<ArgumentNullException>(obj != null, "obj");
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(propertyName));
+
+            foreach (String part in propertyName.Split('.'))
+            {
+                if (obj == null)
+                    return null;
+
+                Type type = obj.GetType();
+                PropertyInfo info = type.GetProperty(part);
+                if (info == null)
+                    return null;
+
+                obj = info.GetValue(obj, null);
+            }
+
+            return obj;
+        }
+
+
+        public static T GetPropertyValue<T>(object obj, string propertyName)
+        {
+            Contract.Requires<ArgumentNullException>(obj != null, "obj");
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(propertyName));
+
+            object result = GetPropertyValue(obj, propertyName);
+            if (result == null)
+                return default(T);
+
+            // throws InvalidCastException if types are incompatible
+            return (T)result;
+        }
+
         [Obsolete]
         private static bool CopyAllProperties(object source, object target)
         {
@@ -39,35 +74,6 @@ namespace Pellared.Utils
             Type instanceType = instance.GetType();
             return GetPropertyInfos(instanceType).Select(x => x.Name);
         }
-
-        [Obsolete]
-        private static object GetPropertyValue(object obj, string propertyName)
-        {
-            foreach (String part in propertyName.Split('.'))
-            {
-                if (obj == null)
-                    return null;
-
-                Type type = obj.GetType();
-                PropertyInfo info = type.GetProperty(part);
-                if (info == null)
-                    return null;
-
-                obj = info.GetValue(obj, null);
-            }
-
-            return obj;
-        }
-
-        [Obsolete]
-        private static T GetPropertyValue<T>(object obj, string propertyName)
-        {
-            object result = GetPropertyValue(obj, propertyName);
-            if (result == null)
-                return default(T);
-
-            // throws InvalidCastException if types are incompatible
-            return (T)result;
-        }
+        
     }
 }

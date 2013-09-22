@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -11,7 +12,7 @@ namespace Pellared.Utils.Mvvm.Dialog.Views
     /// <summary>
     /// Interaction logic for ModalWindow.xaml
     /// </summary>
-    public partial class ClosableWindow : Window
+    internal partial class ClosableWindow : Window
     {
         public ClosableWindow()
         {
@@ -72,12 +73,18 @@ namespace Pellared.Utils.Mvvm.Dialog.Views
 
         public static void ShowDialog(IDialogViewModel viewModel, ClosableWindow dialog)
         {
+            Contract.Requires<ArgumentNullException>(viewModel != null, "viewModel");
+            Contract.Requires<ArgumentNullException>(dialog != null, "dialog");
+
             dialog.ShowDialog();
             viewModel.Closed = true;
         }
 
         public static void ShowWindow(IWindowViewModel viewModel, ClosableWindow dialog)
         {
+            Contract.Requires<ArgumentNullException>(viewModel != null, "viewModel");
+            Contract.Requires<ArgumentNullException>(dialog != null, "dialog");
+
             dialog.Closing += (sender, args) => viewModel.OnClosing(args);
             dialog.Closed += (sender, args) => viewModel.Closed = true;
             dialog.Show();
