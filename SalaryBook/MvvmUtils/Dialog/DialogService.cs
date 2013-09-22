@@ -92,7 +92,7 @@ namespace Pellared.Utils.Mvvm.Dialog
         /// <param name="message">The message to be displayed.</param>
         /// <param name="caption">The heading to be displayed</param>
         /// <param name="icon">The icon to be displayed.</param>
-        public void ShowMessage(string message, string caption, CustomDialogIcons icon)
+        public void ShowMessage(string message, string caption, DialogIcons icon)
         {
             MessageBox.Show(message, caption, MessageBoxButton.OK, GetImage(icon));
         }
@@ -110,7 +110,7 @@ namespace Pellared.Utils.Mvvm.Dialog
         /// <param name="icon">The icon to be displayed.</param>
         /// <param name="button"></param>
         /// <returns>CustomDialogResults results to use</returns>
-        public CustomDialogResults ShowMessage(string message, string caption, CustomDialogIcons icon, CustomDialogButtons button)
+        public DialogResults ShowMessage(string message, string caption, DialogIcons icon, DialogButtons button)
         {
             MessageBoxResult result = MessageBox.Show(message, caption, GetButton(button), GetImage(icon));
             return GetResult(result);
@@ -123,21 +123,21 @@ namespace Pellared.Utils.Mvvm.Dialog
         /// </summary>
         /// <param name="icon">The icon to be displayed.</param>
         /// <returns>A standard WPF System.Windows.MessageBox MessageBoxImage</returns>
-        private MessageBoxImage GetImage(CustomDialogIcons icon)
+        private MessageBoxImage GetImage(DialogIcons icon)
         {
             switch (icon)
             {
                 default:
                     return MessageBoxImage.None;
-                case CustomDialogIcons.Information:
+                case DialogIcons.Information:
                     return MessageBoxImage.Information;
-                case CustomDialogIcons.Question:
+                case DialogIcons.Question:
                     return MessageBoxImage.Question;
-                case CustomDialogIcons.Exclamation:
+                case DialogIcons.Exclamation:
                     return MessageBoxImage.Exclamation;
-                case CustomDialogIcons.Stop:
+                case DialogIcons.Stop:
                     return MessageBoxImage.Stop;
-                case CustomDialogIcons.Warning:
+                case DialogIcons.Warning:
                     return MessageBoxImage.Warning;
             }
         }
@@ -149,19 +149,19 @@ namespace Pellared.Utils.Mvvm.Dialog
         /// </summary>
         /// <param name="btn">The button type to be displayed.</param>
         /// <returns>A standard WPF System.Windows.MessageBox MessageBoxButton</returns>
-        private MessageBoxButton GetButton(CustomDialogButtons btn)
+        private MessageBoxButton GetButton(DialogButtons btn)
         {
             switch (btn)
             {
                 default:
                     return MessageBoxButton.OK;
-                case CustomDialogButtons.OK:
+                case DialogButtons.OK:
                     return MessageBoxButton.OK;
-                case CustomDialogButtons.OKCancel:
+                case DialogButtons.OKCancel:
                     return MessageBoxButton.OKCancel;
-                case CustomDialogButtons.YesNo:
+                case DialogButtons.YesNo:
                     return MessageBoxButton.YesNo;
-                case CustomDialogButtons.YesNoCancel:
+                case DialogButtons.YesNoCancel:
                     return MessageBoxButton.YesNoCancel;
             }
         }
@@ -174,22 +174,22 @@ namespace Pellared.Utils.Mvvm.Dialog
         /// </summary>
         /// <param name="result">The standard WPF System.Windows.MessageBox MessageBoxResult</param>
         /// <returns>CustomDialogResults results to use</returns>
-        private CustomDialogResults GetResult(MessageBoxResult result)
+        private DialogResults GetResult(MessageBoxResult result)
         {
             switch (result)
             {
                 default:
-                    return CustomDialogResults.None;
+                    return DialogResults.None;
                 case MessageBoxResult.Cancel:
-                    return CustomDialogResults.Cancel;
+                    return DialogResults.Cancel;
                 case MessageBoxResult.No:
-                    return CustomDialogResults.No;
+                    return DialogResults.No;
                 case MessageBoxResult.None:
-                    return CustomDialogResults.None;
+                    return DialogResults.None;
                 case MessageBoxResult.OK:
-                    return CustomDialogResults.OK;
+                    return DialogResults.OK;
                 case MessageBoxResult.Yes:
-                    return CustomDialogResults.Yes;
+                    return DialogResults.Yes;
             }
         }
     }

@@ -61,8 +61,8 @@ namespace Pellared.SalaryBook.ViewModels
 
         private void Delete()
         {
-            CustomDialogResults result = dialogService.ShowMessage("Czy na pewno chcesz usunąć?", "Pytanie", CustomDialogIcons.Question, CustomDialogButtons.YesNo);
-            if (result == CustomDialogResults.Yes)
+            DialogResults result = dialogService.ShowMessage("Czy na pewno chcesz usunąć?", "Pytanie", DialogIcons.Question, DialogButtons.YesNo);
+            if (result == DialogResults.Yes)
             {
                 Result = true;
                 Closed = true;

@@ -2,11 +2,7 @@
 
 namespace Pellared.Utils.Mvvm.Dialog
 {
-    /// <summary>
-    /// Available Button options. 
-    /// Abstracted to allow some level of UI Agnosticness
-    /// </summary>
-    public enum CustomDialogButtons
+    public enum DialogButtons
     {
         OK,
         OKCancel,
@@ -14,11 +10,7 @@ namespace Pellared.Utils.Mvvm.Dialog
         YesNoCancel
     }
 
-    /// <summary>
-    /// Available Icon options.
-    /// Abstracted to allow some level of UI Agnosticness
-    /// </summary>
-    public enum CustomDialogIcons
+    public enum DialogIcons
     {
         None,
         Information,
@@ -28,11 +20,7 @@ namespace Pellared.Utils.Mvvm.Dialog
         Warning
     }
 
-    /// <summary>
-    /// Available DialogResults options.
-    /// Abstracted to allow some level of UI Agnosticness
-    /// </summary>
-    public enum CustomDialogResults
+    public enum DialogResults
     {
         None,
         OK,
@@ -46,7 +34,7 @@ namespace Pellared.Utils.Mvvm.Dialog
         void ShowDialog(IDialogViewModel viewModel);
         string ShowOpenFileDialog(string filter);
         string ShowSaveFileDialog(string defaultExtension, string filter);
-        void ShowMessage(string message, string caption, CustomDialogIcons icon);
-        CustomDialogResults ShowMessage(string message, string caption, CustomDialogIcons icon, CustomDialogButtons buttons);
+        void ShowMessage(string message, string caption, DialogIcons icon);
+        DialogResults ShowMessage(string message, string caption, DialogIcons icon, DialogButtons buttons);
     }
 }
