@@ -78,7 +78,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public void ClearErrors<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> propertyExpression)
         {
-            Contract.Requires<ArgumentNullException>(propertyExpression != null, "propertyExpression");
+            if (propertyExpression == null) throw new ArgumentNullException("propertyExpression");
 
             var propertyName = ExpressionUtils.ExtractPropertyName(propertyExpression);
             ClearErrors(propertyName);
@@ -107,8 +107,8 @@ namespace Pellared.Utils.Mvvm.ViewModel
         public void SetErrors<TEntity, TProperty>(
                 Expression<Func<TEntity, TProperty>> propertyExpression, IEnumerable<T> propertyErrors)
         {
-            Contract.Requires<ArgumentNullException>(propertyExpression != null, "propertyExpression");
-            Contract.Requires<ArgumentNullException>(propertyErrors != null, "propertyErrors");
+            if (propertyExpression == null) throw new ArgumentNullException("propertyExpression");
+            if (propertyErrors == null) throw new ArgumentNullException("propertyErrors");
 
             var propertyName = ExpressionUtils.ExtractPropertyName(propertyExpression);
             SetErrors(propertyName, propertyErrors);
@@ -124,7 +124,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
         /// <param name="newValidationResults">The new validation errors.</param>
         public void SetErrors(string propertyName, IEnumerable<T> newValidationResults)
         {
-            Contract.Requires<ArgumentNullException>(newValidationResults != null, "newValidationResults");
+            if (newValidationResults == null) throw new ArgumentNullException("newValidationResults");
 
             var localPropertyName = propertyName ?? string.Empty;
             var hasCurrentValidationResults = validationResults.ContainsKey(localPropertyName);
