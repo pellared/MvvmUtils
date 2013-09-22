@@ -12,10 +12,12 @@ namespace Pellared.SalaryBook.ViewModels
     public class DeleteSalaryDialogViewModel : ViewModelBase, IDialogViewModel
     {
         private readonly Salary salary;
+        private readonly IDialogService dialogService;
 
-        public DeleteSalaryDialogViewModel(Salary salary)
+        public DeleteSalaryDialogViewModel(Salary salary, IDialogService dialogService)
         {
             this.salary = salary;
+            this.dialogService = dialogService;
 
             deleteCommand = new RelayCommand(Delete);
             cancelCommand = new RelayCommand(Cancel);
@@ -59,8 +61,12 @@ namespace Pellared.SalaryBook.ViewModels
 
         private void Delete()
         {
-            Result = true;
-            Closed = true;
+            CustomDialogResults result = dialogService.ShowMessage("Czy na pewno chcesz usunąć?", "Pytanie", CustomDialogIcons.Question, CustomDialogButtons.YesNo);
+            if (result == CustomDialogResults.Yes)
+            {
+                Result = true;
+                Closed = true;
+            }
         }
 
         #endregion

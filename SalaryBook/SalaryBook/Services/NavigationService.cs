@@ -1,31 +1,29 @@
-﻿using Pellared.SalaryBook.ViewModels;
+﻿using Autofac;
+using Pellared.SalaryBook.ViewModels;
 
 namespace Pellared.SalaryBook.Services
 {
     public class NavigationService : INavigationService
     {
-        private readonly MainViewModel mainViewModel;
+        private MainViewModel mainViewModel;
         private MainSalaryViewModel mainSalaryViewModel;
-
-        public NavigationService(MainViewModel mainViewModel)
-        {
-            this.mainViewModel = mainViewModel;
-        }
-
-        public void RegisterMainSalary(MainSalaryViewModel mainSalaryViewModel)
-        {
-            this.mainSalaryViewModel = mainSalaryViewModel;
-        }
 
         public void Navigate(object viewModel)
         {
-            
             mainViewModel.CurrentViewModel = viewModel;
         }
 
         public void NavigateToMainSalary()
         {
             Navigate(mainSalaryViewModel);
+        }
+
+        internal void Initialize(IContainer container)
+        {
+            mainViewModel = container.Resolve<MainViewModel>();
+            mainSalaryViewModel = container.Resolve<MainSalaryViewModel>();
+
+            NavigateToMainSalary();
         }
     }
 }

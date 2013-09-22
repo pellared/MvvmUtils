@@ -137,6 +137,7 @@
     <Compile Include="API\Contracts\ArgumentValidations.IsNotNullOrWhiteSpace.cs" />
     <Compile Include="API\Contracts\ArgumentValidations.IsOfType.cs" />
     <Compile Include="API\Contracts\Check.cs" />
+    <Compile Include="API\IArgument.cs" />
     <Compile Include="Tests\ArgumentValidationsTests.cs" />
     <Compile Include="Tests\ArgumentValidatonsTests_IsNotNull.cs" />
     <Compile Include="Tests\CheckTests.cs" />

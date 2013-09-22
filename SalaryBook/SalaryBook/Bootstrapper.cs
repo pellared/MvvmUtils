@@ -107,8 +107,8 @@ namespace Pellared.SalaryBook
 
         private void ConfigureNavigationService()
         {
-            NavigationService navigationService = container.Resolve<NavigationService>();
-            navigationService.RegisterMainSalary(container.Resolve<MainSalaryViewModel>());
+            NavigationService navigationService = container.Resolve <NavigationService>();
+            navigationService.Initialize(container);
             navigationService.NavigateToMainSalary();
         }
 

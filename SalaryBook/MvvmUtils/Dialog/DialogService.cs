@@ -1,8 +1,9 @@
 ﻿using Microsoft.Win32;
-using Pellared.Utils.Mvvm.Dialog.Views;
+using Pellared.Utils.Mvvm.View;
 using System;
 using System.Diagnostics.Contracts;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace Pellared.Utils.Mvvm.Dialog
 {
@@ -23,36 +24,28 @@ namespace Pellared.Utils.Mvvm.Dialog
         public DialogService(System.Windows.Forms.Form ownerForm)
         {
             this.ownerForm = ownerForm;
-        }
+        }       
 
-        public void Open(IWindowViewModel viewModel, bool canMinimize = false)
-        {
-            var window = CreateWindow(viewModel, canMinimize);
-            ClosableWindow.ShowWindow(viewModel, window);
-        }
-
-        public void OpenModal(IDialogViewModel viewModel, bool canMinimize = false)
-        {
-            var window = CreateWindow(viewModel, canMinimize);
-            ClosableWindow.ShowDialog(viewModel, window);
-        }
-
-        private ClosableWindow CreateWindow(IDialogViewModel viewModel, bool canMinimize)
+        public void ShowDialog(IDialogViewModel viewModel)
         {
             viewModel.Closed = false;
+            var window = CreateWindow(viewModel);
+            window.OpenDialog();
+        }
 
-            ClosableWindow window;
+        private ClosableWindow CreateWindow(IDialogViewModel viewModel)
+        {
+            var window = new ClosableWindow(viewModel);
             if (ownerWindow != null)
             {
-                window = ClosableWindow.CreateClosableWindow(viewModel, ownerWindow, canMinimize);
+                window.Owner = ownerWindow;
+                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
             else if (ownerForm != null)
             {
-                window = ClosableWindow.CreateClosableWindow(viewModel, ownerForm, canMinimize);
-            }
-            else
-            {
-                window = ClosableWindow.CreateClosableWindow(viewModel, canMinimize);
+                WindowInteropHelper helper = new WindowInteropHelper(window);
+                helper.Owner = ownerForm.Handle;
+                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
 
             return window;
@@ -60,36 +53,36 @@ namespace Pellared.Utils.Mvvm.Dialog
 
         public string ShowOpenFileDialog(string filter)
         {
-            var dlg = new OpenFileDialog
+            var dialog = new OpenFileDialog
                           {
                               Filter = filter,
                               Multiselect = false
                           };
 
             // Show open file dialog box
-            bool? result = dlg.ShowDialog();
+            bool? result = (ownerWindow != null) ? dialog.ShowDialog(ownerWindow) : dialog.ShowDialog();
 
             // Process open file dialog box results
             if (result == true)
-                return dlg.FileName;
+                return dialog.FileName;
             return null;
         }
 
         public string ShowSaveFileDialog(string defaultExtension, string filter)
         {
-            var dlg = new SaveFileDialog
+            var dialog = new SaveFileDialog
                           {
                               DefaultExt = defaultExtension,
                               Filter = filter
                           };
 
             // Show open file dialog box
-            bool? result = dlg.ShowDialog();
+            bool? result = (ownerWindow != null) ? dialog.ShowDialog(ownerWindow) : dialog.ShowDialog();
 
             // Process open file dialog box results
             if (result == true)
                 // Open document
-                return dlg.FileName;
+                return dialog.FileName;
             return null;
         }
 

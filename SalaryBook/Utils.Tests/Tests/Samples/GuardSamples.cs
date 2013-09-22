@@ -24,5 +24,12 @@ namespace Pellared.Utils.Tests.Contracts.Samples
             Action act = () => Sample(string.Empty);
             act.ShouldThrow<ArgumentException>().WithMessage("*argument caused a memory leak*");
         }
+
+        [TestMethod]
+        public void ValidationTest()
+        {
+            string abc = string.Empty;
+            var result = Validate.That(() => abc).IsNotNull().IsNotDefault().IsNotNullOrEmpty();
+        }
     }
 }

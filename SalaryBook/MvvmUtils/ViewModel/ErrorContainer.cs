@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -23,10 +24,9 @@ namespace Pellared.Utils.Mvvm.ViewModel
         /// event.</param>
         public ErrorsContainer(Action<string> raiseErrorsChanged)
         {
-            if (raiseErrorsChanged == null)
-                throw new ArgumentNullException("raiseErrorsChanged");
+            Contract.Requires<ArgumentNullException>(raiseErrorsChanged != null, "raiseErrorsChanged");
 
-            this.raiseErrorsChanged = raiseErrorsChanged;
+            this.raiseErrorsChanged += raiseErrorsChanged;
             validationResults = new Dictionary<string, List<T>>();
         }
 
@@ -78,6 +78,8 @@ namespace Pellared.Utils.Mvvm.ViewModel
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public void ClearErrors<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> propertyExpression)
         {
+            Contract.Requires<ArgumentNullException>(propertyExpression != null, "propertyExpression");
+
             var propertyName = ExpressionUtils.ExtractPropertyName(propertyExpression);
             ClearErrors(propertyName);
         }
@@ -105,6 +107,9 @@ namespace Pellared.Utils.Mvvm.ViewModel
         public void SetErrors<TEntity, TProperty>(
                 Expression<Func<TEntity, TProperty>> propertyExpression, IEnumerable<T> propertyErrors)
         {
+            Contract.Requires<ArgumentNullException>(propertyExpression != null, "propertyExpression");
+            Contract.Requires<ArgumentNullException>(propertyErrors != null, "propertyErrors");
+
             var propertyName = ExpressionUtils.ExtractPropertyName(propertyExpression);
             SetErrors(propertyName, propertyErrors);
         }
@@ -119,6 +124,8 @@ namespace Pellared.Utils.Mvvm.ViewModel
         /// <param name="newValidationResults">The new validation errors.</param>
         public void SetErrors(string propertyName, IEnumerable<T> newValidationResults)
         {
+            Contract.Requires<ArgumentNullException>(newValidationResults != null, "newValidationResults");
+
             var localPropertyName = propertyName ?? string.Empty;
             var hasCurrentValidationResults = validationResults.ContainsKey(localPropertyName);
             var hasNewValidationResults = newValidationResults != null && newValidationResults.Count() > 0;

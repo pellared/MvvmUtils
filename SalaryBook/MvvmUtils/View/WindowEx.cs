@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace Pellared.Utils.Mvvm.Dialog.Views
+namespace Pellared.Utils.Mvvm.View
 {
     public static class WindowEx
     {
@@ -21,6 +21,7 @@ namespace Pellared.Utils.Mvvm.Dialog.Views
         public static void SetClosed(Window target, bool value)
         {
             Contract.Requires<ArgumentNullException>(target != null, "target");
+
             target.SetValue(ClosedProperty, value);
         }
 
@@ -44,10 +45,7 @@ namespace Pellared.Utils.Mvvm.Dialog.Views
                     }
                 }
             }
-
         }
-
-        
 
         #endregion
 

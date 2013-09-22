@@ -131,8 +131,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dialog\IWindowViewModel.cs" />
-    <Compile Include="Dialog\Views\DialogViewModelStub.cs" />
     <Compile Include="Threading\IUiDispatcher.cs" />
     <Compile Include="ViewModel\ConcurrentObservableCollection.cs" />
     <Compile Include="ViewModel\DataErrorInfoProvider.cs" />
@@ -145,14 +143,14 @@
     <Compile Include="ViewModel\PropertyObserver.cs" />
     <Compile Include="Dialog\IDialogService.cs" />
     <Compile Include="Dialog\DialogService.cs" />
-    <Compile Include="Dialog\Views\WindowEx.cs" />
-    <Compile Include="Dialog\Views\ClosableWindow.xaml.cs">
+    <Compile Include="View\WindowEx.cs" />
+    <Compile Include="View\ClosableWindow.xaml.cs">
       <DependentUpon>ClosableWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ValidationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Dialog\Views\ClosableWindow.xaml">
+    <Page Include="View\ClosableWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

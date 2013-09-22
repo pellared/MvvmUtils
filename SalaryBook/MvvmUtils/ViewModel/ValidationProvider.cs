@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Pellared.Utils.Mvvm.ViewModel
@@ -12,6 +13,10 @@ namespace Pellared.Utils.Mvvm.ViewModel
 
         public ValidationProvider(IErrorsContainer<TError> errorsContainer, Func<IEnumerable<TError>> validation, Func<TError, string> propertyNameSelector)
         {
+            Contract.Requires<ArgumentNullException>(errorsContainer != null, "errorsContainer");
+            Contract.Requires<ArgumentNullException>(validation != null, "validation");
+            Contract.Requires<ArgumentNullException>(propertyNameSelector != null, "propertyNameSelector");
+
             this.errorsContainer = errorsContainer;
             this.validation = validation;
             this.propertyNameSelector = propertyNameSelector;

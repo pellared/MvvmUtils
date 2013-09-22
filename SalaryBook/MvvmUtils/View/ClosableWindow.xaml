@@ -1,15 +1,15 @@
-﻿<Window x:Class="Pellared.Utils.Mvvm.Dialog.Views.ClosableWindow"
+﻿<Window x:Class="Pellared.Utils.Mvvm.View.ClosableWindow"
         x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:Views="clr-namespace:Pellared.Utils.Mvvm.Dialog.Views"
+        xmlns:View="clr-namespace:Pellared.Utils.Mvvm.View"
         mc:Ignorable="d" 
          
         Height="100" Width="300" 
         WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize" ShowInTaskbar="False"
         
-        Views:WindowEx.Closed="{Binding Closed}"
+        View:WindowEx.Closed="{Binding Closed}"
         Title="{Binding Title}"
         />

@@ -34,7 +34,7 @@ namespace Pellared.Utils
         {
             if (!IsDisposing)
             {
-                throw new InvalidOperationException("In order to dispose an object call the Dispose method. Do not call DisposeManagedResources method directly.");
+                throw new InvalidOperationException("In order to dispose an object call the Dispose method. Do not call DisposeManagedResources method directly." + GetTypeString());
             }
             
             baseDisposeManagedResourcesCalled = true;
@@ -44,7 +44,7 @@ namespace Pellared.Utils
         {
             if (!IsDisposing)
             {
-                throw new InvalidOperationException("In order to dispose an object call the Dispose method. Do not call DisposeUnmanagedResources method directly.");
+                throw new InvalidOperationException("In order to dispose an object call the Dispose method. Do not call DisposeUnmanagedResources method directly." + GetTypeString());
             }
             
             baseDisposeUnmanagedResourcesCalled = true;
@@ -63,12 +63,12 @@ namespace Pellared.Utils
         {
             if (IsDisposed)
             {
-                throw new ObjectDisposedException("Object is already disposed.");
+                throw new ObjectDisposedException("Object is already disposed." + GetTypeString());
             }
 
             if (IsDisposing)
             {
-                throw new ObjectDisposedException("Object is being disposed.");
+                throw new ObjectDisposedException("Object is being disposed." + GetTypeString());
             }
         }
 
@@ -76,12 +76,12 @@ namespace Pellared.Utils
         {
             if (IsDisposed)
             {
-                throw new InvalidOperationException("Dispose called on an object that is already disposed.");
+                throw new InvalidOperationException("Dispose called on an object that is already disposed." + GetTypeString());
             }
 
             if (IsDisposing)
             {
-                throw new InvalidOperationException("Dispose called on an object that is currently disposing.");
+                throw new InvalidOperationException("Dispose called on an object that is currently disposing." + GetTypeString());
             }
 
             IsDisposing = true;
@@ -106,7 +106,7 @@ namespace Pellared.Utils
         {
             if (!baseDisposeManagedResourcesCalled)
             {
-                throw new InvalidOperationException("DisposeManagedResources of the base class was not called.\n" + GetTypeString());
+                throw new InvalidOperationException("DisposeManagedResources of the base class was not called." + GetTypeString());
             }
         }
 
@@ -114,14 +114,14 @@ namespace Pellared.Utils
         {
             if (!baseDisposeUnmanagedResourcesCalled)
             {
-                throw new InvalidOperationException("DisposeUnmanagedResources of the base class was not called.\n" + GetTypeString());
+                throw new InvalidOperationException("DisposeUnmanagedResources of the base class was not called." + GetTypeString());
             }
         }
 
         private string GetTypeString()
         {
             string typeName = GetType().FullName;
-            return "Type: " + typeName;
+            return " Type: " + typeName;
         }
     }
 }

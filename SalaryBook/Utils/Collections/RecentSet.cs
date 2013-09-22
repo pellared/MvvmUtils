@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Pellared.Utils.Collections
@@ -34,20 +35,19 @@ namespace Pellared.Utils.Collections
 
         public RecentSet(IEnumerable<T> items)
         {
+            Contract.Requires<ArgumentNullException>(items != null, "items");
+
             list = new List<T>(items);
         }
 
         public RecentSet(int maxSize, IEnumerable<T> items)
         {
-            list = new List<T>(items);
+            Contract.Requires<ArgumentNullException>(items != null, "items");
+            
             this.maxSize = maxSize;
+            list = new List<T>(items);
 
             TrimList();
-        }
-
-        public int Count
-        {
-            get { return list.Count; }
         }
 
         public void Add(T item)

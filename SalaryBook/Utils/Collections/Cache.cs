@@ -2,7 +2,7 @@
 
 namespace Pellared.Utils.Collections
 {
-    public class Cache<TKey, TValue>
+    public class Cache<TKey, TValue> : Pellared.Utils.Collections.ICache<TKey,TValue>
     {
         private readonly Dictionary<TKey, TValue> buffer;
         private readonly RecentSet<TKey> recentSet;
@@ -20,11 +20,11 @@ namespace Pellared.Utils.Collections
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException">Throws when item is with given key is not in cache.</exception>
-        public TValue GetItem(TKey id)
+        public TValue Get(TKey id)
         {
-            TValue tile = buffer[id];
+            TValue result = buffer[id];
             recentSet.Add(id);
-            return tile;
+            return result;
         }
 
         /// <summary>
@@ -50,11 +50,6 @@ namespace Pellared.Utils.Collections
         {
             buffer.Remove(id);
             recentSet.Remove(id);
-        }
-
-        public IDictionary<TKey, TValue> ToDictionary()
-        {
-            return buffer;
         }
 
         private void RemoveFromBuffer(object sender, ItemTrimedArgs<TKey> args)

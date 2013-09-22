@@ -51,6 +51,8 @@ namespace Pellared.Utils.Mvvm.ViewModel
 
         public void AddErrorsContainer(IErrorsContainer<TError> errorsContainer)
         {
+            Contract.Requires<ArgumentNullException>(errorsContainer != null, "errorsContainer");
+
             errorsContainers.Add(errorsContainer);
         }
 

@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace Pellared.SalaryBook.ViewModels
 {
-    public class SalaryDialogViewModel : IWindowViewModel
+    public class SalaryDialogViewModel : IDialogViewModel
     {
         private readonly Salary salary;
         private readonly IDialogService dialogService;
@@ -41,19 +41,6 @@ namespace Pellared.SalaryBook.ViewModels
         public double SalaryValue
         {
             get { return salary.SalaryValue; }
-        }
-
-        public void OnLoaded()
-        {
-        }
-
-        public void OnClosing(CancelEventArgs args)
-        {
-            CustomDialogResults result = dialogService.ShowMessage("Czy na pewno zamknąć okno?", "Pytanie", CustomDialogIcons.Question, CustomDialogButtons.YesNo);
-            if (result != CustomDialogResults.Yes)
-            {
-                args.Cancel = true;
-            }
         }
     }
 }
