@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Pellared.MvvmUtils</id>
+    <version>1.0.0</version>
+    <title>MvmUtils by Pellared</title>
+    <authors>Pellared</authors>
+    <owners>Pellared</owners>
+    <licenseUrl>http://mvvmutils.codeplex.com/license</licenseUrl>
+    <projectUrl>http://mvvmutils.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Utilities for Model-View-ViewModel design. Only WPF supported.</description>
+    <releaseNotes />
+    <copyright>Copyright (c) 2013 Robert Pająk</copyright>
+    <language />
+  </metadata>
+</package>
