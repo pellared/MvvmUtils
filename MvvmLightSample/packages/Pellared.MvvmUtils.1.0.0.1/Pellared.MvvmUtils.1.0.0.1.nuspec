@@ -2,16 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Pellared.MvvmUtils</id>
-    <version>1.0.0</version>
-    <title>MvmUtils by Pellared</title>
+    <version>1.0.0.1</version>
+    <title>MVVM Utils</title>
     <authors>Pellared</authors>
     <owners>Pellared</owners>
     <licenseUrl>http://mvvmutils.codeplex.com/license</licenseUrl>
     <projectUrl>http://mvvmutils.codeplex.com/</projectUrl>
+    <iconUrl>http://rpajak.com/MvvmUtils.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Utilities for Model-View-ViewModel design. Only WPF supported.</description>
-    <releaseNotes />
+    <description>MVVM Utils is a set of classes which extends existing MVVM Frameworks such as MVVM Light, Prism, Cinch. Only WPF supported.</description>
     <copyright>Copyright (c) 2013 Robert Pająk</copyright>
-    <language />
   </metadata>
 </package>

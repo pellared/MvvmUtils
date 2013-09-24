@@ -49,10 +49,10 @@
       <HintPath>C:\Program Files\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Pellared.Utils">
-      <HintPath>..\packages\Pellared.MvvmUtils.1.0.0\lib\Pellared.Utils.dll</HintPath>
+      <HintPath>..\packages\Pellared.MvvmUtils.1.0.0.1\lib\Pellared.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Pellared.Utils.Mvvm">
-      <HintPath>..\packages\Pellared.MvvmUtils.1.0.0\lib\Pellared.Utils.Mvvm.dll</HintPath>
+      <HintPath>..\packages\Pellared.MvvmUtils.1.0.0.1\lib\Pellared.Utils.Mvvm.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Interactivity">
       <SpecificVersion>False</SpecificVersion>

@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:MvvmLightSample.ViewModel"
              mc:Ignorable="d"
-             d:DesignHeight="20" d:DesignWidth="300"
+             d:DesignHeight="60" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance vm:AddedViewModel, IsDesignTimeCreatable=True}">
-    <Grid>
+    <Grid Margin="20">
         <TextBlock Text="{Binding Message}" />
     </Grid>
 </UserControl>
