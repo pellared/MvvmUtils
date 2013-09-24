@@ -22,9 +22,9 @@ namespace MvvmLightSample.ViewModel
 
             if (IsInDesignModeStatic)
             {
-                People = new ObservableCollection<PersonViewModel>() 
-                { 
-                    new PersonViewModel() { Name = "Jon" }, 
+                People = new ObservableCollection<PersonViewModel>()
+                {
+                    new PersonViewModel() { Name = "Jon" },
                     new PersonViewModel() { Name = "Robert" }
                 };
             }
@@ -32,7 +32,7 @@ namespace MvvmLightSample.ViewModel
             {
                 People = new ConcurrentObservableCollection<PersonViewModel>();
             }
-            
+
             _vmLocator = new ViewModelLocator();
             _personObserver = new PropertyObserver<PersonViewModel>(_vmLocator.Person)
                 .RegisterHandler(p => p.Name, GreetJon);
@@ -41,6 +41,7 @@ namespace MvvmLightSample.ViewModel
         }
 
         private string _welcomeTitle;
+
         public string WelcomeTitle
         {
             get { return _welcomeTitle; }
@@ -50,6 +51,7 @@ namespace MvvmLightSample.ViewModel
         public ObservableCollection<PersonViewModel> People { get; set; }
 
         private RelayCommand _addPerson;
+
         public RelayCommand AddPerson
         {
             get
@@ -81,12 +83,17 @@ namespace MvvmLightSample.ViewModel
             }
             else
             {
-                Task.Run(() => 
+                Task.Run(() =>
                     {
                         var personToAdd = new PersonViewModel() { Name = person.Name.Trim() };
                         People.Add(personToAdd);
                         person.Name = string.Empty;
-                    });
+                    })
+                    .ContinueWith(task =>
+                    {
+                        var addedVM = new AddedViewModel();
+                        _dialogService.ShowDialog(addedVM);
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
             }
         }
 
