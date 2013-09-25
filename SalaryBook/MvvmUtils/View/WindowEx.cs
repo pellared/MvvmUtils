@@ -3,7 +3,6 @@ using System.Diagnostics.Contracts;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Interop;
 
 namespace Pellared.Utils.Mvvm.View
 {
@@ -12,11 +11,11 @@ namespace Pellared.Utils.Mvvm.View
         #region Closed attached DependencyProperty
 
         public static readonly DependencyProperty ClosedProperty =
-                DependencyProperty.RegisterAttached(
-                                                    "Closed",
-                                                    typeof(bool),
-                                                    typeof(WindowEx),
-                                                    new PropertyMetadata(ClosedChanged));
+            DependencyProperty.RegisterAttached(
+                "Closed",
+                typeof(bool),
+                typeof(WindowEx),
+                new PropertyMetadata(ClosedChanged));
 
         public static void SetClosed(Window target, bool value)
         {
@@ -26,10 +25,10 @@ namespace Pellared.Utils.Mvvm.View
         }
 
         private static void ClosedChanged(
-                DependencyObject d,
-                DependencyPropertyChangedEventArgs e)
+            DependencyObject d,
+            DependencyPropertyChangedEventArgs e)
         {
-            bool closed = (bool)e.NewValue;
+            var closed = (bool)e.NewValue;
             if (closed)
             {
                 var window = d as Window;
@@ -53,7 +52,8 @@ namespace Pellared.Utils.Mvvm.View
         {
             Contract.Requires<ArgumentNullException>(window != null, "window");
 
-            return (bool)typeof(Window).GetField("_showingAsDialog", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(window);
+            return
+                (bool)typeof(Window).GetField("_showingAsDialog", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(window);
         }
     }
 

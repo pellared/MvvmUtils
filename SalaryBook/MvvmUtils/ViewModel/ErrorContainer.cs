@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 namespace Pellared.Utils.Mvvm.ViewModel
 {
     /// <summary>
-    /// Manages validation errors for an object, notifying when the error state changes.
+    ///     Manages validation errors for an object, notifying when the error state changes.
     /// </summary>
     /// <typeparam name="T">The type of the error object.</typeparam>
     public class ErrorsContainer<T> : IErrorsContainer<T>
@@ -18,10 +18,12 @@ namespace Pellared.Utils.Mvvm.ViewModel
         private Dictionary<string, List<T>> validationResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ErrorsContainer{T}"/> class.
+        ///     Initializes a new instance of the <see cref="ErrorsContainer{T}" /> class.
         /// </summary>
-        /// <param name="raiseErrorsChanged">The action that invoked if when errors are added for an object./>
-        /// event.</param>
+        /// <param name="raiseErrorsChanged">
+        ///     The action that invoked if when errors are added for an object./>
+        ///     event.
+        /// </param>
         public ErrorsContainer(Action<string> raiseErrorsChanged)
         {
             Contract.Requires<ArgumentNullException>(raiseErrorsChanged != null, "raiseErrorsChanged");
@@ -31,7 +33,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Gets a value indicating whether the object has validation errors. 
+        ///     Gets a value indicating whether the object has validation errors.
         /// </summary>
         public bool HasErrors
         {
@@ -39,22 +41,28 @@ namespace Pellared.Utils.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Gets the validation errors for a specified property.
+        ///     Gets the validation errors for a specified property.
         /// </summary>
         /// <param name="propertyName">The name of the property.</param>
-        /// <returns>The validation errors of type <typeparamref name="T"/> for the property.</returns>
+        /// <returns>
+        ///     The validation errors of type <typeparamref name="T" /> for the property.
+        /// </returns>
         public IEnumerable<T> GetErrors(string propertyName)
         {
-            var localPropertyName = propertyName ?? string.Empty;
+            string localPropertyName = propertyName ?? string.Empty;
             List<T> currentValidationResults;
             if (validationResults.TryGetValue(localPropertyName, out currentValidationResults))
+            {
                 return currentValidationResults;
+            }
             else
+            {
                 return NoErrors;
+            }
         }
 
         /// <summary>
-        /// Clears the errors for all properties.
+        ///     Clears the errors for all properties.
         /// </summary>
         public void ClearAllErrors()
         {
@@ -67,7 +75,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Clears the errors for the property indicated by the property expression.
+        ///     Clears the errors for the property indicated by the property expression.
         /// </summary>
         /// <typeparam name="TEntity">The entity type.</typeparam>
         /// <typeparam name="TProperty">The property type.</typeparam>
@@ -78,14 +86,17 @@ namespace Pellared.Utils.Mvvm.ViewModel
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public void ClearErrors<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> propertyExpression)
         {
-            if (propertyExpression == null) throw new ArgumentNullException("propertyExpression");
+            if (propertyExpression == null)
+            {
+                throw new ArgumentNullException("propertyExpression");
+            }
 
-            var propertyName = ExpressionUtils.GetPropertyName(propertyExpression);
+            string propertyName = ExpressionUtils.GetPropertyName(propertyExpression);
             ClearErrors(propertyName);
         }
 
         /// <summary>
-        /// Clears the errors for a property.
+        ///     Clears the errors for a property.
         /// </summary>
         /// <param name="propertyName">The name of th property for which to clear errors.</param>
         /// <example>
@@ -97,40 +108,52 @@ namespace Pellared.Utils.Mvvm.ViewModel
         }
 
         /// <summary>
-        /// Sets the validation errors for the specified property.
+        ///     Sets the validation errors for the specified property.
         /// </summary>
         /// <typeparam name="TEntity">The entity type.</typeparam>
         /// <typeparam name="TProperty">The property type for which to set errors.</typeparam>
-        /// <param name="propertyExpression">The <see cref="Expression"/> indicating the property.</param>
+        /// <param name="propertyExpression">
+        ///     The <see cref="Expression" /> indicating the property.
+        /// </param>
         /// <param name="propertyErrors">The list of errors to set for the property.</param>
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         public void SetErrors<TEntity, TProperty>(
-                Expression<Func<TEntity, TProperty>> propertyExpression, IEnumerable<T> propertyErrors)
+            Expression<Func<TEntity, TProperty>> propertyExpression, IEnumerable<T> propertyErrors)
         {
-            if (propertyExpression == null) throw new ArgumentNullException("propertyExpression");
-            if (propertyErrors == null) throw new ArgumentNullException("propertyErrors");
+            if (propertyExpression == null)
+            {
+                throw new ArgumentNullException("propertyExpression");
+            }
+            if (propertyErrors == null)
+            {
+                throw new ArgumentNullException("propertyErrors");
+            }
 
-            var propertyName = ExpressionUtils.GetPropertyName(propertyExpression);
+            string propertyName = ExpressionUtils.GetPropertyName(propertyExpression);
             SetErrors(propertyName, propertyErrors);
         }
 
         /// <summary>
-        /// Sets the validation errors for the specified property.
+        ///     Sets the validation errors for the specified property.
         /// </summary>
         /// <remarks>
-        /// If a change is detected then the errors changed event is raised.
+        ///     If a change is detected then the errors changed event is raised.
         /// </remarks>
         /// <param name="propertyName">The name of the property.</param>
         /// <param name="newValidationResults">The new validation errors.</param>
         public void SetErrors(string propertyName, IEnumerable<T> newValidationResults)
         {
-            if (newValidationResults == null) throw new ArgumentNullException("newValidationResults");
+            if (newValidationResults == null)
+            {
+                throw new ArgumentNullException("newValidationResults");
+            }
 
-            var localPropertyName = propertyName ?? string.Empty;
-            var hasCurrentValidationResults = validationResults.ContainsKey(localPropertyName);
-            var hasNewValidationResults = newValidationResults != null && newValidationResults.Count() > 0;
+            string localPropertyName = propertyName ?? string.Empty;
+            bool hasCurrentValidationResults = validationResults.ContainsKey(localPropertyName);
+            bool hasNewValidationResults = newValidationResults != null && newValidationResults.Count() > 0;
 
             if (hasCurrentValidationResults || hasNewValidationResults)
+            {
                 if (hasNewValidationResults)
                 {
                     validationResults[localPropertyName] = new List<T>(newValidationResults);
@@ -141,6 +164,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
                     validationResults.Remove(localPropertyName);
                     raiseErrorsChanged(localPropertyName);
                 }
+            }
         }
     }
 }

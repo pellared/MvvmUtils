@@ -11,7 +11,8 @@ namespace Pellared.Utils.Mvvm.ViewModel
         private readonly List<IErrorsContainer<TError>> errorsContainers;
         private readonly Func<IEnumerable<TError>, string> errorsFormatter;
 
-        public DataErrorInfoProvider(Func<IEnumerable<TError>, string> errorsFormatter, params IErrorsContainer<TError>[] errorsContainers)
+        public DataErrorInfoProvider(Func<IEnumerable<TError>, string> errorsFormatter,
+            params IErrorsContainer<TError>[] errorsContainers)
         {
             Contract.Requires<ArgumentNullException>(errorsFormatter != null, "errorsFormatter");
             Contract.Requires<ArgumentNullException>(errorsContainers != null, "errorsContainers");
@@ -26,22 +27,19 @@ namespace Pellared.Utils.Mvvm.ViewModel
             Contract.Requires<ArgumentNullException>(errorsContainers != null, "errorsContainers");
         }
 
-        public virtual string ObjectPropertyName { get { return string.Empty; } }
+        public virtual string ObjectPropertyName
+        {
+            get { return string.Empty; }
+        }
 
         public virtual string Error
         {
-            get
-            {
-                return GetErrorsAndFormat(ObjectPropertyName);
-            }
+            get { return GetErrorsAndFormat(ObjectPropertyName); }
         }
 
         public virtual string this[string columnName]
         {
-            get
-            {
-                return GetErrorsAndFormat(columnName);
-            }
+            get { return GetErrorsAndFormat(columnName); }
         }
 
         public bool HasErrors
@@ -58,7 +56,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
 
         private string GetErrorsAndFormat(string propertyName)
         {
-            List<TError> allErrors = new List<TError>();
+            var allErrors = new List<TError>();
 
             foreach (IErrorsContainer<TError> errorsContainer in errorsContainers)
             {

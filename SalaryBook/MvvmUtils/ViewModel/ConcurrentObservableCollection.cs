@@ -10,101 +10,101 @@ namespace Pellared.Utils.Mvvm.ViewModel
     public class ConcurrentObservableCollection<T> : ObservableCollection<T>
     {
         /// <summary>
-        /// This private variable holds the flag to
-        /// turn on and off the collection changed notification.
+        ///     This private variable holds the flag to
+        ///     turn on and off the collection changed notification.
         /// </summary>
         private bool suspendCollectionChangeNotification;
 
         /// <summary>
-        /// Initializes a new instance of the FastObservableCollection class.
+        ///     Initializes a new instance of the FastObservableCollection class.
         /// </summary>
         public ConcurrentObservableCollection()
             : base()
         {
-            this.suspendCollectionChangeNotification = false;
+            suspendCollectionChangeNotification = false;
         }
 
         /// <summary>
-        /// This event is overridden CollectionChanged event of the observable collection.
+        ///     This event is overridden CollectionChanged event of the observable collection.
         /// </summary>
         public override event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
-        /// This method adds the given generic list of items
-        /// as a range into current collection by casting them as type T.
-        /// It then notifies once after all items are added.
+        ///     This method adds the given generic list of items
+        ///     as a range into current collection by casting them as type T.
+        ///     It then notifies once after all items are added.
         /// </summary>
         /// <param name="items">The source collection.</param>
         public void Add(IEnumerable<T> items)
         {
             Contract.Requires<ArgumentNullException>(items != null, "items");
 
-            this.SuspendCollectionChangeNotification();
+            SuspendCollectionChangeNotification();
             try
             {
-                foreach (var item in items)
+                foreach (T item in items)
                 {
                     Add(item);
                 }
             }
             finally
             {
-                this.NotifyChanges();
+                NotifyChanges();
             }
         }
 
         /// <summary>
-        /// This method removes the given generic list of items as a range
-        /// into current collection by casting them as type T.
-        /// It then notifies once after all items are removed.
+        ///     This method removes the given generic list of items as a range
+        ///     into current collection by casting them as type T.
+        ///     It then notifies once after all items are removed.
         /// </summary>
         /// <param name="items">The source collection.</param>
         public void Remove(IEnumerable<T> items)
         {
             Contract.Requires<ArgumentNullException>(items != null, "items");
 
-            this.SuspendCollectionChangeNotification();
+            SuspendCollectionChangeNotification();
             try
             {
-                foreach (var item in items)
+                foreach (T item in items)
                 {
                     Remove(item);
                 }
             }
             finally
             {
-                this.NotifyChanges();
+                NotifyChanges();
             }
         }
 
         /// <summary>
-        /// Resumes collection changed notification.
+        ///     Resumes collection changed notification.
         /// </summary>
         public void ResumeCollectionChangeNotification()
         {
-            this.suspendCollectionChangeNotification = false;
+            suspendCollectionChangeNotification = false;
         }
 
         /// <summary>
-        /// Suspends collection changed notification.
+        ///     Suspends collection changed notification.
         /// </summary>
         public void SuspendCollectionChangeNotification()
         {
-            this.suspendCollectionChangeNotification = true;
+            suspendCollectionChangeNotification = true;
         }
 
         /// <summary>
-        /// Raises collection change event.
+        ///     Raises collection change event.
         /// </summary>
         public void NotifyChanges()
         {
-            this.ResumeCollectionChangeNotification();
+            ResumeCollectionChangeNotification();
             var arg = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-            this.OnCollectionChanged(arg);
+            OnCollectionChanged(arg);
         }
 
         /// <summary>
-        /// This collection changed event performs thread safe event raising.
+        ///     This collection changed event performs thread safe event raising.
         /// </summary>
         /// <param name="e">The event argument.</param>
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
@@ -114,7 +114,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
             // is getting changed on other thread.
             using (BlockReentrancy())
             {
-                if (!this.suspendCollectionChangeNotification)
+                if (!suspendCollectionChangeNotification)
                 {
                     NotifyCollectionChangedEventHandler eventHandler = CollectionChanged;
                     if (eventHandler != null)
@@ -132,7 +132,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
             foreach (NotifyCollectionChangedEventHandler handler in delegates)
             {
                 // If the subscriber is a DispatcherObject and different thread.
-                DispatcherObject dispatcherObject = handler.Target as DispatcherObject;
+                var dispatcherObject = handler.Target as DispatcherObject;
                 if (dispatcherObject != null && !dispatcherObject.CheckAccess())
                 {
                     // Invoke handler in the target dispatcher's thread...

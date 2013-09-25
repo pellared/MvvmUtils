@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace Pellared.Utils
 {
@@ -28,15 +27,21 @@ namespace Pellared.Utils
         private static string GetPropertyNameImpl(LambdaExpression propertySelector)
         {
             if (propertySelector == null)
+            {
                 throw new ArgumentNullException("propertySelector");
+            }
 
             MemberExpression member = RemoveUnary(propertySelector.Body);
             if (member == null)
+            {
                 throw new InvalidOperationException("Expression is not an access expression.");
+            }
 
-            PropertyInfo property = member.Member as PropertyInfo;
+            var property = member.Member as PropertyInfo;
             if (property == null)
+            {
                 throw new InvalidOperationException("Member in expression is not a property.");
+            }
 
             return member.Member.Name;
         }
@@ -44,11 +49,15 @@ namespace Pellared.Utils
         public static string GetName<T>(Expression<Func<T>> selector)
         {
             if (selector == null)
+            {
                 throw new ArgumentNullException("selector");
+            }
 
             MemberExpression member = RemoveUnary(selector.Body);
             if (member == null)
+            {
                 throw new InvalidOperationException("Unable to get name from expression.");
+            }
 
             return member.Member.Name;
         }

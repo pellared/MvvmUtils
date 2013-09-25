@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace Pellared.Utils
@@ -14,8 +13,8 @@ namespace Pellared.Utils
         public Memento(T originator)
         {
             storedProperties = new Dictionary<PropertyInfo, object>();
-            var propertyInfos = ReflectionUtils.GetPropertyInfos(typeof(T));
-            foreach (var property in propertyInfos)
+            IEnumerable<PropertyInfo> propertyInfos = ReflectionUtils.GetPropertyInfos(typeof(T));
+            foreach (PropertyInfo property in propertyInfos)
             {
                 storedProperties[property] = property.GetValue(originator, null);
             }
@@ -23,7 +22,7 @@ namespace Pellared.Utils
 
         public void Restore(T originator)
         {
-            foreach (var pair in storedProperties)
+            foreach (KeyValuePair<PropertyInfo, object> pair in storedProperties)
             {
                 pair.Key.SetValue(originator, pair.Value, null);
             }

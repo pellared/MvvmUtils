@@ -34,9 +34,11 @@ namespace Pellared.Utils
         {
             if (!IsDisposing)
             {
-                throw new InvalidOperationException("In order to dispose an object call the Dispose method. Do not call DisposeManagedResources method directly." + GetTypeString());
+                throw new InvalidOperationException(
+                    "In order to dispose an object call the Dispose method. Do not call DisposeManagedResources method directly." +
+                        GetTypeString());
             }
-            
+
             baseDisposeManagedResourcesCalled = true;
         }
 
@@ -44,9 +46,11 @@ namespace Pellared.Utils
         {
             if (!IsDisposing)
             {
-                throw new InvalidOperationException("In order to dispose an object call the Dispose method. Do not call DisposeUnmanagedResources method directly." + GetTypeString());
+                throw new InvalidOperationException(
+                    "In order to dispose an object call the Dispose method. Do not call DisposeUnmanagedResources method directly." +
+                        GetTypeString());
             }
-            
+
             baseDisposeUnmanagedResourcesCalled = true;
         }
 

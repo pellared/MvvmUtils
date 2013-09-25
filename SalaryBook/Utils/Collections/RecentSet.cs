@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Pellared.Utils.Collections
 {
-    public class ItemTrimedArgs<T>  : EventArgs
+    public class ItemTrimedArgs<T> : EventArgs
     {
         public ItemTrimedArgs(T item)
         {
@@ -43,7 +44,7 @@ namespace Pellared.Utils.Collections
         public RecentSet(int maxSize, IEnumerable<T> items)
         {
             Contract.Requires<ArgumentNullException>(items != null, "items");
-            
+
             this.maxSize = maxSize;
             list = new List<T>(items);
 
@@ -54,7 +55,9 @@ namespace Pellared.Utils.Collections
         {
             int i = list.IndexOf(item);
             if (i > -1)
+            {
                 list.RemoveAt(i);
+            }
 
             list.Insert(0, item);
 
@@ -89,7 +92,7 @@ namespace Pellared.Utils.Collections
 
         #region IEnumerable Members
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return list.GetEnumerator();
         }

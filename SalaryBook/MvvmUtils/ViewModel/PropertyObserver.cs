@@ -8,25 +8,27 @@ using System.Windows;
 namespace Pellared.Utils.Mvvm.ViewModel
 {
     /// <summary>
-    /// Monitors the PropertyChanged event of an object that implements INotifyPropertyChanged,
-    /// and executes callback methods (i.e. handlers) registered for properties of that object.
+    ///     Monitors the PropertyChanged event of an object that implements INotifyPropertyChanged,
+    ///     and executes callback methods (i.e. handlers) registered for properties of that object.
     /// </summary>
     /// <typeparam name="TPropertySource">The type of object to monitor for property changes.</typeparam>
     /// <remarks>Usage: http://joshsmithonwpf.wordpress.com/2009/07/11/one-way-to-avoid-messy-propertychanged-event-handling/ </remarks>
     public sealed class PropertyObserver<TPropertySource> : IWeakEventListener
-            where TPropertySource : class, INotifyPropertyChanged
+        where TPropertySource : class, INotifyPropertyChanged
     {
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of PropertyObserver, which
-        /// observes the 'propertySource' object for property changes.
+        ///     Initializes a new instance of PropertyObserver, which
+        ///     observes the 'propertySource' object for property changes.
         /// </summary>
         /// <param name="propertySource">The object to monitor for property changes.</param>
         public PropertyObserver(TPropertySource propertySource)
         {
             if (propertySource == null)
+            {
                 throw new ArgumentNullException("propertySource");
+            }
 
             propertySourceRef = new WeakReference(propertySource);
             propertyNameToHandlerMap = new Dictionary<string, Action<TPropertySource>>();
@@ -39,24 +41,30 @@ namespace Pellared.Utils.Mvvm.ViewModel
         #region RegisterHandler
 
         /// <summary>
-        /// Registers a callback to be invoked when the PropertyChanged event has been raised for the specified property.
+        ///     Registers a callback to be invoked when the PropertyChanged event has been raised for the specified property.
         /// </summary>
         /// <param name="expression">A lambda expression like 'n => n.PropertyName'.</param>
         /// <param name="handler">The callback to invoke when the property has changed.</param>
         /// <returns>The object on which this method was invoked, to allow for multiple invocations chained together.</returns>
         public PropertyObserver<TPropertySource> RegisterHandler(
-                Expression<Func<TPropertySource, object>> expression,
-                Action<TPropertySource> handler)
+            Expression<Func<TPropertySource, object>> expression,
+            Action<TPropertySource> handler)
         {
             if (expression == null)
+            {
                 throw new ArgumentNullException("expression");
+            }
 
             string propertyName = ExpressionUtils.GetPropertyName(expression);
             if (String.IsNullOrEmpty(propertyName))
+            {
                 throw new ArgumentException("'expression' did not provide a property name.");
+            }
 
             if (handler == null)
+            {
                 throw new ArgumentNullException("handler");
+            }
 
             TPropertySource propertySource = GetPropertySource();
             if (propertySource != null)
@@ -73,26 +81,32 @@ namespace Pellared.Utils.Mvvm.ViewModel
         #region UnregisterHandler
 
         /// <summary>
-        /// Removes the callback associated with the specified property.
+        ///     Removes the callback associated with the specified property.
         /// </summary>
         /// <param name="expression">A lambda expression like 'n => n.PropertyName'.</param>
         /// <returns>The object on which this method was invoked, to allow for multiple invocations chained together.</returns>
         public PropertyObserver<TPropertySource> UnregisterHandler(Expression<Func<TPropertySource, object>> expression)
         {
             if (expression == null)
+            {
                 throw new ArgumentNullException("expression");
+            }
 
             string propertyName = ExpressionUtils.GetPropertyName(expression);
             if (String.IsNullOrEmpty(propertyName))
+            {
                 throw new ArgumentException("'expression' did not provide a property name.");
+            }
 
             TPropertySource propertySource = GetPropertySource();
             if (propertySource != null)
+            {
                 if (propertyNameToHandlerMap.ContainsKey(propertyName))
                 {
                     propertyNameToHandlerMap.Remove(propertyName);
                     PropertyChangedEventManager.RemoveListener(propertySource, this, propertyName);
                 }
+            }
 
             return this;
         }
@@ -110,7 +124,8 @@ namespace Pellared.Utils.Mvvm.ViewModel
             try
             {
                 return (TPropertySource)propertySourceRef.Target;
-            } catch
+            }
+            catch
             {
                 return default(TPropertySource);
             }
@@ -134,14 +149,16 @@ namespace Pellared.Utils.Mvvm.ViewModel
             if (managerType == typeof(PropertyChangedEventManager))
             {
                 string propertyName = ((PropertyChangedEventArgs)e).PropertyName;
-                TPropertySource propertySource = (TPropertySource)sender;
+                var propertySource = (TPropertySource)sender;
 
                 if (String.IsNullOrEmpty(propertyName))
                 {
                     // When the property name is empty, all properties are considered to be invalidated.
                     // Iterate over a copy of the list of handlers, in case a handler is registered by a callback.
                     foreach (Action<TPropertySource> handler in propertyNameToHandlerMap.Values.ToArray())
+                    {
                         handler(propertySource);
+                    }
 
                     return true;
                 }

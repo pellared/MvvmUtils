@@ -14,9 +14,9 @@ namespace Pellared.Utils
             Contract.Requires<ArgumentOutOfRangeException>(pageSize > 0, "pageSize must be a positive number");
 
             TSource[] bucket = null;
-            var count = 0;
+            int count = 0;
 
-            foreach (var item in collection)
+            foreach (TSource item in collection)
             {
                 if (bucket == null)
                 {
@@ -45,7 +45,8 @@ namespace Pellared.Utils
             }
         }
 
-        public static IQueryable<T> Page<T, TOrderKey>(this IQueryable<T> collection, Expression<Func<T, TOrderKey>> orderSelector, int pageNumber, int pageSize)
+        public static IQueryable<T> Page<T, TOrderKey>(this IQueryable<T> collection, Expression<Func<T, TOrderKey>> orderSelector,
+            int pageNumber, int pageSize)
         {
             Contract.Requires<ArgumentNullException>(collection != null, "collection");
             Contract.Requires<ArgumentNullException>(orderSelector != null, "orderSelector");
@@ -55,7 +56,8 @@ namespace Pellared.Utils
             return collection.OrderBy(orderSelector).Skip((pageNumber - 1) * pageSize).Take(pageSize);
         }
 
-        public static IEnumerable<T> Page<T, TOrderKey>(this IEnumerable<T> collection, Func<T, TOrderKey> orderSelector, int pageNumber, int pageSize)
+        public static IEnumerable<T> Page<T, TOrderKey>(this IEnumerable<T> collection, Func<T, TOrderKey> orderSelector,
+            int pageNumber, int pageSize)
         {
             Contract.Requires<ArgumentNullException>(collection != null, "collection");
             Contract.Requires<ArgumentNullException>(orderSelector != null, "orderSelector");

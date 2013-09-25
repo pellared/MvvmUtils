@@ -2,7 +2,7 @@
 
 namespace Pellared.Utils.Collections
 {
-    public class Cache<TKey, TValue> : Pellared.Utils.Collections.ICache<TKey,TValue>
+    public class Cache<TKey, TValue> : ICache<TKey, TValue>
     {
         private readonly Dictionary<TKey, TValue> buffer;
         private readonly RecentSet<TKey> recentSet;
@@ -15,7 +15,7 @@ namespace Pellared.Utils.Collections
         }
 
         /// <summary>
-        /// Gets the item from the cache.
+        ///     Gets the item from the cache.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -28,7 +28,7 @@ namespace Pellared.Utils.Collections
         }
 
         /// <summary>
-        /// Adds item to cache.
+        ///     Adds item to cache.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="item"></param>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Pellared.Utils
@@ -24,19 +23,22 @@ namespace Pellared.Utils
             foreach (String part in propertyName.Split('.'))
             {
                 if (obj == null)
+                {
                     return null;
+                }
 
                 Type type = obj.GetType();
                 PropertyInfo info = type.GetProperty(part);
                 if (info == null)
+                {
                     return null;
+                }
 
                 obj = info.GetValue(obj, null);
             }
 
             return obj;
         }
-
 
         public static T GetPropertyValue<T>(object obj, string propertyName)
         {
@@ -45,7 +47,9 @@ namespace Pellared.Utils
 
             object result = GetPropertyValue(obj, propertyName);
             if (result == null)
+            {
                 return default(T);
+            }
 
             // throws InvalidCastException if types are incompatible
             return (T)result;
@@ -57,7 +61,10 @@ namespace Pellared.Utils
             Type sourceType = source.GetType();
             Type targetType = target.GetType();
 
-            if (!targetType.IsAssignableFrom(sourceType)) return false;
+            if (!targetType.IsAssignableFrom(sourceType))
+            {
+                return false;
+            }
 
             foreach (PropertyInfo propertyInfo in GetPropertyInfos(sourceType))
             {
@@ -74,6 +81,5 @@ namespace Pellared.Utils
             Type instanceType = instance.GetType();
             return GetPropertyInfos(instanceType).Select(x => x.Name);
         }
-        
     }
 }
