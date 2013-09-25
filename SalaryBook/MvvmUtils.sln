@@ -1,16 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryBook", "SalaryBook\SalaryBook.csproj", "{FF06D253-9A89-4CC2-8A66-A850370554F5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils.Mvvm", "MvvmUtils\Utils.Mvvm.csproj", "{0B3542DD-847D-4F9A-B986-CE7038BC1D20}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{62FAC672-7F2B-40C8-8BF0-36998A6CF3C4}"
-	ProjectSection(SolutionItems) = preProject
-		SalaryBook.pptx = SalaryBook.pptx
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryBook.Tests", "SalaryBook.Tests\SalaryBook.Tests.csproj", "{D02C3786-8832-4A26-94E9-5944C3D4037F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{EF8FFB5C-ED67-4484-AF45-0B071E5D442C}"
 EndProject
@@ -24,14 +15,6 @@ Global
 		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FF06D253-9A89-4CC2-8A66-A850370554F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF06D253-9A89-4CC2-8A66-A850370554F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF06D253-9A89-4CC2-8A66-A850370554F5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{FF06D253-9A89-4CC2-8A66-A850370554F5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{FF06D253-9A89-4CC2-8A66-A850370554F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF06D253-9A89-4CC2-8A66-A850370554F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF06D253-9A89-4CC2-8A66-A850370554F5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{FF06D253-9A89-4CC2-8A66-A850370554F5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0B3542DD-847D-4F9A-B986-CE7038BC1D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B3542DD-847D-4F9A-B986-CE7038BC1D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B3542DD-847D-4F9A-B986-CE7038BC1D20}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -40,14 +23,6 @@ Global
 		{0B3542DD-847D-4F9A-B986-CE7038BC1D20}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0B3542DD-847D-4F9A-B986-CE7038BC1D20}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0B3542DD-847D-4F9A-B986-CE7038BC1D20}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D02C3786-8832-4A26-94E9-5944C3D4037F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D02C3786-8832-4A26-94E9-5944C3D4037F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D02C3786-8832-4A26-94E9-5944C3D4037F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D02C3786-8832-4A26-94E9-5944C3D4037F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D02C3786-8832-4A26-94E9-5944C3D4037F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D02C3786-8832-4A26-94E9-5944C3D4037F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D02C3786-8832-4A26-94E9-5944C3D4037F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D02C3786-8832-4A26-94E9-5944C3D4037F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EF8FFB5C-ED67-4484-AF45-0B071E5D442C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF8FFB5C-ED67-4484-AF45-0B071E5D442C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF8FFB5C-ED67-4484-AF45-0B071E5D442C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -67,8 +42,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal
