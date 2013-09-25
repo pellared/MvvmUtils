@@ -132,7 +132,7 @@ namespace Pellared.SalaryBook.Tests
 
         private static int GetColumnIndex<T>(Expression<Func<Salary, T>> columnSelector, string[] columnNames)
         {
-            string columnName = ExpressionUtils.ExtractPropertyName(columnSelector);
+            string columnName = ExpressionUtils.GetPropertyName(columnSelector);
             int columnIndex = Array.FindIndex(columnNames, x => x == columnName);
             if (columnIndex == -1)
                 Assert.Fail("column not found");

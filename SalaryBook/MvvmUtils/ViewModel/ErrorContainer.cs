@@ -80,7 +80,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
         {
             if (propertyExpression == null) throw new ArgumentNullException("propertyExpression");
 
-            var propertyName = ExpressionUtils.ExtractPropertyName(propertyExpression);
+            var propertyName = ExpressionUtils.GetPropertyName(propertyExpression);
             ClearErrors(propertyName);
         }
 
@@ -110,7 +110,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
             if (propertyExpression == null) throw new ArgumentNullException("propertyExpression");
             if (propertyErrors == null) throw new ArgumentNullException("propertyErrors");
 
-            var propertyName = ExpressionUtils.ExtractPropertyName(propertyExpression);
+            var propertyName = ExpressionUtils.GetPropertyName(propertyExpression);
             SetErrors(propertyName, propertyErrors);
         }
 

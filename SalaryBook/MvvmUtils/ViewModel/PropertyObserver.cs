@@ -51,7 +51,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
             if (expression == null)
                 throw new ArgumentNullException("expression");
 
-            string propertyName = ExpressionUtils.ExtractPropertyName(expression);
+            string propertyName = ExpressionUtils.GetPropertyName(expression);
             if (String.IsNullOrEmpty(propertyName))
                 throw new ArgumentException("'expression' did not provide a property name.");
 
@@ -82,7 +82,7 @@ namespace Pellared.Utils.Mvvm.ViewModel
             if (expression == null)
                 throw new ArgumentNullException("expression");
 
-            string propertyName = ExpressionUtils.ExtractPropertyName(expression);
+            string propertyName = ExpressionUtils.GetPropertyName(expression);
             if (String.IsNullOrEmpty(propertyName))
                 throw new ArgumentException("'expression' did not provide a property name.");
 

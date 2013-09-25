@@ -7,32 +7,30 @@ namespace Pellared.Utils
 {
     public static class ExpressionUtils
     {
-        public static string ExtractPropertyName<TProperty>(Expression<Func<TProperty>> propertySelector)
+        public static string GetPropertyName<TProperty>(Expression<Func<TProperty>> propertySelector)
         {
             // var propName1 = GetPropertyName(() => x.Property1);
-            return ExtractPropertyNameImpl(propertySelector);
+            return GetPropertyNameImpl(propertySelector);
         }
 
-        public static string ExtractPropertyName<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> propertySelector)
+        public static string GetPropertyName<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> propertySelector)
         {
             // var propName2 = GetPropertyName<ObjectType, int>(y => y.Property2);
-            return ExtractPropertyNameImpl(propertySelector);
+            return GetPropertyNameImpl(propertySelector);
         }
 
-        public static string ExtractPropertyName<TEntity>(Expression<Func<TEntity, object>> propertySelector)
+        public static string GetPropertyName<TEntity>(Expression<Func<TEntity, object>> propertySelector)
         {
             // var propName3 = GetPropertyName<ObjectType>(y => y.Property3);
-            return ExtractPropertyNameImpl(propertySelector);
+            return GetPropertyNameImpl(propertySelector);
         }
 
-        private static string ExtractPropertyNameImpl(LambdaExpression propertySelector)
+        private static string GetPropertyNameImpl(LambdaExpression propertySelector)
         {
             if (propertySelector == null)
                 throw new ArgumentNullException("propertySelector");
 
-            MemberExpression member = propertySelector.Body as MemberExpression
-                                      ?? ((UnaryExpression)propertySelector.Body).Operand as MemberExpression;
-
+            MemberExpression member = RemoveUnary(propertySelector.Body);
             if (member == null)
                 throw new InvalidOperationException("Expression is not an access expression.");
 
@@ -40,23 +38,29 @@ namespace Pellared.Utils
             if (property == null)
                 throw new InvalidOperationException("Member in expression is not a property.");
 
-            MethodInfo getMethod = property.GetGetMethod(true);
-            if (!getMethod.IsStatic)
-                return member.Member.Name;
-            else
-                throw new ArgumentException("Property in expression is static.");
+            return member.Member.Name;
         }
 
-        public static string ExtractParameterName<T>(Expression<Func<T>> parameterSelector)
+        public static string GetName<T>(Expression<Func<T>> selector)
         {
-            if (parameterSelector == null)
-                throw new ArgumentNullException("parameterSelector");
+            if (selector == null)
+                throw new ArgumentNullException("selector");
 
-            var memberExpression = parameterSelector.Body as MemberExpression;
-            if (memberExpression == null)
+            MemberExpression member = RemoveUnary(selector.Body);
+            if (member == null)
                 throw new InvalidOperationException("Unable to get name from expression.");
 
-            return memberExpression.Member.Name;
+            return member.Member.Name;
+        }
+
+        private static MemberExpression RemoveUnary(Expression toUnwrap)
+        {
+            if (toUnwrap is UnaryExpression)
+            {
+                return ((UnaryExpression)toUnwrap).Operand as MemberExpression;
+            }
+
+            return toUnwrap as MemberExpression;
         }
     }
 }

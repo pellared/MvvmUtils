@@ -16,7 +16,7 @@ namespace Pellared.Utils.Mvvm.Validation
         }
 
         public DelegateValidator(Expression<Func<TObject, object>> propertySelector, Func<TObject, string> validation)
-            : this(ExpressionUtils.ExtractPropertyName(propertySelector), validation)
+            : this(ExpressionUtils.GetPropertyName(propertySelector), validation)
         { }
 
         public IEnumerable<ValidationError> Validate(TObject instance)

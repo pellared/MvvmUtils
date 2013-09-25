@@ -17,10 +17,15 @@ namespace Pellared.Utils
                 throw new ArgumentNullException("argumentExpression");
 
             Value = argumentExpression.Compile()();
-            Name = ExpressionUtils.ExtractParameterName(argumentExpression);
+            Name = ExpressionUtils.GetName(argumentExpression);
         }
 
         public T Value { get; private set; }
         public string Name { get; private set; }
+
+        public static implicit operator T(Argument<T> arg)
+        {
+            return arg.Value;
+        }
     }
 }
