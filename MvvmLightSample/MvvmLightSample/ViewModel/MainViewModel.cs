@@ -92,7 +92,7 @@ namespace MvvmLightSample.ViewModel
                     .ContinueWith(task =>
                     {
                         var addedVM = new AddedViewModel();
-                        _dialogService.ShowDialog(addedVM);
+                        _dialogService.ShowDialog(addedVM, ResizeMode.CanMinimize);
                     }, TaskScheduler.FromCurrentSynchronizationContext());
             }
         }

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Pellared.MvvmUtils</id>
-    <version>1.0.0.1</version>
+    <version>1.0.1.0</version>
     <title>MVVM Utils</title>
     <authors>Pellared</authors>
     <owners>Pellared</owners>
@@ -12,5 +12,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>MVVM Utils is a set of classes which extends existing MVVM Frameworks such as MVVM Light, Prism, Cinch. Only WPF supported.</description>
     <copyright>Copyright (c) 2013 Robert Pająk</copyright>
+    <tags>MVVM WPF</tags>
   </metadata>
 </package>

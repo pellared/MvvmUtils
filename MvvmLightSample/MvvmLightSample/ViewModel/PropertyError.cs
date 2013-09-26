@@ -18,7 +18,7 @@ namespace MvvmLightSample.ViewModel
 
         public static IEnumerable<PropertyError> Create(Expression<Func<object>> propertySelector, string errorMessage)
         {
-            return new[] { new PropertyError() { PropertyName = ExpressionUtils.ExtractPropertyName(propertySelector), ErrorMessage = errorMessage } };
+            return new[] { new PropertyError() { PropertyName = ExpressionUtils.GetPropertyName(propertySelector), ErrorMessage = errorMessage } };
         }
     }
 }
