@@ -29,16 +29,17 @@ namespace Pellared.Utils.Mvvm.Dialog
             this.ownerForm = ownerForm;
         }
 
-        public void ShowDialog(IDialogViewModel viewModel)
+        public void ShowDialog(IDialogViewModel viewModel, ResizeMode resizeMode)
         {
             viewModel.Closed = false;
-            ClosableWindow window = CreateWindow(viewModel);
+            ClosableWindow window = CreateWindow(viewModel, resizeMode);
             window.OpenDialog();
         }
 
-        private ClosableWindow CreateWindow(IDialogViewModel viewModel)
+        private ClosableWindow CreateWindow(IDialogViewModel viewModel, ResizeMode resizeMode)
         {
-            var window = new ClosableWindow(viewModel);
+            System.Windows.ResizeMode mode = GetMode(resizeMode);
+            var window = new ClosableWindow(viewModel, mode);
             if (ownerWindow != null)
             {
                 window.Owner = ownerWindow;
@@ -52,6 +53,21 @@ namespace Pellared.Utils.Mvvm.Dialog
             }
 
             return window;
+        }
+
+        private System.Windows.ResizeMode GetMode(ResizeMode resizeMode)
+        {
+            switch (resizeMode)
+            {
+                case ResizeMode.NoResize:
+                    return System.Windows.ResizeMode.NoResize;
+                case ResizeMode.CanMinimize:
+                    return System.Windows.ResizeMode.CanMinimize;
+                case ResizeMode.CanResize:
+                    return System.Windows.ResizeMode.CanResize;
+                default:
+                    return System.Windows.ResizeMode.NoResize;
+            }
         }
 
         public string ShowOpenFileDialog(string filter)

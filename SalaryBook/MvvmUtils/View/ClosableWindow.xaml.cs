@@ -14,11 +14,12 @@ namespace Pellared.Utils.Mvvm.View
             InitializeComponent();
         }
 
-        public ClosableWindow(IDialogViewModel viewModel)
+        public ClosableWindow(IDialogViewModel viewModel, System.Windows.ResizeMode resizeMode)
             : this()
         {
             Content = viewModel;
             DataContext = viewModel;
+            ResizeMode = resizeMode;
         }
 
         public void OpenDialog()

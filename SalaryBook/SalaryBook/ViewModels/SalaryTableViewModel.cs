@@ -110,7 +110,7 @@ namespace Pellared.SalaryBook.ViewModels
         {
             Salary salary = SelectedSalary.CreateEntity();
             SalaryDialogViewModel salaryDialogViewModel = new SalaryDialogViewModel(salary, dialogService);
-            dialogService.ShowDialog(salaryDialogViewModel);
+            dialogService.ShowDialog(salaryDialogViewModel, ResizeMode.NoResize);
             salaryDialogViewModel.Closed = true;
         }
 
@@ -156,7 +156,7 @@ namespace Pellared.SalaryBook.ViewModels
         {
             Salary salary = SelectedSalary.CreateEntity();
             DeleteSalaryDialogViewModel deleteSalaryDialogViewModel = new DeleteSalaryDialogViewModel(salary, dialogService);
-            dialogService.ShowDialog(deleteSalaryDialogViewModel);
+            dialogService.ShowDialog(deleteSalaryDialogViewModel, ResizeMode.NoResize);
             if (deleteSalaryDialogViewModel.Result)
                 Salaries.Remove(SelectedSalary);
         }

@@ -1,5 +1,12 @@
 ﻿namespace Pellared.Utils.Mvvm.Dialog
 {
+    public enum ResizeMode
+    {
+        NoResize,
+        CanMinimize,
+        CanResize
+    }
+
     public enum DialogButtons
     {
         OK,
@@ -29,7 +36,7 @@
 
     public interface IDialogService
     {
-        void ShowDialog(IDialogViewModel viewModel);
+        void ShowDialog(IDialogViewModel viewModel, ResizeMode resizeMode);
 
         string ShowOpenFileDialog(string filter);
 
