@@ -11,6 +11,7 @@ using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.IO;
 using Pellared.Utils;
 using Pellared.Utils.Mvvm;
+using System.Globalization;
 
 namespace Pellared.SalaryBook.Tests
 {
@@ -46,7 +47,7 @@ namespace Pellared.SalaryBook.Tests
             var values = ArrangeAndActForFirstEntityMappingTests(x => x.BirthDate);
 
             // Assert
-            DateTime parsedBirthDate = DateTime.Parse(values.CsvValue);
+            DateTime parsedBirthDate = DateTime.Parse(values.CsvValue, CultureInfo.InvariantCulture);
             parsedBirthDate.Should().Be(values.ExpectedValue);
         }
 
@@ -57,7 +58,7 @@ namespace Pellared.SalaryBook.Tests
             var values = ArrangeAndActForFirstEntityMappingTests(x => x.SalaryValue);
 
             // Assert
-            double parsedSalaryValue = double.Parse(values.CsvValue);
+            double parsedSalaryValue = double.Parse(values.CsvValue, CultureInfo.InvariantCulture);
             parsedSalaryValue.Should().Be(values.ExpectedValue);
         }
 

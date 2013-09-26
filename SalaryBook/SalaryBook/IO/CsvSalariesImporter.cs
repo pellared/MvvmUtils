@@ -1,13 +1,9 @@
-﻿using System.IO;
-
-using CsvHelper;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using CsvHelper;
+using CsvHelper.Configuration;
 using Pellared.SalaryBook.Entities;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 
 namespace Pellared.SalaryBook.IO
 {
@@ -15,7 +11,8 @@ namespace Pellared.SalaryBook.IO
     {
         public IEnumerable<Salary> Import(TextReader reader)
         {
-            using (var csv = new CsvReader(reader))
+            var configuration = new CsvConfiguration() { CultureInfo = CultureInfo.InvariantCulture };
+            using (var csv = new CsvReader(reader, configuration))
             {
                 var result = csv.GetRecords<Salary>();
                 return result;
