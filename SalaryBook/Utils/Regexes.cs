@@ -4,7 +4,7 @@ namespace Pellared.Utils
 {
     public static class Regexes
     {
-        public const string NumberRegex = @"^\d+$";
+        public const string NumberRegex = @"^[0-9]+$";
 
         public static Regex Number
         {

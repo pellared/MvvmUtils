@@ -2,7 +2,7 @@
 
 namespace Pellared.Utils
 {
-    public class DisposableObject : IDisposable
+    public abstract class DisposableObject : IDisposable
     {
         private bool hasUnmanagedResources;
         private bool baseDisposeManagedResourcesCalled;
@@ -12,8 +12,18 @@ namespace Pellared.Utils
         protected bool IsDisposing { get; private set; }
 
         public DisposableObject()
+            : this(false)
         {
-            GC.SuppressFinalize(this);
+        }
+
+        public DisposableObject(bool hasUnmanagedResources)
+        {
+            this.hasUnmanagedResources = hasUnmanagedResources;
+
+            if (!hasUnmanagedResources)
+            {
+                GC.SuppressFinalize(this);
+            }
         }
 
         ~DisposableObject()
