@@ -11,12 +11,12 @@ namespace Pellared.Utils
         protected bool IsDisposed { get; private set; }
         protected bool IsDisposing { get; private set; }
 
-        public DisposableObject()
+        protected DisposableObject()
             : this(false)
         {
         }
 
-        public DisposableObject(bool hasUnmanagedResources)
+        protected DisposableObject(bool hasUnmanagedResources)
         {
             this.hasUnmanagedResources = hasUnmanagedResources;
 
