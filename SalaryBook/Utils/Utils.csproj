@@ -110,6 +110,7 @@
     <Compile Include="DelegateEqualityComparer.cs" />
     <Compile Include="DisposableObject.cs" />
     <Compile Include="DisposeAction.cs" />
+    <Compile Include="EnumUtils.cs" />
     <Compile Include="ExpressionUtils.cs" />
     <Compile Include="IMemento.cs" />
     <Compile Include="Memento.cs" />
