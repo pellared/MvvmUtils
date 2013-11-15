@@ -36,14 +36,14 @@ namespace Pellared.Utils.Collections
 
         public RecentSet(IEnumerable<T> items)
         {
-            Contract.Requires<ArgumentNullException>(items != null, "items");
+            Throw.IfNull(items, "items");
 
             list = new List<T>(items);
         }
 
         public RecentSet(int maxSize, IEnumerable<T> items)
         {
-            Contract.Requires<ArgumentNullException>(items != null, "items");
+            Throw.IfNull(items, "items");
 
             this.maxSize = maxSize;
             list = new List<T>(items);

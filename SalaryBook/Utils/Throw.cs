@@ -58,6 +58,18 @@ namespace Pellared.Utils
         }
 
         [DebuggerStepThrough]
+        public static void IfNot(bool condition, string argumentName, string message)
+        {
+            If(!condition, argumentName, message);
+        }
+
+        [DebuggerStepThrough]
+        public static void IfNot<TException>(bool condition, params object[] parameters) where TException : Exception
+        {
+            If<TException>(!condition, parameters);
+        }
+
+        [DebuggerStepThrough]
         public static void If(bool condition, string argumentName, string message)
         {
             If<ArgumentException>(condition, message, argumentName);

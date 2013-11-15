@@ -8,12 +8,15 @@ namespace Pellared.Utils
         public static TEnum ToEnum<TEnum>(this string @this) 
             where TEnum : struct, IConvertible
         {
+            Throw.IfNullOrEmpty(@this, "@this");
             return (TEnum)Enum.Parse(typeof(TEnum), @this, false);
         }
 
         public static TEnum ToEnum<TEnum>(this string @this, bool ignoreCase) 
             where TEnum : struct, IConvertible
         {
+
+            Throw.IfNullOrEmpty(@this, "@this");
             if (!typeof(TEnum).IsEnum)
             {
                 throw new ArgumentException("TEnum must be an enum type");
