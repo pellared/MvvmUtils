@@ -33,7 +33,7 @@ namespace Pellared.Utils
 
         public static bool IsNullOrEmpty(this IEnumerable collection)
         {
-            return IsNullOrEmpty(collection.Cast<object>());
+            return collection == null || !collection.Cast<object>().Any();
         }
 
         public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection)

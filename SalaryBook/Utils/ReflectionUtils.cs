@@ -10,15 +10,15 @@ namespace Pellared.Utils
     {
         public static IEnumerable<PropertyInfo> GetPropertyInfos(Type type)
         {
-            Contract.Requires<ArgumentNullException>(type != null, "type");
+            Throw.IfNull(type, "type");
 
             return type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
         }
 
         public static object GetPropertyValue(object obj, string propertyName)
         {
-            Contract.Requires<ArgumentNullException>(obj != null, "obj");
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(propertyName));
+            Throw.IfNull(obj, "obj");
+            Throw.IfNot<ArgumentException>(!string.IsNullOrEmpty(propertyName));
 
             foreach (String part in propertyName.Split('.'))
             {
@@ -42,8 +42,8 @@ namespace Pellared.Utils
 
         public static T GetPropertyValue<T>(object obj, string propertyName)
         {
-            Contract.Requires<ArgumentNullException>(obj != null, "obj");
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(propertyName));
+            Throw.IfNull(obj, "obj");
+            Throw.IfNot<ArgumentException>(!string.IsNullOrEmpty(propertyName));
 
             object result = GetPropertyValue(obj, propertyName);
             if (result == null)
