@@ -8,6 +8,11 @@ namespace Pellared.Utils
         public static TEnum ToEnum<TEnum>(this string @this) 
             where TEnum : struct, IConvertible
         {
+            if (!typeof(TEnum).IsEnum)
+            {
+                throw new ArgumentException("TEnum must be an enum type");
+            }
+
             return (TEnum)Enum.Parse(typeof(TEnum), @this, false);
         }
 
@@ -20,6 +25,23 @@ namespace Pellared.Utils
             }
 
             return (TEnum)Enum.Parse(typeof(TEnum), @this, ignoreCase);
+        }
+
+
+        public static TEnum ToEnum<TEnum>(this string strEnumValue, TEnum defaultValue)
+        {
+            if (!Enum.IsDefined(typeof(TEnum), strEnumValue))
+                return defaultValue;
+
+            return (TEnum)Enum.Parse(typeof(TEnum), strEnumValue, false);
+        }
+
+        public static TEnum ToEnum<TEnum>(this string strEnumValue, TEnum defaultValue, bool ignoreCase)
+        {
+            if (!Enum.IsDefined(typeof(TEnum), strEnumValue))
+                return defaultValue;
+
+            return (TEnum)Enum.Parse(typeof(TEnum), strEnumValue, ignoreCase);
         }
 
         ///// <summary>
