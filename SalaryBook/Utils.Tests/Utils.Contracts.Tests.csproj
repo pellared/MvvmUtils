@@ -107,8 +107,12 @@
     <Reference Include="CuttingEdge.Conditions">
       <HintPath>..\packages\CuttingEdge.Conditions.1.2.0.0\lib\NET35\CuttingEdge.Conditions.dll</HintPath>
     </Reference>
-    <Reference Include="FluentAssertions">
-      <HintPath>..\packages\FluentAssertions.2.1.0.0\lib\net45\FluentAssertions.dll</HintPath>
+    <Reference Include="EnsureThat">
+      <HintPath>..\packages\Ensure.That.1.0.0\lib\portable-win+net40+sl40+wp71\EnsureThat.dll\EnsureThat.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FluentAssertions.2.2.0.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="Seterlund.CodeGuard">
       <HintPath>..\packages\Seterlund.CodeGuard.2.3.2\lib\net40\Seterlund.CodeGuard.dll</HintPath>
@@ -137,10 +141,12 @@
     <Compile Include="API\Contracts\ArgumentValidations.IsNotNullOrWhiteSpace.cs" />
     <Compile Include="API\Contracts\ArgumentValidations.IsOfType.cs" />
     <Compile Include="API\Contracts\Require.cs" />
+    <Compile Include="ExpressionUtils.cs" />
     <Compile Include="Tests\ArgumentValidationsTests.cs" />
     <Compile Include="Tests\ArgumentValidatonsTests_IsNotNull.cs" />
     <Compile Include="Tests\Performance\PerformanceTests.cs" />
     <Compile Include="Tests\RequireTests.cs" />
+    <Compile Include="Tests\Samples\EnsureSamples.cs" />
     <Compile Include="Tests\Samples\RequireSamples.cs" />
     <Compile Include="Tests\Samples\ConditionSamples.cs" />
     <Compile Include="Tests\Samples\ContractSamples.cs" />

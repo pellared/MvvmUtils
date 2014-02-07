@@ -8,23 +8,23 @@ namespace Pellared.Utils
     public static class Throw
     {
         [DebuggerStepThrough]
-        public static void IfNullOrEmpty(string @string, string argumentName)
+        public static void IfNullOrEmpty(string texr, string argumentName)
         {
-            IfNullOrEmpty(@string, argumentName,
+            IfNullOrEmpty(texr, argumentName,
                 string.Format("Argument '{0}' cannot be null or empty.", argumentName));
         }
 
         [DebuggerStepThrough]
-        public static void IfNullOrEmpty(string @string, string argumentName, string message)
+        public static void IfNullOrEmpty(string text, string argumentName, string message)
         {
-            IfNullOrEmpty<ArgumentException>(@string, message, argumentName);
+            IfNullOrEmpty<ArgumentException>(text, message, argumentName);
         }
 
 
         [DebuggerStepThrough]
-        public static void IfNullOrEmpty<TException>(string @string, params object[] parameters) where TException : Exception
+        public static void IfNullOrEmpty<TException>(string text, params object[] parameters) where TException : Exception
         {
-            If<TException>(string.IsNullOrEmpty(@string), parameters);
+            If<TException>(string.IsNullOrEmpty(text), parameters);
         }
 
         [DebuggerStepThrough]
@@ -47,15 +47,15 @@ namespace Pellared.Utils
         }
 
         [DebuggerStepThrough]
-        public static void IfNull(object @object, string argumentName)
+        public static void IfNull(object value, string argumentName) 
         {
-            IfNull<ArgumentNullException>(@object, argumentName);
+            IfNull<ArgumentNullException>(value, argumentName);
         }
 
         [DebuggerStepThrough]
-        public static void IfNull<TException>(object @object, params object[] parameters) where TException : Exception
+        public static void IfNull<TException>(object value, params object[] parameters) where TException : Exception
         {
-            If<TException>(@object == null, parameters);
+            If<TException>(value == null, parameters);
         }
 
         [DebuggerStepThrough]

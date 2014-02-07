@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Pellared.Utils.Contracts.Tests;
+using System;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Pellared.Utils
 {
@@ -11,21 +13,13 @@ namespace Pellared.Utils
             Name = name;
         }
 
-        public Argument(Func<T> argumentExpression)
+        public Argument(Expression<Func<T>> argumentExpression)
         {
             if (argumentExpression == null)
                 throw new ArgumentNullException("argumentExpression");
 
-            // get IL code behind the delegate
-            var il = argumentExpression.Method.GetMethodBody().GetILAsByteArray();
-            // bytes 2-6 represent the field handle
-            var fieldHandle = BitConverter.ToInt32(il, 2);
-            // resolve the handle
-            var field = argumentExpression.Target.GetType()
-              .Module.ResolveField(fieldHandle);
-
-            Value = argumentExpression();
-            Name = field.Name;
+            Value = ExpressionUtilss.GetValue(argumentExpression);
+            Name = ExpressionUtils.GetName(argumentExpression);
         }
 
         public T Value { get; private set; }

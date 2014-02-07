@@ -4,8 +4,6 @@ namespace Pellared.Utils.Contracts
 {
     public static partial class ArgumentValidations
     {
-        private const string IsNotNullConditionDescription = "'{0}' should be not null. Actual: {1}";
-
         private static bool IsNotNull<T>(T value)
             where T : class
         {
@@ -20,16 +18,10 @@ namespace Pellared.Utils.Contracts
             return argument.Is(IsNotNull, exceptionDelegate);
         }
 
-        public static Argument<T> IsNotNull<T>(this Argument<T> argument, string conditionDescription)
+        public static Argument<T> IsNotNull<T>(this Argument<T> argument, string conditionDescription = "")
             where T : class
         {
             return argument.IsNotNull(arg => new ArgumentNullException(arg.Name, conditionDescription));
-        }
-
-        public static Argument<T> IsNotNull<T>(this Argument<T> argument)
-            where T : class
-        {
-            return argument.IsNotNull(string.Format(IsNotNullConditionDescription, argument.Name, argument.Value));
         }
     }
 }

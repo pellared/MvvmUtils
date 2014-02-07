@@ -24,7 +24,7 @@ namespace Pellared.Utils.Tests.Contracts
         {
             Argument<int> validation = new Argument<int>(1, "argumentName");
             Action act = () => validation.Is(x => x < 0);
-            act.ShouldThrow<ArgumentException>();
+            act.ShouldThrow<ArgumentException>().WithMessage("*x < 0*", ComparisonMode.Wildcard);
         }
     }
 }
