@@ -13,18 +13,18 @@ namespace Pellared.Utils.Contracts
             return result;
         }
 
-        public static IArgument<T> IsOfType<T, TException>(this IArgument<T> argument, Type type, Func<IArgument<T>, TException> exceptionDelegate)
+        public static Argument<T> IsOfType<T, TException>(this Argument<T> argument, Type type, Func<Argument<T>, TException> exceptionDelegate)
             where TException : Exception
         {
             return argument.Is(value => IsOfType(value, type), exceptionDelegate);
         }
 
-        public static IArgument<T> IsOfType<T>(this IArgument<T> argument, Type type, string conditionDescription)
+        public static Argument<T> IsOfType<T>(this Argument<T> argument, Type type, string conditionDescription)
         {
             return argument.Is(value => IsOfType(value, type), conditionDescription);
         }
 
-        public static IArgument<T> IsOfType<T>(this IArgument<T> argument, Type type)
+        public static Argument<T> IsOfType<T>(this Argument<T> argument, Type type)
         {
             return argument.IsOfType(type, string.Format(IsOfTypeConditionDescription, argument.Name, argument.Value.GetType().FullName, type.FullName));
         }

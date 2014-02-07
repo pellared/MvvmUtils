@@ -8,18 +8,6 @@ namespace Pellared.Utils
     public static class Throw
     {
         [DebuggerStepThrough]
-        public static void IfNullOrEmpty<TException>(string @string, params object[] parameters) where TException : Exception
-        {
-            If<TException>(string.IsNullOrEmpty(@string), parameters);
-        }
-
-        [DebuggerStepThrough]
-        public static void IfNullOrEmpty<TExpcetion, TElement>(IEnumerable<TElement> enumerable, params object[] parameters) where TExpcetion : Exception
-        {
-            If<TExpcetion>(enumerable == null || !enumerable.Any(), parameters);
-        }
-
-        [DebuggerStepThrough]
         public static void IfNullOrEmpty(string @string, string argumentName)
         {
             IfNullOrEmpty(@string, argumentName,
@@ -30,6 +18,13 @@ namespace Pellared.Utils
         public static void IfNullOrEmpty(string @string, string argumentName, string message)
         {
             IfNullOrEmpty<ArgumentException>(@string, message, argumentName);
+        }
+
+
+        [DebuggerStepThrough]
+        public static void IfNullOrEmpty<TException>(string @string, params object[] parameters) where TException : Exception
+        {
+            If<TException>(string.IsNullOrEmpty(@string), parameters);
         }
 
         [DebuggerStepThrough]
@@ -43,6 +38,12 @@ namespace Pellared.Utils
         public static void IfNullOrEmpty<TElement>(IEnumerable<TElement> enumerable, string argumentName, string message)
         {
             IfNullOrEmpty<ArgumentException, TElement>(enumerable, message, argumentName);
+        }
+
+        [DebuggerStepThrough]
+        public static void IfNullOrEmpty<TExpcetion, TElement>(IEnumerable<TElement> enumerable, params object[] parameters) where TExpcetion : Exception
+        {
+            If<TExpcetion>(enumerable == null || !enumerable.Any(), parameters);
         }
 
         [DebuggerStepThrough]

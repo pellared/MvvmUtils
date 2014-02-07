@@ -13,18 +13,18 @@ namespace Pellared.Utils.Contracts
             return result;
         }
 
-        public static IArgument<string> IsNotNullOrWhiteSpace<TException>(this IArgument<string> argument, Func<IArgument<string>, TException> exceptionDelegate)
+        public static Argument<string> IsNotNullOrWhiteSpace<TException>(this Argument<string> argument, Func<Argument<string>, TException> exceptionDelegate)
             where TException : Exception
         {
             return argument.Is(IsNotNullOrWhiteSpace, exceptionDelegate);
         }
 
-        public static IArgument<string> IsNotNullOrWhiteSpace(this IArgument<string> argument, string conditionDescription)
+        public static Argument<string> IsNotNullOrWhiteSpace(this Argument<string> argument, string conditionDescription)
         {
             return argument.Is(IsNotNullOrWhiteSpace, conditionDescription);
         }
 
-        public static IArgument<string> IsNotNullOrWhiteSpace(this IArgument<string> argument)
+        public static Argument<string> IsNotNullOrWhiteSpace(this Argument<string> argument)
         {
             return argument.IsNotNullOrWhiteSpace(string.Format(IsNotNullOrWhiteSpaceConditionDescription, argument.Name, argument.Value));
         }

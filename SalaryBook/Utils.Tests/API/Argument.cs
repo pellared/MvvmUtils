@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Pellared.Utils
 {
-    public class Argument<T> : IArgument<T>
+    public class Argument<T>
     {
         public Argument(T value, string name)
         {
@@ -11,13 +11,21 @@ namespace Pellared.Utils
             Name = name;
         }
 
-        public Argument(Expression<Func<T>> argumentExpression)
+        public Argument(Func<T> argumentExpression)
         {
             if (argumentExpression == null)
                 throw new ArgumentNullException("argumentExpression");
 
-            Value = argumentExpression.Compile()();
-            Name = ExpressionUtils.GetName(argumentExpression);
+            // get IL code behind the delegate
+            var il = argumentExpression.Method.GetMethodBody().GetILAsByteArray();
+            // bytes 2-6 represent the field handle
+            var fieldHandle = BitConverter.ToInt32(il, 2);
+            // resolve the handle
+            var field = argumentExpression.Target.GetType()
+              .Module.ResolveField(fieldHandle);
+
+            Value = argumentExpression();
+            Name = field.Name;
         }
 
         public T Value { get; private set; }

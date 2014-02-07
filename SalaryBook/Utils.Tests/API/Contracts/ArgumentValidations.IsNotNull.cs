@@ -13,20 +13,20 @@ namespace Pellared.Utils.Contracts
             return result;
         }
 
-        public static IArgument<T> IsNotNull<T, TException>(this IArgument<T> argument, Func<IArgument<T>, TException> exceptionDelegate)
+        public static Argument<T> IsNotNull<T, TException>(this Argument<T> argument, Func<Argument<T>, TException> exceptionDelegate)
             where T : class
             where TException : Exception
         {
             return argument.Is(IsNotNull, exceptionDelegate);
         }
 
-        public static IArgument<T> IsNotNull<T>(this IArgument<T> argument, string conditionDescription)
+        public static Argument<T> IsNotNull<T>(this Argument<T> argument, string conditionDescription)
             where T : class
         {
             return argument.IsNotNull(arg => new ArgumentNullException(arg.Name, conditionDescription));
         }
 
-        public static IArgument<T> IsNotNull<T>(this IArgument<T> argument)
+        public static Argument<T> IsNotNull<T>(this Argument<T> argument)
             where T : class
         {
             return argument.IsNotNull(string.Format(IsNotNullConditionDescription, argument.Name, argument.Value));

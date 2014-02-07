@@ -58,7 +58,7 @@
     <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
     <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -99,7 +99,7 @@
     <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
     <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
     <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
   </PropertyGroup>
@@ -136,19 +136,18 @@
     <Compile Include="API\Contracts\ArgumentValidations.IsNotNullOrEmpty.cs" />
     <Compile Include="API\Contracts\ArgumentValidations.IsNotNullOrWhiteSpace.cs" />
     <Compile Include="API\Contracts\ArgumentValidations.IsOfType.cs" />
-    <Compile Include="API\Contracts\Check.cs" />
-    <Compile Include="API\IArgument.cs" />
+    <Compile Include="API\Contracts\Require.cs" />
     <Compile Include="Tests\ArgumentValidationsTests.cs" />
     <Compile Include="Tests\ArgumentValidatonsTests_IsNotNull.cs" />
-    <Compile Include="Tests\CheckTests.cs" />
-    <Compile Include="Tests\Samples\CheckSamples.cs" />
+    <Compile Include="Tests\Performance\PerformanceTests.cs" />
+    <Compile Include="Tests\RequireTests.cs" />
+    <Compile Include="Tests\Samples\RequireSamples.cs" />
     <Compile Include="Tests\Samples\ConditionSamples.cs" />
     <Compile Include="Tests\Samples\ContractSamples.cs" />
     <Compile Include="Tests\Samples\GuardSamples.cs" />
-    <Compile Include="Tests\Samples\RequireSamples.cs" />
     <Compile Include="ContractTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Require.cs" />
+    <Compile Include="Condition.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.csproj">

@@ -8,13 +8,13 @@ using System;
 namespace Pellared.Utils.Tests.Contracts
 {
     [TestClass]
-    public class CheckTests
+    public class RequireTests
     {
         [TestMethod]
         public void Argument_LocalVariable_ResultHasGoodArgumentValue()
         {
             string argument = "value";
-            Argument<string> result = Check.If(() => argument);
+            Argument<string> result = Require.That(() => argument);
             result.Value.Should().Be(argument);
         }
 
@@ -22,7 +22,7 @@ namespace Pellared.Utils.Tests.Contracts
         public void Argument_LocalVariable_ResultHasGoodArgumentName()
         {
             string argument = "value";
-            Argument<string> result = Check.If(() => argument);
+            Argument<string> result = Require.That(() => argument);
             result.Name.Should().Be("argument");
         }
 
@@ -31,14 +31,14 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Argument_Field_ResultHasGoodArgumentName()
         {
-            Argument<string> result = Check.If(() => field);
+            Argument<string> result = Require.That(() => field);
             result.Name.Should().Be("field");
         }
 
         [TestMethod]
         public void Argument_Field_ResultHasGoodArgumentValue()
         {
-            Argument<string> result = Check.If(() => field);
+            Argument<string> result = Require.That(() => field);
             result.Value.Should().Be(field);
         }
 
@@ -47,20 +47,20 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Argument_Property_ResultHasGoodArgumentName()
         {
-            Argument<string> result = Check.If(() => Property);
+            Argument<string> result = Require.That(() => Property);
             result.Name.Should().Be("Property");
         }
 
         [TestMethod]
         public void Argument_Property_ResultHasGoodArgumentValue()
         {
-            Argument<string> result = Check.If(() => Property);
+            Argument<string> result = Require.That(() => Property);
             result.Value.Should().Be(Property);
         }
 
         private Argument<string> ArgumentAsParameter(string parameter)
         {
-            return Check.If(() => parameter);
+            return Require.That(() => parameter);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Argument_StaticField_ResultHasGoodArgumentName()
         {
-            Argument<string> result = Check.If(() => StaticField);
+            Argument<string> result = Require.That(() => StaticField);
             result.Name.Should().Be("StaticField");
         }
 
@@ -93,7 +93,7 @@ namespace Pellared.Utils.Tests.Contracts
         [TestMethod]
         public void Argument_StaticProperty_ResultHasGoodArgumentName()
         {
-            Argument<string> result = Check.If(() => StaticProperty);
+            Argument<string> result = Require.That(() => StaticProperty);
             result.Name.Should().Be("StaticProperty");
         }
     }
