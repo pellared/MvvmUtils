@@ -8,16 +8,10 @@ namespace Pellared.Utils
     public static class Throw
     {
         [DebuggerStepThrough]
-        public static void IfNullOrEmpty(string texr, string argumentName)
+        public static void IfNullOrEmpty(string text, string argumentName, string message = "")
         {
-            IfNullOrEmpty(texr, argumentName,
-                string.Format("Argument '{0}' cannot be null or empty.", argumentName));
-        }
-
-        [DebuggerStepThrough]
-        public static void IfNullOrEmpty(string text, string argumentName, string message)
-        {
-            IfNullOrEmpty<ArgumentException>(text, message, argumentName);
+            Throw.IfNull(text, argumentName);
+            Throw.If(text.Empty(), argumentName, message);
         }
 
 
@@ -27,17 +21,12 @@ namespace Pellared.Utils
             If<TException>(string.IsNullOrEmpty(text), parameters);
         }
 
-        [DebuggerStepThrough]
-        public static void IfNullOrEmpty<TElement>(IEnumerable<TElement> enumerable, string argumentName)
-        {
-            IfNullOrEmpty(enumerable, argumentName,
-                string.Format("Argument '{0}' cannot be null or empty.", argumentName));
-        }
 
         [DebuggerStepThrough]
-        public static void IfNullOrEmpty<TElement>(IEnumerable<TElement> enumerable, string argumentName, string message)
+        public static void IfNullOrEmpty<TElement>(IEnumerable<TElement> enumerable, string argumentName, string message = "")
         {
-            IfNullOrEmpty<ArgumentException, TElement>(enumerable, message, argumentName);
+            Throw.IfNull(enumerable, argumentName);
+            Throw.If(enumerable.Empty(), argumentName, message);
         }
 
         [DebuggerStepThrough]
@@ -47,9 +36,12 @@ namespace Pellared.Utils
         }
 
         [DebuggerStepThrough]
-        public static void IfNull(object value, string argumentName) 
+        public static void IfNull(object value, string argumentName)
         {
-            IfNull<ArgumentNullException>(value, argumentName);
+            if (value == null)
+            {
+                throw new ArgumentNullException("argumentName");
+            }
         }
 
         [DebuggerStepThrough]
@@ -73,7 +65,10 @@ namespace Pellared.Utils
         [DebuggerStepThrough]
         public static void If(bool condition, string argumentName, string message)
         {
-            If<ArgumentException>(condition, message, argumentName);
+            if (condition)
+            {
+                throw new ArgumentException(message, argumentName);
+            }
         }
 
         [DebuggerStepThrough]

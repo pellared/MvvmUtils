@@ -21,7 +21,10 @@ namespace Pellared.Utils.Contracts
         public static Argument<T> IsNotNull<T>(this Argument<T> argument, string conditionDescription = "")
             where T : class
         {
-            return argument.IsNotNull(arg => new ArgumentNullException(arg.Name, conditionDescription));
+            Throw.IfNull(argument.Value, argument.Name);
+            return argument;
+
+         //   return argument.IsNotNull(arg => new ArgumentNullException(arg.Name, conditionDescription));
         }
     }
 }
