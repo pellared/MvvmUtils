@@ -13,7 +13,7 @@ namespace Pellared.Common.Contracts.Tests.Tests.Performance
     [TestClass]
     public class PerformanceTests
     {
-        private const int Operations = 1000000;
+        private const int Operations = 10000000;
         private readonly Stopwatch stopwatch = new Stopwatch();
 
         [TestMethod]
@@ -21,12 +21,11 @@ namespace Pellared.Common.Contracts.Tests.Tests.Performance
         {
             Measure(ThrowSample, "My Throw");
             Measure(RequireSimple, "My Require Simple");
-            Measure(RequireLambda, "My Require Lambda");
+            //Measure(RequireLambda, "My Require Lambda");
             Measure(ContractSample, "Code Contracts");
-            Measure(ConditionSimple, "CuttingEdge.Conditions");
-            Measure(ConditionLambda, "CuttingEdge.Conditions LambdaEx");
+            Measure(ConditionSample, "CuttingEdge.Conditions");
             Measure(GuardSimple, "CodeGuard Simple");
-            Measure(GuardLambda, "CodeGuard Lambda");
+            //Measure(GuardLambda, "CodeGuard Lambda");
             Measure(EnsureThatSample, "EnsureThat");
         }
 
@@ -36,8 +35,8 @@ namespace Pellared.Common.Contracts.Tests.Tests.Performance
             MeasureGreater(ThrowSample, "My Throw");
             MeasureGreater(RequireSample, "My Require");
             MeasureGreater(ContractSample, "Code Contracts");
-            MeasureGreater(ConditionEvaluateSample, "CuttingEdge.Conditions Evaluate");
-            MeasureGreater(ConditionExIsSample, "CuttingEdge.Conditions Is extensions");
+            MeasureGreater(ConditionEvaluateSample, "CuttingEdge.Conditions");
+            MeasureGreater(ConditionExIsSample, "My CuttingEdge.Conditions Validate");
             MeasureGreater(GuardSample, "CodeGuard Simple");
         }
 
@@ -87,14 +86,9 @@ namespace Pellared.Common.Contracts.Tests.Tests.Performance
             Contract.Requires(text != null);
         }
 
-        private void ConditionSimple(string text)
+        private void ConditionSample(string text)
         {
             Condition.Requires(text, "text").IsNotNull();
-        }
-
-        private void ConditionLambda(string text)
-        {
-            ConditionEx.Requires(() => text).IsNotNull();
         }
 
         private void GuardSimple(string text)
@@ -134,7 +128,7 @@ namespace Pellared.Common.Contracts.Tests.Tests.Performance
 
         private void ConditionExIsSample(int value)
         {
-            Condition.Requires(value, "value").Is(x => x > 100, "must be greater");
+            Condition.Requires(value, "value").Validate(x => x > 100, "must be greater");
         }
 
         private void GuardSample(int value)
