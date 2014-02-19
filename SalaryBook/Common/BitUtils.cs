@@ -1,5 +1,4 @@
-﻿using Pellared.Common.Conditions;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -34,7 +33,7 @@ namespace Pellared.Common
 
         public static int BcdToDecimal(IEnumerable<byte> bcd)
         {
-            Throw.IfNull(bcd, "bcd");
+            Ensure.NotEmpty(bcd, "bcd");
 
             int result = 0;
             int exping = 1;
@@ -54,7 +53,7 @@ namespace Pellared.Common
         /// <returns>Array of bytes.</returns>
         public static byte[] ToByteArray(this BitArray bits, bool fromOldestBit)
         {
-            Throw.IfNull(bits, "bits");
+            Ensure.NotNull(bits, "bits");
 
             int numBytes = ((bits.Length - 1) / 8) + 1;
 
@@ -127,9 +126,9 @@ namespace Pellared.Common
         /// <returns>Value encoded in interval of the byte.</returns>
         public static byte GetValue(this byte pByte, int bitStart, int bitEnd)
         {
-            Throw.IfNot<ArgumentOutOfRangeException>(bitStart >= 0, "bitStart must be an natural number");
-            Throw.IfNot<ArgumentException>((bitEnd - bitStart) > 0, "bitEnd must be greater than bitStart");
-            Throw.IfNot<ArgumentOutOfRangeException>(bitEnd < 8, "bitEnd be in range [0, 7]");
+            Ensure.Range(bitStart >= 0, "bitStart must be an natural number");
+            Ensure.Range(bitEnd < 8, "bitEnd be in range [0, 7]");
+            Ensure.That((bitEnd - bitStart) > 0, "bitEnd must be greater than bitStart");
 
             byte value = Convert.ToByte(pByte >> bitStart);
             int count = bitEnd - bitStart + 1;
@@ -148,16 +147,16 @@ namespace Pellared.Common
         /// <returns>Value of the bit.</returns>
         public static bool GetBit(this byte[] array, int bitNo)
         {
-            Throw.IfNull(array, "array");
-            Throw.IfNot<ArgumentOutOfRangeException>((bitNo / 8) < array.Length, "bitNo exceeds the array");
-            Throw.IfNot<ArgumentOutOfRangeException>(bitNo >= 0, "bitNo must be an natural number");
+            Ensure.NotEmpty(array, "array");
+            Ensure.Range((bitNo / 8) < array.Length, "bitNo exceeds the array");
+            Ensure.Range(bitNo >= 0, "bitNo must be an natural number");
 
             int mask = 1 << (7 - (bitNo % 8));
             return (array[bitNo / 8] & mask) != 0;
         }
 
         /// <summary>
-        ///     Set the bit valie in a byte.
+        ///     Set the bit value in a byte.
         /// </summary>
         /// <param name="array">The byte where the value is encoded.</param>
         /// <param name="bitNo">The number of the bit (zero-based index).</param>
@@ -165,9 +164,9 @@ namespace Pellared.Common
         /// <returns>Byte with changed bit.</returns>
         public static void SetBit(this byte[] array, int bitNo, bool value)
         {
-            Throw.IfNull(array, "array");
-            Throw.IfNot<ArgumentOutOfRangeException>((bitNo / 8) < array.Length, "bitNo exceeds the array");
-            Throw.IfNot<ArgumentOutOfRangeException>(bitNo >= 0, "bitNo must be an natural number");
+            Ensure.NotEmpty(array, "array");
+            Ensure.Range((bitNo / 8) < array.Length, "bitNo exceeds the array");
+            Ensure.Range(bitNo >= 0, "bitNo must be an natural number");
 
             int mask = 1 << (7 - (bitNo % 8));
             if (value)
@@ -182,10 +181,10 @@ namespace Pellared.Common
 
         public static byte[] Cut(this byte[] array, int bitStart, int bitEnd)
         {
-            Throw.IfNull(array, "array");
-            Throw.IfNot<ArgumentOutOfRangeException>(bitStart >= 0, "bitStart must be an natural number");
-            Throw.IfNot<ArgumentException>((bitEnd - bitStart) > 0, "bitEnd must be greater than bitStart");
-            Throw.IfNot<ArgumentOutOfRangeException>((bitEnd / 8) < array.Length, "bitEnd exceeds the array");
+            Ensure.NotEmpty(array, "array");
+            Ensure.Range(bitStart >= 0, "bitStart must be an natural number");
+            Ensure.Range((bitEnd / 8) < array.Length, "bitEnd exceeds the array");
+            Ensure.That((bitEnd - bitStart) > 0, "bitEnd must be greater than bitStart");
 
             int interval = bitEnd - bitStart + 1;
             var result = new byte[((interval - 1) / 8) + 1];
@@ -204,10 +203,10 @@ namespace Pellared.Common
 
         public static int GetInteger(this byte[] array, int bitStart, int bitEnd)
         {
-            Throw.IfNull(array, "array");
-            Throw.IfNot<ArgumentOutOfRangeException>(bitStart >= 0, "bitStart must be an natural number");
-            Throw.IfNot<ArgumentException>((bitEnd - bitStart) > 0, "bitEnd must be greater than bitStart");
-            Throw.IfNot<ArgumentOutOfRangeException>((bitEnd / 8) < array.Length, "bitEnd exceeds the array");
+            Ensure.NotEmpty(array, "array");
+            Ensure.Range(bitStart >= 0, "bitStart must be an natural number");
+            Ensure.Range((bitEnd / 8) < array.Length, "bitEnd exceeds the array");
+            Ensure.That((bitEnd - bitStart) > 0, "bitEnd must be greater than bitStart");
 
             byte[] masked = array.Cut(bitStart, bitEnd);
             int result = BitsToInt32(masked);
@@ -216,7 +215,8 @@ namespace Pellared.Common
 
         private static int BitsToInt32(byte[] masked)
         {
-            Throw.If<ArgumentOutOfRangeException>(masked.Length > 4, "array lenght cannot be more than 4");
+            Ensure.NotEmpty(masked, "masked");
+            Ensure.Range(masked.Length <= 4, "array lenght cannot be more than 4");
 
             var array = new byte[4];
             for (int i = 0; i < masked.Length; i++)

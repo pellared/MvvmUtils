@@ -6,7 +6,6 @@ using CuttingEdge.Conditions;
 using Seterlund.CodeGuard;
 using Pellared.Common.Tests;
 using EnsureThat;
-using Pellared.Common.Conditions;
 
 namespace Pellared.Common.Contracts.Tests.Tests.Performance
 {
@@ -19,25 +18,23 @@ namespace Pellared.Common.Contracts.Tests.Tests.Performance
         [TestMethod]
         public void NotNull_CheckPerformance()
         {
-            Measure(ThrowSample, "My Throw");
-            Measure(RequireSimple, "My Require Simple");
-            //Measure(RequireLambda, "My Require Lambda");
+            Measure(EnsureSample, "My Ensure");
             Measure(ContractSample, "Code Contracts");
             Measure(ConditionSample, "CuttingEdge.Conditions");
             Measure(GuardSimple, "CodeGuard Simple");
-            //Measure(GuardLambda, "CodeGuard Lambda");
+            Measure(GuardLambda, "CodeGuard Lambda");
             Measure(EnsureThatSample, "EnsureThat");
         }
 
         [TestMethod]
         public void GratherThan_CheckPerformance()
         {
-            MeasureGreater(ThrowSample, "My Throw");
-            MeasureGreater(RequireSample, "My Require");
+            MeasureGreater(EnsureSample, "My Ensure");
             MeasureGreater(ContractSample, "Code Contracts");
             MeasureGreater(ConditionEvaluateSample, "CuttingEdge.Conditions");
             MeasureGreater(ConditionExIsSample, "My CuttingEdge.Conditions Validate");
-            MeasureGreater(GuardSample, "CodeGuard Simple");
+            MeasureGreater(GuardSimple, "CodeGuard Simple");
+            MeasureGreater(GuardLambda, "CodeGuard Lambda");
         }
 
         private void Measure(Action<string> action, string name)
@@ -66,19 +63,9 @@ namespace Pellared.Common.Contracts.Tests.Tests.Performance
             Console.WriteLine(stopwatch.ElapsedMilliseconds + "\t" + name);
         }
 
-        private void ThrowSample(string text)
+        private void EnsureSample(string text)
         {
-            Throw.IfNull(text, "text");
-        }
-
-        private void RequireSimple(string text)
-        {
-            Require.That(text, "text").IsNotNull();
-        }
-
-        private void RequireLambda(string text)
-        {
-            Require.That(() => text).IsNotNull();
+            Ensure.NotNull(text, "text");
         }
 
         private void ContractSample(string text)
@@ -103,17 +90,12 @@ namespace Pellared.Common.Contracts.Tests.Tests.Performance
 
         private void EnsureThatSample(string text)
         {
-            Ensure.That(text, "text").IsNotNull();
+            EnsureThat.Ensure.That(text, "text").IsNotNull();
         }
 
-        private void ThrowSample(int value)
+        private void EnsureSample(int value)
         {
-            Throw.IfNot(value > 100, "value", "must be greater");
-        }
-
-        private void RequireSample(int value)
-        {
-            Require.That(value, "value").Is(x => x > 100, "must be greater");
+            Ensure.That(value > 100, "must be greater", "value");
         }
 
         private void ContractSample(int value)
@@ -131,9 +113,14 @@ namespace Pellared.Common.Contracts.Tests.Tests.Performance
             Condition.Requires(value, "value").Validate(x => x > 100, "must be greater");
         }
 
-        private void GuardSample(int value)
+        private void GuardSimple(int value)
         {
             Guard.That(value, "value").IsTrue(x => x > 100, "must be greater");
+        }
+
+        private void GuardLambda(int value)
+        {
+            Guard.That(() => value).IsTrue(x => x > 100, "must be greater");
         }
     }
 

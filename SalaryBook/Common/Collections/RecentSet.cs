@@ -1,5 +1,4 @@
-﻿using Pellared.Common.Conditions;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -37,14 +36,14 @@ namespace Pellared.Common.Collections
 
         public RecentSet(IEnumerable<T> items)
         {
-            Throw.IfNull(items, "items");
+            Ensure.NotNull(items, "items");
 
             list = new List<T>(items);
         }
 
         public RecentSet(int maxSize, IEnumerable<T> items)
         {
-            Throw.IfNull(items, "items");
+            Ensure.NotNull(items, "items");
 
             this.maxSize = maxSize;
             list = new List<T>(items);

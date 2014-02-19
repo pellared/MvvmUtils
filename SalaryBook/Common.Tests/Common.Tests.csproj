@@ -138,14 +138,6 @@
     <Compile Include="Require\Helpers\ConditionExtensions.cs" />
     <Compile Include="Require\Helpers\ContractTestHelper.cs" />
     <Compile Include="Require\Performance\PerformanceTests.cs" />
-    <Compile Include="Require\Samples\ConditionSamples.cs" />
-    <Compile Include="Require\Samples\ContractSamples.cs" />
-    <Compile Include="Require\Samples\EnsureSamples.cs" />
-    <Compile Include="Require\Samples\GuardSamples.cs" />
-    <Compile Include="Require\Samples\RequireSamples.cs" />
-    <Compile Include="Require\Unit\ArgumentValidationsTests.cs" />
-    <Compile Include="Require\Unit\ArgumentValidatonsTests_IsNotNull.cs" />
-    <Compile Include="Require\Unit\RequireTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

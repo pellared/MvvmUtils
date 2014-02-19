@@ -1,4 +1,4 @@
-﻿using Pellared.Common.Conditions;
+﻿using Pellared.Common;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -11,15 +11,15 @@ namespace Pellared.Common
     {
         public static IEnumerable<PropertyInfo> GetPropertyInfos(Type type)
         {
-            Throw.IfNull(type, "type");
+            Ensure.NotNull(type, "type");
 
             return type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
         }
 
         public static object GetPropertyValue(object obj, string propertyName)
         {
-            Throw.IfNull(obj, "obj");
-            Throw.IfNot<ArgumentException>(!string.IsNullOrEmpty(propertyName));
+            Ensure.NotNull(obj, "obj");
+            Ensure.NotEmpty(propertyName, "propertyName");
 
             foreach (String part in propertyName.Split('.'))
             {
@@ -43,8 +43,8 @@ namespace Pellared.Common
 
         public static T GetPropertyValue<T>(object obj, string propertyName)
         {
-            Throw.IfNull(obj, "obj");
-            Throw.IfNot<ArgumentException>(!string.IsNullOrEmpty(propertyName));
+            Ensure.NotNull(obj, "obj");
+            Ensure.NotEmpty(propertyName, "propertyName");
 
             object result = GetPropertyValue(obj, propertyName);
             if (result == null)
@@ -56,15 +56,27 @@ namespace Pellared.Common
             return (T)result;
         }
 
-        [Obsolete]
-        private static bool CopyAllProperties(object source, object target)
+        public static void CopyProperties<TParent, TChild>(TParent source, TChild target)
+            where TChild : TParent
+        {
+            Type sourceType = source.GetType();
+            Type targetType = target.GetType();
+            
+            foreach (PropertyInfo propertyInfo in GetPropertyInfos(sourceType))
+            {
+                object sourceValue = propertyInfo.GetValue(source, null);
+                propertyInfo.SetValue(target, sourceValue, null);
+            }
+        }
+
+        public static void CopyObjectProperties(object source, object target)
         {
             Type sourceType = source.GetType();
             Type targetType = target.GetType();
 
-            if (!targetType.IsAssignableFrom(sourceType))
+            if (!sourceType.IsAssignableFrom(targetType))
             {
-                return false;
+                throw new ArgumentException("taget is not assignable to source type");
             }
 
             foreach (PropertyInfo propertyInfo in GetPropertyInfos(sourceType))
@@ -72,15 +84,6 @@ namespace Pellared.Common
                 object sourceValue = propertyInfo.GetValue(source, null);
                 propertyInfo.SetValue(target, sourceValue, null);
             }
-
-            return true;
-        }
-
-        [Obsolete]
-        private static IEnumerable<string> GetAllPropertyNames(object instance)
-        {
-            Type instanceType = instance.GetType();
-            return GetPropertyInfos(instanceType).Select(x => x.Name);
         }
     }
 }

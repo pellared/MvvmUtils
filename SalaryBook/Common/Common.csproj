@@ -86,19 +86,13 @@
     <Compile Include="EnumUtils.cs" />
     <Compile Include="ExpressionUtils.cs" />
     <Compile Include="IMemento.cs" />
+    <Compile Include="MemberEqualityComparer.cs" />
     <Compile Include="Memento.cs" />
     <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionUtils.cs" />
     <Compile Include="Regexes.cs" />
-    <Compile Include="Conditions\Argument.cs" />
-    <Compile Include="Conditions\ArgumentValidations.cs" />
-    <Compile Include="Conditions\ArgumentValidations.IsNotNull.cs" />
-    <Compile Include="Conditions\ArgumentValidations.IsNotNullOrEmpty.cs" />
-    <Compile Include="Conditions\ArgumentValidations.IsNotNullOrWhiteSpace.cs" />
-    <Compile Include="Conditions\ArgumentValidations.IsOfType.cs" />
-    <Compile Include="Conditions\Require.cs" />
-    <Compile Include="Conditions\Throw.cs" />
+    <Compile Include="Ensure.cs" />
     <Compile Include="StopwatchExtensions.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,5 +1,4 @@
-﻿using Pellared.Common.Conditions;
-using System;
+﻿using System;
 
 namespace Pellared.Common
 {
@@ -9,7 +8,7 @@ namespace Pellared.Common
 
         public DisposeAction(Action actionOnDispose)
         {
-            Throw.IfNull(actionOnDispose, "actionOnDispose");
+            Ensure.NotNull(actionOnDispose, "actionOnDispose");
             this.actionOnDispose = actionOnDispose;
         }
 
