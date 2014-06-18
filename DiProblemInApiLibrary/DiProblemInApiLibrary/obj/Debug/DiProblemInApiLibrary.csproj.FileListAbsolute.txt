@@ -1,0 +1,15 @@
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\DiProblemInApiLibrary.exe.config
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\obj\Debug\DiProblemInApiLibrary.csprojResolveAssemblyReference.cache
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\DiProblemInApiLibrary.exe
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\DiProblemInApiLibrary.pdb
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\ApiLibrary.dll
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\Autofac.dll
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\Autofac.Extras.CommonServiceLocator.dll
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\ApiLibrary.pdb
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\Autofac.xml
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\Autofac.Extras.CommonServiceLocator.xml
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\obj\Debug\DiProblemInApiLibrary.exe
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\DiProblemInApiLibrary\obj\Debug\DiProblemInApiLibrary.pdb

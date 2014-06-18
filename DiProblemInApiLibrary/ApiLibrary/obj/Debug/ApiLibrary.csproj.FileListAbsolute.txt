@@ -1,0 +1,8 @@
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\ApiLibrary\bin\Debug\ApiLibrary.dll
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\ApiLibrary\bin\Debug\ApiLibrary.pdb
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\ApiLibrary\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\ApiLibrary\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\ApiLibrary\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\ApiLibrary\obj\Debug\ApiLibrary.csprojResolveAssemblyReference.cache
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\ApiLibrary\obj\Debug\ApiLibrary.dll
+C:\Users\Pellared\Documents\Visual Studio 2013\Projects\DiProblemInApiLibrary\ApiLibrary\obj\Debug\ApiLibrary.pdb
