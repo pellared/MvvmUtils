@@ -10,6 +10,7 @@ namespace DiProblemInApiLibrary
     {
         T Value { get; }
     }
+
     public class Owned<T> : IOwned<T> 
     {
         public Owned(T value)
@@ -29,11 +30,11 @@ namespace DiProblemInApiLibrary
         }
     }
 
-    public class AufacOwned<T> : IOwned<T>
+    public class AutofacOwned<T> : IOwned<T>
     {
         private readonly Autofac.Features.OwnedInstances.Owned<T> owned;
 
-        public AufacOwned(Autofac.Features.OwnedInstances.Owned<T> owned)
+        public AutofacOwned(Autofac.Features.OwnedInstances.Owned<T> owned)
         {
             this.owned = owned;
         }

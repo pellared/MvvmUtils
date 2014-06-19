@@ -16,11 +16,11 @@ namespace DiProblemInApiLibrary
         IOwned<TOut> Create(T input);
     }
 
-    public class Factory<T> : IFactory<T>
+    public class FuncFactory<T> : IFactory<T>
     {
         private readonly Func<IOwned<T>> creator;
 
-        public Factory(Func<IOwned<T>> creator)
+        public FuncFactory(Func<IOwned<T>> creator)
         {
             this.creator = creator;
         }
@@ -31,18 +31,41 @@ namespace DiProblemInApiLibrary
         }
     }
 
-    public class Factory<T, TOut> : IFactory<T, TOut>
+    public class AutofacFactory<T> : IFactory<T>
     {
-        private readonly Func<T, IOwned<TOut>> creator;
+        private readonly Func<Autofac.Features.OwnedInstances.Owned<T>, IOwned<T>> ownedFactory;
+        private readonly Func<Autofac.Features.OwnedInstances.Owned<T>> creator;
 
-        public Factory(Func<T, IOwned<TOut>> creator)
+        public AutofacFactory(Func<Autofac.Features.OwnedInstances.Owned<T>, IOwned<T>> ownedFactory, Func<Autofac.Features.OwnedInstances.Owned<T>> creator)
         {
+            this.ownedFactory = ownedFactory;
+            this.creator = creator;
+        }
+
+        public IOwned<T> Create()
+        {
+            Autofac.Features.OwnedInstances.Owned<T> ownedInstance = creator();
+            IOwned<T> result = ownedFactory(ownedInstance);
+            return result;
+        }
+    }
+
+    public class AutofacFactory<T, TOut> : IFactory<T, TOut>
+    {
+        private readonly Func<Autofac.Features.OwnedInstances.Owned<TOut>, IOwned<TOut>> ownedFactory;
+        private readonly Func<T, Autofac.Features.OwnedInstances.Owned<TOut>> creator;
+
+        public AutofacFactory(Func<Autofac.Features.OwnedInstances.Owned<TOut>, IOwned<TOut>> ownedFactory, Func<T, Autofac.Features.OwnedInstances.Owned<TOut>> creator)
+        {
+            this.ownedFactory = ownedFactory;
             this.creator = creator;
         }
 
         public IOwned<TOut> Create(T input)
         {
-            return creator(input);
+            Autofac.Features.OwnedInstances.Owned<TOut> ownedInstance = creator(input);
+            IOwned<TOut> result = ownedFactory(ownedInstance);
+            return result;
         }
     }
 }

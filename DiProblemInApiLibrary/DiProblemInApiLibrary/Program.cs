@@ -40,10 +40,9 @@ namespace DiProblemInApiLibrary
             var builder = new ContainerBuilder();
 
             // registering owned generic
-            builder.RegisterGeneric(typeof(AufacOwned<>)).As(typeof(IOwned<>));
-            builder.RegisterGeneric(typeof(Factory<>)).As(typeof(IFactory<>));
-            builder.RegisterGeneric(typeof(Factory<,>)).As(typeof(IFactory<,>));
-            builder.RegisterInstance("test");
+            builder.RegisterGeneric(typeof(AutofacOwned<>)).As(typeof(IOwned<>));
+            builder.RegisterGeneric(typeof(AutofacFactory<>)).As(typeof(IFactory<>));
+            builder.RegisterGeneric(typeof(AutofacFactory<,>)).As(typeof(IFactory<,>));
             
             builder.RegisterType<Some>().As<ISome>();
             builder.RegisterType<WithArg>().As<IWithArg>();
