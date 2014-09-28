@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pellared.SalaryBook.Tests</RootNamespace>
     <AssemblyName>SalaryBook.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -24,6 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,17 +73,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvvmUtils\Utils.Mvvm.csproj">
-      <Project>{0B3542DD-847D-4F9A-B986-CE7038BC1D20}</Project>
-      <Name>Utils.Mvvm</Name>
+    <ProjectReference Include="..\Common.Mvvm\Common.Mvvm.csproj">
+      <Project>{0b3542dd-847d-4f9a-b986-ce7038bc1d20}</Project>
+      <Name>Common.Mvvm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8f9da962-9c5a-4fc0-8199-cea3228112f5}</Project>
+      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\SalaryBook\SalaryBook.csproj">
       <Project>{FF06D253-9A89-4CC2-8A66-A850370554F5}</Project>
       <Name>SalaryBook</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{ef8ffb5c-ed67-4484-af45-0b071e5d442c}</Project>
-      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

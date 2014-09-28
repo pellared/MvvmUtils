@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight.Command;
 
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Properties;
-using Pellared.Utils.Mvvm.Dialog;
+using Pellared.Common.Mvvm.Dialog;
 
 namespace Pellared.SalaryBook.ViewModels
 {

@@ -9,8 +9,8 @@ using FluentAssertions;
 
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.IO;
-using Pellared.Utils;
-using Pellared.Utils.Mvvm;
+using Pellared.Common;
+using Pellared.Common.Mvvm;
 using System.Globalization;
 
 namespace Pellared.SalaryBook.Tests

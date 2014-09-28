@@ -5,7 +5,7 @@ using Pellared.SalaryBook.IO;
 using Pellared.SalaryBook.Messages;
 using Pellared.SalaryBook.Properties;
 using Pellared.SalaryBook.Services;
-using Pellared.Utils.Mvvm.Dialog;
+using Pellared.Common.Mvvm.Dialog;
 using Pellared.Utils.Mvvm.Validation;
 using System;
 using System.Collections.Generic;

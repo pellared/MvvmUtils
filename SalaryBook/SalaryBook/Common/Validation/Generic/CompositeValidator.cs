@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Pellared.Common;
+
 namespace Pellared.Utils.Mvvm.Validation.Generic
 {
     public class CompositeValidator<TObject, TError> : IValidator<TObject, TError>

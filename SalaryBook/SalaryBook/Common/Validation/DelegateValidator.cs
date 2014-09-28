@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Pellared.Common;
 
 namespace Pellared.Utils.Mvvm.Validation
 {

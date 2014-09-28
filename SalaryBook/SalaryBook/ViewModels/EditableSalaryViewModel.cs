@@ -8,9 +8,10 @@ using AutoMapper;
 using Pellared.SalaryBook.Common;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Validators;
-using Pellared.Utils;
+using Pellared.Common;
 using Pellared.Utils.Mvvm.Validation;
-using Pellared.Utils.Mvvm.ViewModel;
+using Pellared.Common.Mvvm.ViewModel;
+
 
 namespace Pellared.SalaryBook.ViewModels
 {
