@@ -18,8 +18,6 @@ namespace Pellared.SalaryBook.ViewModels
 {
     public class EditableSalaryViewModel : ValidatableViewModel, IEditableObject, ISalary
     {
-        private readonly IValidator<ISalary> salaryValidator;
-
         private Memento<EditableSalaryViewModel> memento;
         private ValidationError[] secondPhaseErrors;
 
@@ -40,9 +38,11 @@ namespace Pellared.SalaryBook.ViewModels
 #endif
         public EditableSalaryViewModel(IValidator<ISalary> salaryValidator)
         {            
-            this.salaryValidator = salaryValidator;
+            SalaryValidator = salaryValidator;
             secondPhaseErrors = new ValidationError[0];
         }
+
+        public IValidator<ISalary> SalaryValidator { get; private set; }
 
         private string firstName;
 
@@ -173,7 +173,7 @@ namespace Pellared.SalaryBook.ViewModels
 
         protected override IEnumerable<ValidationError> Validation()
         {
-            return salaryValidator.Validate(this);
+            return SalaryValidator.Validate(this);
         }
 
         private IEnumerable<ValidationError> SecondPhaseValidation()
