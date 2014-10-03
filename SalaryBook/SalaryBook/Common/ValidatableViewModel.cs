@@ -57,6 +57,7 @@ namespace Pellared.SalaryBook.Common
             ValidationProvider = new ValidationProvider<ValidationError>(ErrorsContainer, Validation, error => error.PropertyName);
         }
 
+        // extract to base
         protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer, IValidationProvider validationProvider)
         {
             ErrorsContainer = errorsContainer;
@@ -65,6 +66,7 @@ namespace Pellared.SalaryBook.Common
             ValidationProvider = validationProvider;
         }
 
+        // extract to base
         protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer, IDataErrorInfo dataErrorInfoProvider, IValidationProvider validationProvider)
         {
             ErrorsContainer = errorsContainer;
