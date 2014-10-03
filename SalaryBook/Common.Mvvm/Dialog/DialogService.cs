@@ -10,7 +10,69 @@ using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace Pellared.Common.Mvvm.Dialog
 {
-    public class DialogService : IDialogService
+    public enum ResizeMode
+    {
+        NoResize,
+        CanMinimize,
+        CanResize
+    }
+
+    public enum DialogButtons
+    {
+        OK,
+        OKCancel,
+        YesNo,
+        YesNoCancel
+    }
+
+    public enum DialogIcons
+    {
+        None,
+        Information,
+        Question,
+        Exclamation,
+        Stop,
+        Warning
+    }
+
+    public enum DialogResults
+    {
+        None,
+        OK,
+        Cancel,
+        Yes,
+        No
+    }
+
+    public interface IWindowService
+    {
+        void Show(IWindowViewModel viewModel, ResizeMode resizeMode);
+    }
+
+    public interface IDialogService
+    {
+        void ShowDialog(IDialogViewModel viewModel, ResizeMode resizeMode);
+
+        string ShowOpenFileDialog(string filter);
+
+        string ShowSaveFileDialog(string defaultExtension, string filter);
+
+        void ShowMessage(string message, string caption, DialogIcons icon);
+
+        DialogResults ShowMessage(string message, string caption, DialogIcons icon, DialogButtons buttons);
+    }
+
+    public interface IWindowViewModel
+    {
+        bool Closed { get; set; }
+        string Title { get; }
+    }
+
+    public interface IDialogViewModel : IWindowViewModel
+    {
+    }
+
+    public class DialogService : IDialogService, IWindowService
     {
         private readonly Window ownerWindow;
         private readonly Form ownerForm;
@@ -29,6 +91,13 @@ namespace Pellared.Common.Mvvm.Dialog
             this.ownerForm = ownerForm;
         }
 
+        public void Show(IWindowViewModel viewModel, ResizeMode resizeMode)
+        {
+            viewModel.Closed = false;
+            ClosableWindow window = CreateWindow(viewModel, resizeMode);
+            window.Open();
+        }
+
         public void ShowDialog(IDialogViewModel viewModel, ResizeMode resizeMode)
         {
             viewModel.Closed = false;
@@ -36,7 +105,7 @@ namespace Pellared.Common.Mvvm.Dialog
             window.OpenDialog();
         }
 
-        private ClosableWindow CreateWindow(IDialogViewModel viewModel, ResizeMode resizeMode)
+        private ClosableWindow CreateWindow(IWindowViewModel viewModel, ResizeMode resizeMode)
         {
             System.Windows.ResizeMode mode = GetMode(resizeMode);
             var window = new ClosableWindow(viewModel, mode);

@@ -14,7 +14,7 @@ namespace Pellared.Common.Mvvm.View
             InitializeComponent();
         }
 
-        public ClosableWindow(IDialogViewModel viewModel, System.Windows.ResizeMode resizeMode)
+        public ClosableWindow(IWindowViewModel viewModel, System.Windows.ResizeMode resizeMode)
             : this()
         {
             Content = viewModel;
@@ -22,9 +22,18 @@ namespace Pellared.Common.Mvvm.View
             ResizeMode = resizeMode;
         }
 
+        public void Open()
+        {
+            var viewModel = DataContext as IWindowViewModel;
+            if (viewModel != null)
+            {
+                Show();
+            }
+        }
+
         public void OpenDialog()
         {
-            var viewModel = DataContext as IDialogViewModel;
+            var viewModel = DataContext as IWindowViewModel;
             if (viewModel != null)
             {
                 ShowDialog();
