@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 
-using Pellared.Common.Mvvm.ViewModel;
+using Pellared.Common.Mvvm.Validation;
 using Pellared.Utils.Mvvm.Validation;
 
 namespace Pellared.SalaryBook.Common
@@ -18,54 +18,34 @@ namespace Pellared.SalaryBook.Common
 
         protected ValidatableViewModel()
         {
-            ErrorsContainer = new ErrorsContainer();
-            ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer, ObjectErrorPropertyName);
-            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
+            var errorsContainer = new ErrorsContainer();
+            ValidationProvider = new ValidationProvider(errorsContainer, Validation);
+            DataErrorInfoProvider = new DataErrorInfoProvider(errorsContainer, ObjectErrorPropertyName);
+            DataErrorInfoProvider.ErrorsChanged += OnErrorsChanged;
         }
 
         protected ValidatableViewModel(IMessenger messenger)
             : base(messenger)
         {
-            ErrorsContainer = new ErrorsContainer();
-            ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(ErrorsContainer, ObjectErrorPropertyName);
-            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
+            var errorsContainer = new ErrorsContainer();
+            ValidationProvider = new ValidationProvider(errorsContainer, Validation);
+            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(errorsContainer, ObjectErrorPropertyName);
         }
 
         protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer)
         {
-            ErrorsContainer = errorsContainer;
-            ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(ErrorsContainer, ObjectErrorPropertyName);
-            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
-        }
-
-        protected ValidatableViewModel(IDataErrorInfo dataErrorInfoProvider)
-        {
-            ErrorsContainer = new ErrorsContainer();
-            ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = dataErrorInfoProvider;
-            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
-        }
-
-        protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer, IDataErrorInfo dataErrorInfoProvider)
-        {
-            ErrorsContainer = errorsContainer;
-            ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = dataErrorInfoProvider;
-            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
+            ValidationProvider = new ValidationProvider(errorsContainer, Validation);
+            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(errorsContainer, ObjectErrorPropertyName);
         }
 
         public IValidationProvider ValidationProvider { get; private set; }
 
-        public IErrorsContainer<ValidationError> ErrorsContainer { get; private set; }
+        public IDataErrorInfoProvider DataErrorInfoProvider { get; private set; }
 
-        public IDataErrorInfo DataErrorInfoProvider { get; private set; }
 
         public virtual bool HasErrors
         {
-            get { return ErrorsContainer.HasErrors; }
+            get { return DataErrorInfoProvider.HasErrors; }
         }
 
         public virtual string Error
@@ -84,15 +64,12 @@ namespace Pellared.SalaryBook.Common
             }
         }
 
-        public virtual void Validate()
-        {
-            ValidationProvider.Validate();
-        }
+        protected abstract IEnumerable<ValidationError> Validation();
 
         protected override void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression)
         {
             base.RaisePropertyChanged(propertyExpression);
-            Validate();
+            ValidationProvider.Validate();
         }
 
         protected override void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression, T oldValue, T newValue, bool broadcast)
@@ -113,9 +90,12 @@ namespace Pellared.SalaryBook.Common
             ValidationProvider.Validate();
         }
 
-        protected abstract IEnumerable<ValidationError> Validation();
+        private void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+        {
+            OnErrorsChanged(e.PropertyName);
+        }
 
-        protected virtual void OnErrorsChanged(string propertyName)
+        private void OnErrorsChanged(string propertyName)
         {
             if (propertyName == ObjectErrorPropertyName)
             {

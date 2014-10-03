@@ -1,14 +1,31 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
-namespace Pellared.Common.Mvvm.ViewModel
+namespace Pellared.Common.Mvvm.Validation
 {
-    public class DataErrorInfoProvider<TError> : IDataErrorInfo
+    public interface IDataErrorInfoProvider : IDataErrorInfo, INotifyDataErrorInfo
+    {
+    }
+
+    public class DataErrorInfoProvider<TError> : IDataErrorInfoProvider
         where TError : ValidationError
     {
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged
+        {
+            add
+            {
+                ErrorsContainer.ErrorsChanged += value;
+            }
+            remove
+            {
+                ErrorsContainer.ErrorsChanged -= value;
+            }
+        }
+
         public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, string objectPropertyName, Func<IEnumerable<TError>, string> errorsFormatter)
         {
             Contract.Requires<ArgumentNullException>(errorsContainer != null, "errorsContainer");
@@ -16,14 +33,13 @@ namespace Pellared.Common.Mvvm.ViewModel
             Contract.Requires<ArgumentNullException>(errorsFormatter != null, "errorsFormatter");
 
             ObjectPropertyName = objectPropertyName;
-            this.ErrorsContainer = errorsContainer;
-            this.ErrorsFormatter = errorsFormatter;
+            ErrorsContainer = errorsContainer;
+            ErrorsFormatter = errorsFormatter;
         }
 
         public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, string objectPropertyName, ArrayFormat arrayFormat = ArrayFormat.First)
             : this(errorsContainer, objectPropertyName, ArrayFormatter.GetErrorFormatter(arrayFormat) as Func<IEnumerable<TError>, string>)
         {
-            Contract.Requires<ArgumentNullException>(errorsContainer != null, "errorsContainer");
         }
 
         public string ObjectPropertyName { get; private set; }
@@ -46,6 +62,16 @@ namespace Pellared.Common.Mvvm.ViewModel
         {
             IEnumerable<TError> allErrors = ErrorsContainer.GetErrors(propertyName);
             return ErrorsFormatter(allErrors);
+        }
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return ErrorsContainer.GetErrors(propertyName);
+        }
+
+        public bool HasErrors
+        {
+            get { return ErrorsContainer.HasErrors; }
         }
     }
 

@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Threading;
 
-namespace Pellared.Common.Mvvm.Threading
+namespace Pellared.Common.Mvvm
 {
+    public interface IUiDispatcher
+    {
+        void InvokeAsync(Action action);
+
+        void InvokeSync(Action action);
+    }
+
     public class UiDispatcher : IUiDispatcher
     {
         private readonly static UiDispatcher current = new UiDispatcher();

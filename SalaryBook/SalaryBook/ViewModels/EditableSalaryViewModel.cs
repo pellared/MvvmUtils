@@ -10,7 +10,7 @@ using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Validators;
 using Pellared.Common;
 using Pellared.Utils.Mvvm.Validation;
-using Pellared.Common.Mvvm.ViewModel;
+using Pellared.Common.Mvvm.Validation;
 using System.Linq;
 
 
@@ -37,7 +37,7 @@ namespace Pellared.SalaryBook.ViewModels
         }
 #endif
         public EditableSalaryViewModel(IValidator<ISalary> salaryValidator)
-        {            
+        {
             SalaryValidator = salaryValidator;
             secondPhaseErrors = new ValidationError[0];
         }
@@ -55,6 +55,7 @@ namespace Pellared.SalaryBook.ViewModels
                 {
                     firstName = value;
                     RaisePropertyChanged(() => FirstName);
+                    RaisePropertyChanged(() => LastName); // they have common validation
                 }
             }
         }
@@ -69,7 +70,8 @@ namespace Pellared.SalaryBook.ViewModels
                 if (value != lastName)
                 {
                     lastName = value;
-                    RaisePropertyChanged(() => LastName);
+                    RaisePropertyChanged(() => FirstName);
+                    RaisePropertyChanged(() => LastName); // they have common validation
                 }
             }
         }
@@ -145,8 +147,6 @@ namespace Pellared.SalaryBook.ViewModels
 
         public void ValidateAll()
         {
-            ValidationProvider.Validate();
-
             var errors = SecondPhaseValidation();
             if (errors != null)
             {
@@ -157,13 +157,11 @@ namespace Pellared.SalaryBook.ViewModels
                 secondPhaseErrors = new ValidationError[0];
             }
 
-            ErrorsContainer.SetErrors(secondPhaseErrors);
-        }
+            ValidationProvider.Validate();
 
-        public override void Validate()
-        {
-            base.Validate();
-            ErrorsContainer.SetErrors(secondPhaseErrors);
+            ValidationProvider.Disable();
+            RaisePropertyChanged(ObjectErrorPropertyName);
+            ValidationProvider.Enable();
         }
 
         public Task ValidateAllAsync()
@@ -173,7 +171,20 @@ namespace Pellared.SalaryBook.ViewModels
 
         protected override IEnumerable<ValidationError> Validation()
         {
-            return SalaryValidator.Validate(this);
+            var result = Enumerable.Empty<ValidationError>();
+            
+            var validationErrors = SalaryValidator.Validate(this);
+            if (!validationErrors.IsNullOrEmpty())
+            {
+                result = result.Concat(validationErrors);
+            }
+
+            if (!secondPhaseErrors.IsNullOrEmpty())
+            {
+                result = result.Concat(secondPhaseErrors);
+            }
+
+            return result;
         }
 
         private IEnumerable<ValidationError> SecondPhaseValidation()

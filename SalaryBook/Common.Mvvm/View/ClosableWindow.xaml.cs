@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 
-using Pellared.Common.Mvvm.Dialog;
-
 namespace Pellared.Common.Mvvm.View
 {
     /// <summary>

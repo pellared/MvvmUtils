@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pellared.Common.Mvvm.ViewModel
+namespace Pellared.Common.Mvvm.Validation
 {
     public enum ArrayFormat
     {

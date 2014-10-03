@@ -10,7 +10,8 @@ using GalaSoft.MvvmLight.Command;
 
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Messages;
-using Pellared.Common.Mvvm.ViewModel;
+using Pellared.Common.Mvvm;
+using Pellared.Common.Mvvm.Validation;
 
 namespace Pellared.SalaryBook.ViewModels
 {

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Pellared.Common.Mvvm.ViewModel
+namespace Pellared.Common.Mvvm.Validation
 {
     public interface IErrorsContainer<TError>
         where TError : ValidationError
     {
-        event EventHandler<ErrorsChangedEventArgs> ErrorsChanged;
+        event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         bool HasErrors { get; }
 
@@ -25,16 +26,6 @@ namespace Pellared.Common.Mvvm.ViewModel
         void SetErrors(IEnumerable<TError> errors);
     }
 
-    public class ErrorsChangedEventArgs : EventArgs
-    {
-        public ErrorsChangedEventArgs(string propertyName)
-        {
-            PropertyName = propertyName;
-        }
-
-        public string PropertyName { get; private set; }
-    }
-
     /// <summary>
     /// Manages validation errors for an object, notifying when the error state changes.
     /// </summary>
@@ -46,7 +37,7 @@ namespace Pellared.Common.Mvvm.ViewModel
 
         private Dictionary<string, List<TError>> propertyErrors = new Dictionary<string, List<TError>>();
 
-        public event EventHandler<ErrorsChangedEventArgs> ErrorsChanged;
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         public bool HasErrors
         {
@@ -78,7 +69,7 @@ namespace Pellared.Common.Mvvm.ViewModel
             propertyErrors = new Dictionary<string, List<TError>>();
             foreach (string propertyName in propertyNames)
             {
-                RaiseErrorsChanged(new ErrorsChangedEventArgs(propertyName));
+                RaiseErrorsChanged(new DataErrorsChangedEventArgs(propertyName));
             }
         }
 
@@ -102,9 +93,9 @@ namespace Pellared.Common.Mvvm.ViewModel
             }
         }
 
-        protected void RaiseErrorsChanged(ErrorsChangedEventArgs eventArgs)
+        protected void RaiseErrorsChanged(DataErrorsChangedEventArgs eventArgs)
         {
-            EventHandler<ErrorsChangedEventArgs> handler = ErrorsChanged;
+            var handler = ErrorsChanged;
             if (handler != null)
             {
                 handler(this, eventArgs);
@@ -129,7 +120,7 @@ namespace Pellared.Common.Mvvm.ViewModel
 
                 }
 
-                RaiseErrorsChanged(new ErrorsChangedEventArgs(localPropertyName));
+                RaiseErrorsChanged(new DataErrorsChangedEventArgs(localPropertyName));
             }
         }
     }

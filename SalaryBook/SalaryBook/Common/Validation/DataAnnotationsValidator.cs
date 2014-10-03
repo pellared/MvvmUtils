@@ -1,4 +1,4 @@
-﻿using Pellared.Common.Mvvm.ViewModel;
+﻿using Pellared.Common.Mvvm.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

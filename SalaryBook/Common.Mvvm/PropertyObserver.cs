@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows;
 
-namespace Pellared.Common.Mvvm.ViewModel
+namespace Pellared.Common.Mvvm
 {
     /// <summary>
     ///     Monitors the PropertyChanged event of an object that implements INotifyPropertyChanged,

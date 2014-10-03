@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
-namespace Pellared.Common.Mvvm.ViewModel
+namespace Pellared.Common.Mvvm.Validation
 {
     public interface IValidationProvider
     {
@@ -40,7 +40,7 @@ namespace Pellared.Common.Mvvm.ViewModel
                 ErrorsContainer.ClearAllErrors();
 
                 IEnumerable<TError> errors = Validation();
-                if (errors != null)
+                if (!errors.IsNullOrEmpty())
                 {
                     ErrorsContainer.SetErrors(errors);
                 }
@@ -49,13 +49,11 @@ namespace Pellared.Common.Mvvm.ViewModel
 
         public void Enable()
         {
-            Validate();
             isEnabled = true;
         }
 
         public void Disable()
         {
-            ErrorsContainer.ClearAllErrors();
             isEnabled = false;
         }
     }

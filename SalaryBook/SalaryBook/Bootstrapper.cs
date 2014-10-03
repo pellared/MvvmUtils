@@ -16,7 +16,7 @@ using Pellared.SalaryBook.IO;
 using Pellared.SalaryBook.Services;
 using Pellared.SalaryBook.Validators;
 using Pellared.SalaryBook.ViewModels;
-using Pellared.Common.Mvvm.Dialog;
+using Pellared.Common.Mvvm;
 using Pellared.Utils.Mvvm.Validation;
 
 namespace Pellared.SalaryBook
