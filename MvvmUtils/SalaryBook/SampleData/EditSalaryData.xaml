@@ -1,0 +1,5 @@
+<ViewModels:EditSalaryViewModel xmlns:ViewModels="clr-namespace:SalaryBook.ViewModels">
+	<ViewModels:EditSalaryViewModel.EditableSalaryViewModel>
+		<ViewModels:EditableSalaryViewModel Error="Phasellus praesent accumsan adipiscing" FirstName="Aenean mauris curabitur maecenas" HasErrors="True" IsInDesignMode="False" IsInDesignModeStatic="True" LastName="Vestibulum nullam" SalaryValue="770.06"/>
+	</ViewModels:EditSalaryViewModel.EditableSalaryViewModel>
+</ViewModels:EditSalaryViewModel>

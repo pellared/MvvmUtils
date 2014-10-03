@@ -1,0 +1,9 @@
+﻿<x:Array
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="clr-namespace:Pellared.SalaryBook.ViewModels"
+    Type="{x:Type vm:EditableSalaryViewModel}"
+    x:Class="Pellared.SalaryBook.SampleData.c__ccm_tfs_drivemonitor_playground_salarybookv2_salarybook_sampledata_salarytabledata_xaml">
+    
+    <vm:EditableSalaryViewModel FirstName="Jan" LastName="Testowy" BirthDate="11-03-1990" SalaryValue="1100" />
+    <vm:EditableSalaryViewModel FirstName="Andrzej" LastName="Kowal" BirthDate="11-22-1991" SalaryValue="2800" />
+    <vm:EditableSalaryViewModel FirstName="Pan" LastName="Duży" BirthDate="11-12-1980" SalaryValue="3800" />
+</x:Array>
