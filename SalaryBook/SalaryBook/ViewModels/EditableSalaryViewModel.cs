@@ -11,6 +11,7 @@ using Pellared.SalaryBook.Validators;
 using Pellared.Common;
 using Pellared.Utils.Mvvm.Validation;
 using Pellared.Common.Mvvm.ViewModel;
+using System.Linq;
 
 
 namespace Pellared.SalaryBook.ViewModels
@@ -39,12 +40,22 @@ namespace Pellared.SalaryBook.ViewModels
         }
 #endif
         public EditableSalaryViewModel(IValidator<ISalary> salaryValidator)
-        {
+            : base(new ErrorsContainer<ValidationError>(),
+            new DataErrorInfoProvider<ValidationError>(new CompositeErrorsContainer<ValidationError>(), ObjectErrorPropertyName, ArrayFormat.First))
+        {            
             this.salaryValidator = salaryValidator;
 
-            secondPhaseErrorsContainer = new ErrorsContainer<ValidationError>(OnErrorsChanged);
+            // BUG: We have to make a TwoPhaseValidationProvider which is a composite of two validationproviders and has an additional method ValidateAll
+
+            //  make the second phase error container and validation provider
+            secondPhaseErrorsContainer = new ErrorsContainer<ValidationError>();
+            secondPhaseErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
             secondPhaseValidationProvider = new ValidationProvider<ValidationError>(secondPhaseErrorsContainer, SecondPhaseValidation, error => error.PropertyName);
-            DataErrorInfoProvider.AddErrorsContainer(secondPhaseErrorsContainer);
+
+            // composite the error containers
+            var dataErrorInfoProvider = DataErrorInfoProvider as DataErrorInfoProvider<ValidationError>;
+            var errorsContainers = dataErrorInfoProvider.ErrorsContainer as CompositeErrorsContainer<ValidationError>;
+            errorsContainers.AddErrorsContainer(ErrorsContainer).AddErrorsContainer(secondPhaseErrorsContainer);
         }
 
         private string firstName;
@@ -148,23 +159,13 @@ namespace Pellared.SalaryBook.ViewModels
 
         public void ValidateAll()
         {
-            base.Validate();
-            ValidateSecondPhase();
+            ValidationProvider.Validate();
+            secondPhaseValidationProvider.Validate();
         }
 
         public Task ValidateAllAsync()
         {
             return Task.Run(() => ValidateAll());
-        }
-
-        public override void Validate()
-        {
-            Task.Run(() => base.Validate());
-        }
-
-        public void ValidateSecondPhase()
-        {
-            secondPhaseValidationProvider.Validate();
         }
 
         protected override IEnumerable<ValidationError> Validation()

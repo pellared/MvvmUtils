@@ -5,18 +5,18 @@ using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
 using System.Windows.Threading;
 
-namespace Pellared.Common.Mvvm.ViewModel
+namespace Pellared.Common.Mvvm
 {
     public class ConcurrentObservableCollection<T> : ObservableCollection<T>
     {
         /// <summary>
-        ///     This private variable holds the flag to
-        ///     turn on and off the collection changed notification.
+        /// This private variable holds the flag to
+        /// turn on and off the collection changed notification.
         /// </summary>
         private bool suspendCollectionChangeNotification;
 
         /// <summary>
-        ///     Initializes a new instance of the FastObservableCollection class.
+        /// Initializes a new instance of the FastObservableCollection class.
         /// </summary>
         public ConcurrentObservableCollection()
             : base()
@@ -25,14 +25,14 @@ namespace Pellared.Common.Mvvm.ViewModel
         }
 
         /// <summary>
-        ///     This event is overridden CollectionChanged event of the observable collection.
+        /// This event is overridden CollectionChanged event of the observable collection.
         /// </summary>
         public override event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
-        ///     This method adds the given generic list of items
-        ///     as a range into current collection by casting them as type T.
-        ///     It then notifies once after all items are added.
+        /// This method adds the given generic list of items
+        /// as a range into current collection by casting them as type T.
+        /// It then notifies once after all items are added.
         /// </summary>
         /// <param name="items">The source collection.</param>
         public void Add(IEnumerable<T> items)
@@ -54,9 +54,9 @@ namespace Pellared.Common.Mvvm.ViewModel
         }
 
         /// <summary>
-        ///     This method removes the given generic list of items as a range
-        ///     into current collection by casting them as type T.
-        ///     It then notifies once after all items are removed.
+        /// This method removes the given generic list of items as a range
+        /// into current collection by casting them as type T.
+        /// It then notifies once after all items are removed.
         /// </summary>
         /// <param name="items">The source collection.</param>
         public void Remove(IEnumerable<T> items)
@@ -78,7 +78,7 @@ namespace Pellared.Common.Mvvm.ViewModel
         }
 
         /// <summary>
-        ///     Resumes collection changed notification.
+        /// Resumes collection changed notification.
         /// </summary>
         public void ResumeCollectionChangeNotification()
         {
@@ -86,7 +86,7 @@ namespace Pellared.Common.Mvvm.ViewModel
         }
 
         /// <summary>
-        ///     Suspends collection changed notification.
+        /// Suspends collection changed notification.
         /// </summary>
         public void SuspendCollectionChangeNotification()
         {
@@ -94,7 +94,7 @@ namespace Pellared.Common.Mvvm.ViewModel
         }
 
         /// <summary>
-        ///     Raises collection change event.
+        /// Raises collection change event.
         /// </summary>
         public void NotifyChanges()
         {
@@ -104,7 +104,7 @@ namespace Pellared.Common.Mvvm.ViewModel
         }
 
         /// <summary>
-        ///     This collection changed event performs thread safe event raising.
+        /// This collection changed event performs thread safe event raising.
         /// </summary>
         /// <param name="e">The event argument.</param>
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)

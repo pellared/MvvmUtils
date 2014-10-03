@@ -20,35 +20,16 @@ namespace Pellared.Common.Mvvm.Threading
         }
 
         /// <summary>
-        ///     Invokes an action asynchronously on the UI thread.
-        /// </summary>
-        /// <param name="action">The action that must be executed.</param>
-        public void InvokeAsync(Action action)
-        {
-            synchronizationContext.Post(x => action(), null);
-        }
-
-        /// <summary>
-        ///     Invokes an action asynchronously on the UI thread.
-        /// </summary>
-        /// <param name="action">The action that must be executed.</param>
-        /// <param name="argument">Argument passed to the function.</param>
-        public void InvokeAsync<T>(Action<T> action, T argument)
-        {
-            synchronizationContext.Post(x => action((T)x), argument);
-        }
-
-        /// <summary>
-        ///     Executes an action on the UI thread. If this method is called
-        ///     from the UI thread, the action is executed immendiately. If the
-        ///     method is called from another thread, the action will be enqueued
-        ///     on the UI thread's dispatcher and executed asynchronously.
+        /// Executes an action on the UI thread. If this method is called
+        /// from the UI thread, the action is executed immendiately. If the
+        /// method is called from another thread, the action will be enqueued
+        /// on the UI thread's dispatcher and executed asynchronously.
         /// </summary>
         /// <param name="action">
-        ///     The action that will be executed on the UI
-        ///     thread.
+        /// The action that will be executed on the UI
+        /// thread.
         /// </param>
-        public void Invoke(Action action)
+        public void InvokeAsync(Action action)
         {
             if (synchronizationContext == SynchronizationContext.Current)
             {
@@ -56,31 +37,31 @@ namespace Pellared.Common.Mvvm.Threading
             }
             else
             {
-                InvokeAsync(action);
+                synchronizationContext.Post(x => action(), null);
             }
         }
 
         /// <summary>
-        ///     Executes an action on the UI thread. If this method is called
-        ///     from the UI thread, the action is executed immendiately. If the
-        ///     method is called from another thread, the action will be enqueued
-        ///     on the UI thread's dispatcher and executed asynchronously.
+        /// Executes an action on the UI thread. If this method is called
+        /// from the UI thread, the action is executed immendiately. If the
+        /// method is called from another thread, the action will be
+        /// executed synchronously.
         /// </summary>
         /// <param name="action">
-        ///     The action that will be executed on the UI
-        ///     thread.
+        /// The action that will be executed on the UI
+        /// thread.
         /// </param>
-        /// <param name="argument">Argument passed to the function.</param>
-        public void Invoke<T>(Action<T> action, T argument)
+        public void InvokeSync(Action action)
         {
             if (synchronizationContext == SynchronizationContext.Current)
             {
-                action(argument);
+                action();
             }
             else
             {
-                InvokeAsync(action, argument);
+                synchronizationContext.Send(x => action(), null);
             }
         }
+
     }
 }

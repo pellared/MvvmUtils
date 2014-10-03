@@ -26,7 +26,7 @@ namespace Pellared.SalaryBook.ViewModels
 
             editableSalaryViewModelObserver = new PropertyObserver<EditableSalaryViewModel>(EditableSalaryViewModel);
             editableSalaryViewModelObserver.RegisterHandler(x => x.HasErrors, x => RefreshCommands());
-            EditableSalaryViewModel.Validate();
+            EditableSalaryViewModel.ValidationProvider.Validate();
         }
 
         public EditableSalaryViewModel EditableSalaryViewModel

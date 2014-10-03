@@ -20,6 +20,7 @@ namespace Pellared.SalaryBook.Validators
             FluentValidator.RuleFor(x => x.LastName)
                            .Must((instance, _) => nameValidation(instance))
                            .WithMessage(Resources.NameValidationErrorText);
+
             FluentValidator.ObjectRule(x => nameValidation(x) ? null : Resources.NameValidationErrorText);
 
             FluentValidator.RuleFor(x => x.BirthDate).NotEmpty().WithName(Resources.BirthDateText);

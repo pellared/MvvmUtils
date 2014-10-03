@@ -5,11 +5,22 @@ using System.Linq;
 
 namespace Pellared.Common.Mvvm.ViewModel
 {
-    public class ValidationProvider<TError>
+    public interface IValidationProvider
+    {
+        void Validate();
+
+        void Disable();
+
+        void Enable();
+    }
+
+    public class ValidationProvider<TError> : IValidationProvider
     {
         private readonly IErrorsContainer<TError> errorsContainer;
         private readonly Func<IEnumerable<TError>> validation;
         private readonly Func<TError, string> propertyNameSelector;
+
+        private bool isEnabled;
 
         public ValidationProvider(IErrorsContainer<TError> errorsContainer, Func<IEnumerable<TError>> validation,
             Func<TError, string> propertyNameSelector)
@@ -21,21 +32,38 @@ namespace Pellared.Common.Mvvm.ViewModel
             this.errorsContainer = errorsContainer;
             this.validation = validation;
             this.propertyNameSelector = propertyNameSelector;
+            isEnabled = true;
         }
 
         public void Validate()
         {
-            errorsContainer.ClearAllErrors();
-
-            IEnumerable<TError> errors = validation();
-            if (errors != null)
+            if (isEnabled)
             {
-                IEnumerable<IGrouping<string, TError>> propertyErrors = errors.GroupBy(propertyNameSelector);
-                foreach (IGrouping<string, TError> validationErrors in propertyErrors)
+                errorsContainer.ClearAllErrors();
+
+                IEnumerable<TError> errors = validation();
+                if (errors != null)
                 {
-                    errorsContainer.SetErrors(validationErrors.Key, validationErrors);
+                    IEnumerable<IGrouping<string, TError>> propertyErrors = errors.GroupBy(propertyNameSelector);
+                    foreach (IGrouping<string, TError> validationErrors in propertyErrors)
+                    {
+                        errorsContainer.SetErrors(validationErrors.Key, validationErrors);
+
+                    }
                 }
             }
+        }
+
+        public void Enable()
+        {
+            Validate();
+            isEnabled = true;
+        }
+
+        public void Disable()
+        {
+            errorsContainer.ClearAllErrors();
+            isEnabled = false;
         }
     }
 }

@@ -8,8 +8,8 @@
     <ProjectGuid>{0B3542DD-847D-4F9A-B986-CE7038BC1D20}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pellared.Utils.Mvvm</RootNamespace>
-    <AssemblyName>Pellared.Utils.Mvvm</AssemblyName>
+    <RootNamespace>Pellared.Common.Mvvm</RootNamespace>
+    <AssemblyName>Pellared.Common.Mvvm</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
@@ -128,22 +128,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Threading\IUiDispatcher.cs" />
-    <Compile Include="ViewModel\ConcurrentObservableCollection.cs" />
-    <Compile Include="ViewModel\DataErrorInfoProvider.cs" />
-    <Compile Include="ViewModel\ErrorContainer.cs" />
+    <Compile Include="ConcurrentObservableCollection.cs" />
+    <Compile Include="Validation\CompositeErrorsContainer.cs" />
+    <Compile Include="Validation\DataErrorInfoProvider.cs" />
+    <Compile Include="Validation\ErrorContainer.cs" />
     <Compile Include="Threading\UiDispatcher.cs" />
     <Compile Include="Dialog\IDialogViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\ArrayFormatter.cs" />
-    <Compile Include="ViewModel\IErrorsContainer.cs" />
-    <Compile Include="ViewModel\PropertyObserver.cs" />
+    <Compile Include="Validation\ArrayFormatter.cs" />
+    <Compile Include="Validation\ErrorContainerExtensions.cs" />
+    <Compile Include="Validation\IErrorsContainer.cs" />
+    <Compile Include="PropertyObserver.cs" />
     <Compile Include="Dialog\IDialogService.cs" />
     <Compile Include="Dialog\DialogService.cs" />
     <Compile Include="View\WindowEx.cs" />
     <Compile Include="View\ClosableWindow.xaml.cs">
       <DependentUpon>ClosableWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\ValidationProvider.cs" />
+    <Compile Include="Validation\ValidationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\ClosableWindow.xaml">
