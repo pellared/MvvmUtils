@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -89,7 +88,6 @@ namespace Pellared.Common.Mvvm.Validation
             foreach (IGrouping<string, TError> validationErrors in propertyErrors)
             {
                 SetErrors(validationErrors.Key, validationErrors);
-
             }
         }
 
@@ -117,7 +115,6 @@ namespace Pellared.Common.Mvvm.Validation
                 else
                 {
                     propertyErrors.Remove(localPropertyName);
-
                 }
 
                 RaiseErrorsChanged(new DataErrorsChangedEventArgs(localPropertyName));

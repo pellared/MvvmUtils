@@ -1,19 +1,17 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Pellared.Common.Mvvm;
+using Pellared.Common.Mvvm.Validation;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.IO;
 using Pellared.SalaryBook.Messages;
 using Pellared.SalaryBook.Properties;
 using Pellared.SalaryBook.Services;
-using Pellared.Common.Mvvm;
-using Pellared.Utils.Mvvm.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 

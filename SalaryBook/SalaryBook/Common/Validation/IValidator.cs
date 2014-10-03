@@ -1,7 +1,0 @@
-﻿using Pellared.Common.Mvvm.Validation;
-using Pellared.Utils.Mvvm.Validation.Generic;
-
-namespace Pellared.Utils.Mvvm.Validation
-{
-    public interface IValidator<in TObject> : IValidator<TObject, ValidationError> { }
-}

@@ -18,8 +18,10 @@ namespace Pellared.Common.Mvvm.Validation
             {
                 case ArrayFormat.First:
                     return GetFirstString;
+
                 case ArrayFormat.Multiline:
                     return GetMultilineString;
+
                 default:
                     throw new ArgumentOutOfRangeException("arrayFormat");
             }

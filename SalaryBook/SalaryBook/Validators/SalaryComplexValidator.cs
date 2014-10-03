@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-
+﻿using FluentValidation;
+using Pellared.SalaryBook.Common;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Properties;
-using Pellared.Utils.Mvvm.Validation;
+using System;
+using System.Threading;
 
 namespace Pellared.SalaryBook.Validators
 {
-    public class SalaryComplexValidator : DelegateValidator<ISalary>
+    public class SalaryComplexValidator : FluentInlineValidator<ISalary>
     {
         public SalaryComplexValidator()
-            : base(x => x.BirthDate, BirthDateValidation)
         {
+            FluentValidator.RuleFor(x => x.BirthDate)
+                .Must(OlderThan18)
+                .WithMessage(Resources.ComplexBirthDateValidatationErrorText);
         }
 
-        private static string BirthDateValidation(ISalary salary)
+        private static bool OlderThan18(DateTime? birthDate)
         {
-            Thread.Sleep(3000);
-            if (salary.BirthDate > DateTime.Today.AddYears(-18))
-                return Resources.ComplexBirthDateValidatationErrorText;
-
-            return null;
+            Thread.Sleep(1000);
+            return birthDate < DateTime.Today.AddYears(-18);
         }
     }
 }

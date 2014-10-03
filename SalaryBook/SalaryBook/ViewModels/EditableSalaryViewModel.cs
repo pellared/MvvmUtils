@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Threading.Tasks;
-
-using AutoMapper;
-
+﻿using AutoMapper;
+using Pellared.Common;
+using Pellared.Common.Mvvm.Validation;
 using Pellared.SalaryBook.Common;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Validators;
-using Pellared.Common;
-using Pellared.Utils.Mvvm.Validation;
-using Pellared.Common.Mvvm.Validation;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace Pellared.SalaryBook.ViewModels
 {
@@ -22,6 +18,7 @@ namespace Pellared.SalaryBook.ViewModels
         private ValidationError[] secondPhaseErrors;
 
 #if DEBUG
+
         /// <summary>
         /// Design-time constructor
         /// </summary>
@@ -35,7 +32,9 @@ namespace Pellared.SalaryBook.ViewModels
                 SalaryValue = 1000;
             }
         }
+
 #endif
+
         public EditableSalaryViewModel(IValidator<ISalary> salaryValidator)
         {
             SalaryValidator = salaryValidator;
@@ -55,7 +54,6 @@ namespace Pellared.SalaryBook.ViewModels
                 {
                     firstName = value;
                     RaisePropertyChanged(() => FirstName);
-                    RaisePropertyChanged(() => LastName); // they have common validation
                 }
             }
         }
@@ -70,8 +68,7 @@ namespace Pellared.SalaryBook.ViewModels
                 if (value != lastName)
                 {
                     lastName = value;
-                    RaisePropertyChanged(() => FirstName);
-                    RaisePropertyChanged(() => LastName); // they have common validation
+                    RaisePropertyChanged(() => LastName);
                 }
             }
         }
@@ -172,7 +169,7 @@ namespace Pellared.SalaryBook.ViewModels
         protected override IEnumerable<ValidationError> Validation()
         {
             var result = Enumerable.Empty<ValidationError>();
-            
+
             var validationErrors = SalaryValidator.Validate(this);
             if (!validationErrors.IsNullOrEmpty())
             {

@@ -1,7 +1,6 @@
-﻿using Pellared.SalaryBook.Entities;
-using Pellared.Common.Mvvm;
+﻿using Pellared.Common.Mvvm;
+using Pellared.SalaryBook.Entities;
 using System;
-using System.ComponentModel;
 
 namespace Pellared.SalaryBook.ViewModels
 {

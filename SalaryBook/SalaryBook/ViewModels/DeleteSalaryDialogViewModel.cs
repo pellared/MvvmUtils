@@ -1,11 +1,9 @@
-﻿using System.Windows.Input;
-
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
+using Pellared.Common.Mvvm;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Properties;
-using Pellared.Common.Mvvm;
+using System.Windows.Input;
 
 namespace Pellared.SalaryBook.ViewModels
 {
@@ -69,7 +67,7 @@ namespace Pellared.SalaryBook.ViewModels
             }
         }
 
-        #endregion
+        #endregion Delete command
 
         #region Cancel command
 
@@ -86,6 +84,6 @@ namespace Pellared.SalaryBook.ViewModels
             Closed = true;
         }
 
-        #endregion
+        #endregion Cancel command
     }
 }

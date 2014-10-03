@@ -1,14 +1,10 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
+using Pellared.Common.Mvvm.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
-
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
-
-using Pellared.Common.Mvvm.Validation;
-using Pellared.Utils.Mvvm.Validation;
 
 namespace Pellared.SalaryBook.Common
 {
@@ -42,7 +38,6 @@ namespace Pellared.SalaryBook.Common
 
         public IDataErrorInfoProvider DataErrorInfoProvider { get; private set; }
 
-
         public virtual bool HasErrors
         {
             get { return DataErrorInfoProvider.HasErrors; }
@@ -50,7 +45,7 @@ namespace Pellared.SalaryBook.Common
 
         public virtual string Error
         {
-            get 
+            get
             {
                 return DataErrorInfoProvider.Error;
             }

@@ -1,14 +1,12 @@
-﻿using System;
-
-using FluentValidation;
-
+﻿using FluentValidation;
+using Pellared.SalaryBook.Common;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Properties;
-using Pellared.Utils.Mvvm.Validation;
+using System;
 
 namespace Pellared.SalaryBook.Validators
 {
-    public class SalaryValidator : InlineFluentValidator<ISalary>
+    public class SalaryValidator : FluentInlineValidator<ISalary>
     {
         public SalaryValidator()
         {

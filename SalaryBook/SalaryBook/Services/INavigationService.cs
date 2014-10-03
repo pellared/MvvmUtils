@@ -3,6 +3,7 @@
     public interface INavigationService
     {
         void Navigate(object viewModel);
+
         void NavigateToMainSalary();
     }
 }

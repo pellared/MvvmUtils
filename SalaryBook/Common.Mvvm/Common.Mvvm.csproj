@@ -116,6 +116,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
@@ -128,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConcurrentObservableCollection.cs" />
+    <Compile Include="Validation\DataAnnotationsValidator.cs" />
     <Compile Include="Validation\DataErrorInfoProvider.cs" />
     <Compile Include="Validation\ErrorContainer.cs" />
     <Compile Include="UiDispatcher.cs" />
@@ -135,6 +137,7 @@
     <Compile Include="Validation\ArrayFormatter.cs" />
     <Compile Include="PropertyObserver.cs" />
     <Compile Include="DialogService.cs" />
+    <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\ValidationError.cs" />
     <Compile Include="View\WindowEx.cs" />
     <Compile Include="View\ClosableWindow.xaml.cs">

@@ -1,10 +1,7 @@
-﻿using System.ComponentModel;
-using System.Windows.Input;
-
-using GalaSoft.MvvmLight.Command;
-
+﻿using GalaSoft.MvvmLight.Command;
 using Pellared.SalaryBook.Services;
-using System;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Pellared.SalaryBook.ViewModels
 {
@@ -14,6 +11,7 @@ namespace Pellared.SalaryBook.ViewModels
         private readonly EditableSalaryViewModel editableSalaryViewModel;
 
 #if DEBUG
+
         /// <summary>
         /// Design-time constructor
         /// </summary>
@@ -21,6 +19,7 @@ namespace Pellared.SalaryBook.ViewModels
         {
             editableSalaryViewModel = new EditableSalaryViewModel();
         }
+
 #endif
 
         public EditSalaryViewModel(INavigationService navigationService,
@@ -72,7 +71,7 @@ namespace Pellared.SalaryBook.ViewModels
             navigationService.NavigateToMainSalary();
         }
 
-        #endregion
+        #endregion Save command
 
         #region Cancel command
 
@@ -89,6 +88,6 @@ namespace Pellared.SalaryBook.ViewModels
             navigationService.NavigateToMainSalary();
         }
 
-        #endregion
+        #endregion Cancel command
     }
 }

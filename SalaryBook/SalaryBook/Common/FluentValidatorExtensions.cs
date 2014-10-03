@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
+using System;
 
-namespace Pellared.Utils.Mvvm.Validation
+namespace Pellared.SalaryBook.Common
 {
     public static class FluentValidatorExtensions
     {

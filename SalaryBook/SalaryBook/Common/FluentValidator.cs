@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation.Results;
+using Pellared.Common.Mvvm.Validation;
+using System.Collections.Generic;
 using System.Linq;
 
-using FluentValidation.Results;
-using Pellared.Common.Mvvm.Validation;
-
-namespace Pellared.Utils.Mvvm.Validation
+namespace Pellared.SalaryBook.Common
 {
     public class FluentValidator<TObject> : IValidator<TObject>
     {

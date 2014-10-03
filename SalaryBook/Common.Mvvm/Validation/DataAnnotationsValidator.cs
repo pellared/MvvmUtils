@@ -1,10 +1,8 @@
-﻿using Pellared.Common.Mvvm.Validation;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Pellared.Utils.Mvvm.Validation
+namespace Pellared.Common.Mvvm.Validation
 {
     public class DataAnnotationsValidator<TObject> : IValidator<TObject>
     {
@@ -26,7 +24,7 @@ namespace Pellared.Utils.Mvvm.Validation
                     from result in validationResult
                     from propertyName in result.MemberNames
                     select new ValidationError(propertyName, result.ErrorMessage);
-            
+
             return errors;
         }
     }

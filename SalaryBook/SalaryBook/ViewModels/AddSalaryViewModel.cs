@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows.Input;
-
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
+using Pellared.Common.Mvvm;
 using Pellared.SalaryBook.Entities;
 using Pellared.SalaryBook.Messages;
-using Pellared.Common.Mvvm;
-using Pellared.Common.Mvvm.Validation;
+using System.Windows.Input;
 
 namespace Pellared.SalaryBook.ViewModels
 {
@@ -42,7 +34,7 @@ namespace Pellared.SalaryBook.ViewModels
 
         #region Add command
 
-        private readonly RelayCommand addCommand; 
+        private readonly RelayCommand addCommand;
 
         public ICommand AddCommand
         {
@@ -60,6 +52,6 @@ namespace Pellared.SalaryBook.ViewModels
             }
         }
 
-        #endregion
+        #endregion Add command
     }
 }

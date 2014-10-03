@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Linq;
 
 namespace Pellared.Common.Mvvm.Validation
 {
@@ -75,7 +74,7 @@ namespace Pellared.Common.Mvvm.Validation
         }
     }
 
-    public class DataErrorInfoProvider :  DataErrorInfoProvider<ValidationError>
+    public class DataErrorInfoProvider : DataErrorInfoProvider<ValidationError>
     {
         public DataErrorInfoProvider(IErrorsContainer<ValidationError> errorsContainer, string objectPropertyName, Func<IEnumerable<ValidationError>, string> errorsFormatter)
             : base(errorsContainer, objectPropertyName, errorsFormatter)

@@ -1,7 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Autofac;
+using Pellared.Common.Mvvm;
+using Pellared.Common.Mvvm.Validation;
+using Pellared.SalaryBook.Entities;
+using Pellared.SalaryBook.IO;
+using Pellared.SalaryBook.Services;
+using Pellared.SalaryBook.Validators;
+using Pellared.SalaryBook.ViewModels;
+using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
@@ -9,29 +14,20 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Markup;
 
-using Autofac;
-
-using Pellared.SalaryBook.Entities;
-using Pellared.SalaryBook.IO;
-using Pellared.SalaryBook.Services;
-using Pellared.SalaryBook.Validators;
-using Pellared.SalaryBook.ViewModels;
-using Pellared.Common.Mvvm;
-using Pellared.Utils.Mvvm.Validation;
-
 namespace Pellared.SalaryBook
 {
     public sealed class Bootstrapper : IDisposable
     {
-        public class WindowArgs 
+        public class WindowArgs
         {
             public Window MainWindow { get; set; }
+
             public Form MainForm { get; set; }
         }
 
         private readonly WindowArgs windowArgs;
         private readonly MainViewModel mainViewModel;
-		private readonly ContainerBuilder containerBuilder;
+        private readonly ContainerBuilder containerBuilder;
         private IContainer container;
 
         public Bootstrapper(WindowArgs windowArgs)
@@ -107,14 +103,14 @@ namespace Pellared.SalaryBook
 
         private void ConfigureNavigationService()
         {
-            NavigationService navigationService = container.Resolve <NavigationService>();
+            NavigationService navigationService = container.Resolve<NavigationService>();
             navigationService.Initialize(container);
             navigationService.NavigateToMainSalary();
         }
 
         /// <summary>
-        /// Ensure the current culture passed into bindings 
-        /// is the OS culture. By default, WPF uses en-US 
+        /// Ensure the current culture passed into bindings
+        /// is the OS culture. By default, WPF uses en-US
         /// as the culture, regardless of the system settings
         /// </summary>
         private static void FixLocalizedBindings()
