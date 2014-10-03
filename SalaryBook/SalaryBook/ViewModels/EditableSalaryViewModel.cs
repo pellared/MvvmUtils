@@ -19,10 +19,9 @@ namespace Pellared.SalaryBook.ViewModels
     public class EditableSalaryViewModel : ValidatableViewModel, IEditableObject, ISalary
     {
         private readonly IValidator<ISalary> salaryValidator;
-        private Memento<EditableSalaryViewModel> memento;
 
-        private readonly ErrorsContainer<ValidationError> secondPhaseErrorsContainer;
-        private readonly ValidationProvider<ValidationError> secondPhaseValidationProvider;
+        private Memento<EditableSalaryViewModel> memento;
+        private ValidationError[] secondPhaseErrors;
 
 #if DEBUG
         /// <summary>
@@ -40,22 +39,9 @@ namespace Pellared.SalaryBook.ViewModels
         }
 #endif
         public EditableSalaryViewModel(IValidator<ISalary> salaryValidator)
-            : base(new ErrorsContainer<ValidationError>(),
-            new DataErrorInfoProvider<ValidationError>(new CompositeErrorsContainer<ValidationError>(), ObjectErrorPropertyName, ArrayFormat.First))
         {            
             this.salaryValidator = salaryValidator;
-
-            // BUG: We have to make a TwoPhaseValidationProvider which is a composite of two validationproviders and has an additional method ValidateAll
-
-            //  make the second phase error container and validation provider
-            secondPhaseErrorsContainer = new ErrorsContainer<ValidationError>();
-            secondPhaseErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            secondPhaseValidationProvider = new ValidationProvider<ValidationError>(secondPhaseErrorsContainer, SecondPhaseValidation, error => error.PropertyName);
-
-            // composite the error containers
-            var dataErrorInfoProvider = DataErrorInfoProvider as DataErrorInfoProvider<ValidationError>;
-            var errorsContainers = dataErrorInfoProvider.ErrorsContainer as CompositeErrorsContainer<ValidationError>;
-            errorsContainers.AddErrorsContainer(ErrorsContainer).AddErrorsContainer(secondPhaseErrorsContainer);
+            secondPhaseErrors = new ValidationError[0];
         }
 
         private string firstName;
@@ -160,7 +146,24 @@ namespace Pellared.SalaryBook.ViewModels
         public void ValidateAll()
         {
             ValidationProvider.Validate();
-            secondPhaseValidationProvider.Validate();
+
+            secondPhaseErrors = SecondPhaseValidation().ToArray();
+            SetErrors(secondPhaseErrors);
+        }
+
+        public override void Validate()
+        {
+            base.Validate();
+            SetErrors(secondPhaseErrors);
+        }
+
+        private void SetErrors(IEnumerable<ValidationError> secondPhaseErrors)
+        {
+            var groupedErrors = secondPhaseErrors.GroupBy(x => x.PropertyName);
+            foreach (var propertyErrors in groupedErrors)
+            {
+                ErrorsContainer.SetErrors(propertyErrors.Key, propertyErrors);
+            }
         }
 
         public Task ValidateAllAsync()

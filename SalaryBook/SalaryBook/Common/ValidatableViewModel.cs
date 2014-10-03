@@ -57,24 +57,6 @@ namespace Pellared.SalaryBook.Common
             ValidationProvider = new ValidationProvider<ValidationError>(ErrorsContainer, Validation, error => error.PropertyName);
         }
 
-        // extract to base
-        protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer, IValidationProvider validationProvider)
-        {
-            ErrorsContainer = errorsContainer;
-            ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(ErrorsContainer, ObjectErrorPropertyName, ArrayFormat.First);
-            ValidationProvider = validationProvider;
-        }
-
-        // extract to base
-        protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer, IDataErrorInfo dataErrorInfoProvider, IValidationProvider validationProvider)
-        {
-            ErrorsContainer = errorsContainer;
-            ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = dataErrorInfoProvider;
-            ValidationProvider = validationProvider;
-        }
-
         public IValidationProvider ValidationProvider { get; private set; }
 
         public IErrorsContainer<ValidationError> ErrorsContainer { get; private set; }
@@ -102,10 +84,15 @@ namespace Pellared.SalaryBook.Common
             }
         }
 
+        public virtual void Validate()
+        {
+            ValidationProvider.Validate();
+        }
+
         protected override void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression)
         {
             base.RaisePropertyChanged(propertyExpression);
-            ValidationProvider.Validate();
+            Validate();
         }
 
         protected override void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression, T oldValue, T newValue, bool broadcast)
