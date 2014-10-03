@@ -147,23 +147,23 @@ namespace Pellared.SalaryBook.ViewModels
         {
             ValidationProvider.Validate();
 
-            secondPhaseErrors = SecondPhaseValidation().ToArray();
-            SetErrors(secondPhaseErrors);
+            var errors = SecondPhaseValidation();
+            if (errors != null)
+            {
+                secondPhaseErrors = errors.ToArray();
+            }
+            else
+            {
+                secondPhaseErrors = new ValidationError[0];
+            }
+
+            ErrorsContainer.SetErrors(secondPhaseErrors);
         }
 
         public override void Validate()
         {
             base.Validate();
-            SetErrors(secondPhaseErrors);
-        }
-
-        private void SetErrors(IEnumerable<ValidationError> secondPhaseErrors)
-        {
-            var groupedErrors = secondPhaseErrors.GroupBy(x => x.PropertyName);
-            foreach (var propertyErrors in groupedErrors)
-            {
-                ErrorsContainer.SetErrors(propertyErrors.Key, propertyErrors);
-            }
+            ErrorsContainer.SetErrors(secondPhaseErrors);
         }
 
         public Task ValidateAllAsync()

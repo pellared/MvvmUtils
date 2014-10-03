@@ -7,6 +7,7 @@ using System.Linq;
 namespace Pellared.Common.Mvvm.ViewModel
 {
     public class DataErrorInfoProvider<TError> : IDataErrorInfo
+        where TError : ValidationError
     {
         public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, string objectPropertyName, Func<IEnumerable<TError>, string> errorsFormatter)
         {
@@ -19,7 +20,7 @@ namespace Pellared.Common.Mvvm.ViewModel
             this.ErrorsFormatter = errorsFormatter;
         }
 
-        public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, string objectPropertyName, ArrayFormat arrayFormat)
+        public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, string objectPropertyName, ArrayFormat arrayFormat = ArrayFormat.First)
             : this(errorsContainer, objectPropertyName, ArrayFormatter.GetErrorFormatter(arrayFormat) as Func<IEnumerable<TError>, string>)
         {
             Contract.Requires<ArgumentNullException>(errorsContainer != null, "errorsContainer");
@@ -45,6 +46,19 @@ namespace Pellared.Common.Mvvm.ViewModel
         {
             IEnumerable<TError> allErrors = ErrorsContainer.GetErrors(propertyName);
             return ErrorsFormatter(allErrors);
+        }
+    }
+
+    public class DataErrorInfoProvider :  DataErrorInfoProvider<ValidationError>
+    {
+        public DataErrorInfoProvider(IErrorsContainer<ValidationError> errorsContainer, string objectPropertyName, Func<IEnumerable<ValidationError>, string> errorsFormatter)
+            : base(errorsContainer, objectPropertyName, errorsFormatter)
+        {
+        }
+
+        public DataErrorInfoProvider(IErrorsContainer<ValidationError> errorsContainer, string objectPropertyName, ArrayFormat arrayFormat = ArrayFormat.First)
+            : base(errorsContainer, objectPropertyName, arrayFormat)
+        {
         }
     }
 }

@@ -18,35 +18,35 @@ namespace Pellared.SalaryBook.Common
 
         protected ValidatableViewModel()
         {
-            ErrorsContainer = new ErrorsContainer<ValidationError>();
+            ErrorsContainer = new ErrorsContainer();
             ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(ErrorsContainer, ObjectErrorPropertyName, ArrayFormat.First);
-            ValidationProvider = new ValidationProvider<ValidationError>(ErrorsContainer, Validation, error => error.PropertyName);
+            DataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer, ObjectErrorPropertyName);
+            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
         }
 
         protected ValidatableViewModel(IMessenger messenger)
             : base(messenger)
         {
-            ErrorsContainer = new ErrorsContainer<ValidationError>();
+            ErrorsContainer = new ErrorsContainer();
             ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(ErrorsContainer, ObjectErrorPropertyName, ArrayFormat.First);
-            ValidationProvider = new ValidationProvider<ValidationError>(ErrorsContainer, Validation, error => error.PropertyName);
+            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(ErrorsContainer, ObjectErrorPropertyName);
+            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
         }
 
         protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer)
         {
             ErrorsContainer = errorsContainer;
             ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
-            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(ErrorsContainer, ObjectErrorPropertyName, ArrayFormat.First);
-            ValidationProvider = new ValidationProvider<ValidationError>(ErrorsContainer, Validation, error => error.PropertyName);
+            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(ErrorsContainer, ObjectErrorPropertyName);
+            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
         }
 
         protected ValidatableViewModel(IDataErrorInfo dataErrorInfoProvider)
         {
-            ErrorsContainer = new ErrorsContainer<ValidationError>();
+            ErrorsContainer = new ErrorsContainer();
             ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
             DataErrorInfoProvider = dataErrorInfoProvider;
-            ValidationProvider = new ValidationProvider<ValidationError>(ErrorsContainer, Validation, error => error.PropertyName);
+            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
         }
 
         protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer, IDataErrorInfo dataErrorInfoProvider)
@@ -54,7 +54,7 @@ namespace Pellared.SalaryBook.Common
             ErrorsContainer = errorsContainer;
             ErrorsContainer.ErrorsChanged += (_, arg) => OnErrorsChanged(arg.PropertyName);
             DataErrorInfoProvider = dataErrorInfoProvider;
-            ValidationProvider = new ValidationProvider<ValidationError>(ErrorsContainer, Validation, error => error.PropertyName);
+            ValidationProvider = new ValidationProvider(ErrorsContainer, Validation);
         }
 
         public IValidationProvider ValidationProvider { get; private set; }

@@ -1,4 +1,4 @@
-﻿namespace Pellared.Utils.Mvvm.Validation
+﻿namespace Pellared.Common.Mvvm.ViewModel
 {
     public class ValidationError
     {

@@ -203,7 +203,6 @@
     <Compile Include="Common\Validation\Generic\IValidator.cs" />
     <Compile Include="Common\Validation\InlineFluentValidator.cs" />
     <Compile Include="Common\Validation\IValidator.cs" />
-    <Compile Include="Common\Validation\ValidationError.cs" />
     <Compile Include="Converters\DateTimeToYearsConverter.cs" />
     <Compile Include="Entities\Salary.cs" />
     <Compile Include="Bootstrapper.cs" />

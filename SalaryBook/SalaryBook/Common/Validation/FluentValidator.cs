@@ -2,6 +2,7 @@
 using System.Linq;
 
 using FluentValidation.Results;
+using Pellared.Common.Mvvm.ViewModel;
 
 namespace Pellared.Utils.Mvvm.Validation
 {

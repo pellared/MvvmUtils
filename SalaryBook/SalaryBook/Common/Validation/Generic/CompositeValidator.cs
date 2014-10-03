@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Pellared.Common;
+using Pellared.Common.Mvvm.ViewModel;
 
 namespace Pellared.Utils.Mvvm.Validation.Generic
 {
     public class CompositeValidator<TObject, TError> : IValidator<TObject, TError>
+        where TError : ValidationError
     {
         private readonly List<IValidator<TObject, TError>> validators;
 

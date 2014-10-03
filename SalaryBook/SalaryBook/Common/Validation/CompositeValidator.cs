@@ -1,4 +1,5 @@
-﻿using Pellared.Utils.Mvvm.Validation.Generic;
+﻿using Pellared.Common.Mvvm.ViewModel;
+using Pellared.Utils.Mvvm.Validation.Generic;
 
 namespace Pellared.Utils.Mvvm.Validation
 {

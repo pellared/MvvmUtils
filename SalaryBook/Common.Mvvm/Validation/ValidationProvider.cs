@@ -15,41 +15,34 @@ namespace Pellared.Common.Mvvm.ViewModel
     }
 
     public class ValidationProvider<TError> : IValidationProvider
+        where TError : ValidationError
     {
-        private readonly IErrorsContainer<TError> errorsContainer;
-        private readonly Func<IEnumerable<TError>> validation;
-        private readonly Func<TError, string> propertyNameSelector;
-
         private bool isEnabled;
 
-        public ValidationProvider(IErrorsContainer<TError> errorsContainer, Func<IEnumerable<TError>> validation,
-            Func<TError, string> propertyNameSelector)
+        public ValidationProvider(IErrorsContainer<TError> errorsContainer, Func<IEnumerable<TError>> validation)
         {
             Contract.Requires<ArgumentNullException>(errorsContainer != null, "errorsContainer");
             Contract.Requires<ArgumentNullException>(validation != null, "validation");
-            Contract.Requires<ArgumentNullException>(propertyNameSelector != null, "propertyNameSelector");
 
-            this.errorsContainer = errorsContainer;
-            this.validation = validation;
-            this.propertyNameSelector = propertyNameSelector;
+            ErrorsContainer = errorsContainer;
+            Validation = validation;
             isEnabled = true;
         }
+
+        public IErrorsContainer<TError> ErrorsContainer { get; private set; }
+
+        public Func<IEnumerable<TError>> Validation { get; set; }
 
         public void Validate()
         {
             if (isEnabled)
             {
-                errorsContainer.ClearAllErrors();
+                ErrorsContainer.ClearAllErrors();
 
-                IEnumerable<TError> errors = validation();
+                IEnumerable<TError> errors = Validation();
                 if (errors != null)
                 {
-                    IEnumerable<IGrouping<string, TError>> propertyErrors = errors.GroupBy(propertyNameSelector);
-                    foreach (IGrouping<string, TError> validationErrors in propertyErrors)
-                    {
-                        errorsContainer.SetErrors(validationErrors.Key, validationErrors);
-
-                    }
+                    ErrorsContainer.SetErrors(errors);
                 }
             }
         }
@@ -62,8 +55,16 @@ namespace Pellared.Common.Mvvm.ViewModel
 
         public void Disable()
         {
-            errorsContainer.ClearAllErrors();
+            ErrorsContainer.ClearAllErrors();
             isEnabled = false;
+        }
+    }
+
+    public class ValidationProvider : ValidationProvider<ValidationError>
+    {
+        public ValidationProvider(IErrorsContainer<ValidationError> errorsContainer, Func<IEnumerable<ValidationError>> validation)
+            : base(errorsContainer, validation)
+        {
         }
     }
 }

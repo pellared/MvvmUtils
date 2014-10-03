@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Pellared.Common;
+using Pellared.Common.Mvvm.ViewModel;
 
 namespace Pellared.Utils.Mvvm.Validation
 {

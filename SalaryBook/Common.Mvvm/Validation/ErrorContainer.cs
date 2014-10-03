@@ -7,6 +7,24 @@ using System.Linq.Expressions;
 
 namespace Pellared.Common.Mvvm.ViewModel
 {
+    public interface IErrorsContainer<TError>
+        where TError : ValidationError
+    {
+        event EventHandler<ErrorsChangedEventArgs> ErrorsChanged;
+
+        bool HasErrors { get; }
+
+        ILookup<string, IEnumerable<TError>> GetAllErrors();
+
+        IEnumerable<TError> GetErrors(string propertyName);
+
+        void ClearAllErrors();
+
+        void ClearErrors(string propertyName);
+
+        void SetErrors(IEnumerable<TError> errors);
+    }
+
     public class ErrorsChangedEventArgs : EventArgs
     {
         public ErrorsChangedEventArgs(string propertyName)
@@ -22,6 +40,7 @@ namespace Pellared.Common.Mvvm.ViewModel
     /// </summary>
     /// <typeparam name="TError">The type of the error object.</typeparam>
     public class ErrorsContainer<TError> : IErrorsContainer<TError>
+        where TError : ValidationError
     {
         private static readonly TError[] NoErrors = new TError[0];
 
@@ -68,13 +87,32 @@ namespace Pellared.Common.Mvvm.ViewModel
             SetErrors(propertyName, new List<TError>());
         }
 
-        public void SetErrors(string propertyName, IEnumerable<TError> errors)
+        public void SetErrors(IEnumerable<TError> errors)
         {
             if (errors == null)
             {
                 throw new ArgumentNullException("newValidationResults");
             }
 
+            IEnumerable<IGrouping<string, TError>> propertyErrors = errors.GroupBy(x => x.PropertyName);
+            foreach (IGrouping<string, TError> validationErrors in propertyErrors)
+            {
+                SetErrors(validationErrors.Key, validationErrors);
+
+            }
+        }
+
+        protected void RaiseErrorsChanged(ErrorsChangedEventArgs eventArgs)
+        {
+            EventHandler<ErrorsChangedEventArgs> handler = ErrorsChanged;
+            if (handler != null)
+            {
+                handler(this, eventArgs);
+            }
+        }
+
+        private void SetErrors(string propertyName, IEnumerable<TError> errors)
+        {
             string localPropertyName = propertyName ?? string.Empty;
             bool hasCurrentErrors = propertyErrors.ContainsKey(localPropertyName);
             bool hasNewErrors = errors != null && errors.Count() > 0;
@@ -88,20 +126,31 @@ namespace Pellared.Common.Mvvm.ViewModel
                 else
                 {
                     propertyErrors.Remove(localPropertyName);
-                    
+
                 }
 
                 RaiseErrorsChanged(new ErrorsChangedEventArgs(localPropertyName));
             }
         }
-
-        protected void RaiseErrorsChanged(ErrorsChangedEventArgs eventArgs)
-        {
-            EventHandler<ErrorsChangedEventArgs> handler = ErrorsChanged;
-            if (handler != null)
-            {
-                handler(this, eventArgs);
-            }
-        }       
     }
+
+    public static class ErrorContainerExtensions
+    {
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        public static void ClearErrors<TError, TEntity, TProperty>(
+            this IErrorsContainer<TError> errorContainer, Expression<Func<TEntity, TProperty>> propertyExpression)
+            where TError : ValidationError
+        {
+            if (propertyExpression == null)
+            {
+                throw new ArgumentNullException("propertyExpression");
+            }
+
+            string propertyName = ExpressionUtils.GetPropertyName(propertyExpression);
+            errorContainer.ClearErrors(propertyName);
+        }
+    }
+
+    public class ErrorsContainer : ErrorsContainer<ValidationError>
+    { }
 }
