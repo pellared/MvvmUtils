@@ -9,43 +9,6 @@ namespace Pellared.Common
 {
     public static class Paging
     {
-        public static IEnumerable<IEnumerable<TSource>> Paginate<TSource>(this IEnumerable<TSource> collection, int pageSize)
-        {
-            Ensure.NotNull(collection, "collection");
-            Ensure.Range(pageSize > 0, "pageSize must be a positive number");
-
-            TSource[] bucket = null;
-            int count = 0;
-
-            foreach (TSource item in collection)
-            {
-                if (bucket == null)
-                {
-                    bucket = new TSource[pageSize];
-                }
-
-                bucket[count++] = item;
-
-                // The bucket is fully buffered before it's yielded
-                if (count != pageSize)
-                {
-                    continue;
-                }
-
-                // Select is necessary so bucket contents are streamed too
-                yield return bucket;
-
-                bucket = null;
-                count = 0;
-            }
-
-            // Return the last bucket with all remaining elements
-            if (bucket != null && count > 0)
-            {
-                yield return bucket;
-            }
-        }
-
         public static IQueryable<T> Page<T, TOrderKey>(this IQueryable<T> collection, Expression<Func<T, TOrderKey>> orderSelector,
             int pageNumber, int pageSize)
         {

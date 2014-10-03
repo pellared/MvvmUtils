@@ -2,17 +2,32 @@
 
 namespace Pellared.Common.Collections
 {
+    public interface ICache<TKey, TValue>
+    {
+        void Add(TKey id, TValue item);
+
+        TValue Get(TKey id);
+
+        void Remove(TKey id);
+    }
+
     public class Cache<TKey, TValue> : ICache<TKey, TValue>
     {
-        private readonly Dictionary<TKey, TValue> buffer;
-        private readonly RecentSet<TKey> recentSet;
+        public Cache(IDictionary<TKey, TValue> buffer, IRecentSet<TKey> recentSet)
+        {
+            Buffer = buffer;
+            RecentSet = recentSet;
+            RecentSet.ItemTrimed += RemoveFromBuffer;
+        }
 
         public Cache(int maxItemsCount)
+            : this(new Dictionary<TKey, TValue>(maxItemsCount), new RecentSet<TKey>(maxItemsCount))
         {
-            buffer = new Dictionary<TKey, TValue>();
-            recentSet = new RecentSet<TKey>(maxItemsCount);
-            recentSet.ItemTrimed += RemoveFromBuffer;
         }
+
+        public IDictionary<TKey, TValue> Buffer { get; private set; }
+
+        public IRecentSet<TKey> RecentSet { get; private set; }
 
         /// <summary>
         ///     Gets the item from the cache.
@@ -22,8 +37,8 @@ namespace Pellared.Common.Collections
         /// <exception cref="KeyNotFoundException">Throws when item is with given key is not in cache.</exception>
         public TValue Get(TKey id)
         {
-            TValue result = buffer[id];
-            recentSet.Add(id);
+            TValue result = Buffer[id];
+            RecentSet.Add(id);
             return result;
         }
 
@@ -34,27 +49,27 @@ namespace Pellared.Common.Collections
         /// <param name="item"></param>
         public void Add(TKey id, TValue item)
         {
-            if (buffer.ContainsKey(id))
+            if (Buffer.ContainsKey(id))
             {
-                buffer[id] = item;
+                Buffer[id] = item;
             }
             else
             {
-                buffer.Add(id, item);
+                Buffer.Add(id, item);
             }
 
-            recentSet.Add(id);
+            RecentSet.Add(id);
         }
 
         public void Remove(TKey id)
         {
-            buffer.Remove(id);
-            recentSet.Remove(id);
+            Buffer.Remove(id);
+            RecentSet.Remove(id);
         }
 
         private void RemoveFromBuffer(object sender, ItemTrimedArgs<TKey> args)
         {
-            buffer.Remove(args.Item);
+            Buffer.Remove(args.Item);
         }
     }
 }

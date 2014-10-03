@@ -2,11 +2,11 @@
 
 namespace Pellared.Common
 {
-    public sealed class DisposeAction : IDisposable
+    public class Disposer : IDisposable
     {
         private readonly Action actionOnDispose;
 
-        public DisposeAction(Action actionOnDispose)
+        public Disposer(Action actionOnDispose)
         {
             Ensure.NotNull(actionOnDispose, "actionOnDispose");
             this.actionOnDispose = actionOnDispose;

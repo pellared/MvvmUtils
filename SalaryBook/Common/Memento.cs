@@ -3,6 +3,11 @@ using System.Reflection;
 
 namespace Pellared.Common
 {
+    public interface IMemento<T>
+    {
+        void Restore(T originator);
+    }
+
     // Save:    memento = new Memento<SomeClass>(this);
     // Restore: memento.Restore(this);
     // can be also used to copy properties to another instance

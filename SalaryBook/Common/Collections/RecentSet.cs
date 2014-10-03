@@ -6,6 +6,16 @@ using System.Linq;
 
 namespace Pellared.Common.Collections
 {
+    public interface IRecentSet<T> : IEnumerable<T>
+    {
+        event EventHandler<ItemTrimedArgs<T>> ItemTrimed;
+
+        void Add(T item);
+
+        void Remove(T item);
+
+    }
+
     public class ItemTrimedArgs<T> : EventArgs
     {
         public ItemTrimedArgs(T item)
@@ -16,11 +26,11 @@ namespace Pellared.Common.Collections
         public T Item { get; private set; }
     }
 
-    public class RecentSet<T> : IEnumerable<T>
+    public class RecentSet<T> : IRecentSet<T> 
     {
         public event EventHandler<ItemTrimedArgs<T>> ItemTrimed = delegate { };
 
-        private readonly List<T> list;
+        private readonly IList<T> list;
         private readonly int maxSize = -1;
 
         public RecentSet()
@@ -30,15 +40,22 @@ namespace Pellared.Common.Collections
 
         public RecentSet(int maxSize)
         {
-            list = new List<T>();
             this.maxSize = maxSize;
+            list = new List<T>();
         }
 
         public RecentSet(IEnumerable<T> items)
         {
             Ensure.NotNull(items, "items");
 
-            list = new List<T>(items);
+            list = items.ToList();
+        }
+
+        public RecentSet(IList<T> list)
+        {
+            Ensure.NotNull(list, "list");
+
+            this.list = list;
         }
 
         public RecentSet(int maxSize, IEnumerable<T> items)

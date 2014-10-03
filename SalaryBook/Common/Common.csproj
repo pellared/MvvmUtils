@@ -75,17 +75,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitUtils.cs" />
     <Compile Include="Collections\Cache.cs" />
-    <Compile Include="Collections\ICache.cs" />
     <Compile Include="Collections\RecentSet.cs" />
     <Compile Include="CommonExtensions.cs" />
     <Compile Include="DelegateEqualityComparer.cs" />
-    <Compile Include="DisposableObject.cs" />
-    <Compile Include="DisposeAction.cs" />
+    <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="Disposable.cs" />
+    <Compile Include="Disposer.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="EnumUtils.cs" />
     <Compile Include="ExpressionUtils.cs" />
-    <Compile Include="IMemento.cs" />
     <Compile Include="MemberEqualityComparer.cs" />
     <Compile Include="Memento.cs" />
     <Compile Include="Paging.cs" />

@@ -8,9 +8,9 @@ namespace Pellared.Common
 {
     public static class CommonExtensions
     {
-        public static bool EqualsDefault<T>(this T @this)
+        public static bool EqualsDefault<T>(this T instance)
         {
-            return Equals(@this, default(T));
+            return Equals(instance, default(T));
         }
 
         public static void SafeDispose(this IDisposable disposable)
@@ -21,55 +21,20 @@ namespace Pellared.Common
             }
         }
 
-        public static string ToInvariantString(this object @this)
+        public static string ToInvariantString(this object instance)
         {
-            var formattable = @this as IFormattable;
+            var formattable = instance as IFormattable;
             if (formattable != null)
             {
                 return formattable.ToString(null, CultureInfo.InvariantCulture);
             }
-            return @this.ToString();
-        }
 
-        public static bool IsNullOrEmpty(this IEnumerable collection)
-        {
-            return collection == null || !collection.Cast<object>().Any();
-        }
-
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection)
-        {
-            return collection == null || !collection.Any();
-        }
-
-        public static bool IsNullOrEmpty<T>(this T[] array)
-        {
-            return array == null || array.Empty();
+            return instance.ToString();
         }
 
         public static bool IsNullOrEmpty(this string str)
         {
             return string.IsNullOrEmpty(str);
-        }
-
-        public static bool Empty(this IEnumerable collection)
-        {
-            
-            if (collection == null)
-            {
-                throw new ArgumentNullException("collection");
-            }
-
-            return Empty(collection.Cast<object>());
-        }
-
-        public static bool Empty<T>(this IEnumerable<T> collection)
-        {
-            if (collection == null)
-            {
-                throw new ArgumentNullException("collection");
-            }
-
-            return !collection.Any();
         }
     }
 }
