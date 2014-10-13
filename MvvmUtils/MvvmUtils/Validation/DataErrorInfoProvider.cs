@@ -6,11 +6,7 @@ using System.Diagnostics.Contracts;
 
 namespace Pellared.MvvmUtils.Validation
 {
-    public interface IDataErrorInfoProvider : IDataErrorInfo, INotifyDataErrorInfo
-    {
-    }
-
-    public class DataErrorInfoProvider<TError> : IDataErrorInfoProvider
+    public class DataErrorInfoProvider<TError> : IDataErrorInfo, INotifyDataErrorInfo
         where TError : ValidationError
     {
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged
@@ -36,7 +32,7 @@ namespace Pellared.MvvmUtils.Validation
             ErrorsFormatter = errorsFormatter;
         }
 
-        public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, string objectPropertyName, ArrayFormat arrayFormat = ArrayFormat.First)
+        public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, string objectPropertyName = "", ArrayFormat arrayFormat = ArrayFormat.First)
             : this(errorsContainer, objectPropertyName, ArrayFormatter.GetErrorFormatter(arrayFormat) as Func<IEnumerable<TError>, string>)
         {
         }

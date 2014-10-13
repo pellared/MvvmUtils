@@ -31,7 +31,7 @@ namespace Pellared.MvvmUtils.Validation
 
         public IErrorsContainer<TError> ErrorsContainer { get; private set; }
 
-        public Func<IEnumerable<TError>> Validation { get; set; }
+        public Func<IEnumerable<TError>> Validation { get; private set; }
 
         public void Validate()
         {

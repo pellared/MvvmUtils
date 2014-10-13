@@ -15,28 +15,35 @@ namespace Pellared.SalaryBook.Common
         protected ValidatableViewModel()
         {
             var errorsContainer = new ErrorsContainer();
-            ValidationProvider = new ValidationProvider(errorsContainer, Validation);
+
             DataErrorInfoProvider = new DataErrorInfoProvider(errorsContainer, ObjectErrorPropertyName);
             DataErrorInfoProvider.ErrorsChanged += OnErrorsChanged;
+
+            ValidationProvider = new ValidationProvider(errorsContainer, Validation);
         }
 
         protected ValidatableViewModel(IMessenger messenger)
             : base(messenger)
         {
             var errorsContainer = new ErrorsContainer();
+            
+            DataErrorInfoProvider = new DataErrorInfoProvider(errorsContainer, ObjectErrorPropertyName);
+            DataErrorInfoProvider.ErrorsChanged += OnErrorsChanged;
+
             ValidationProvider = new ValidationProvider(errorsContainer, Validation);
-            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(errorsContainer, ObjectErrorPropertyName);
         }
 
         protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer)
         {
+            DataErrorInfoProvider = new DataErrorInfoProvider(errorsContainer, ObjectErrorPropertyName);
+            DataErrorInfoProvider.ErrorsChanged += OnErrorsChanged;
+
             ValidationProvider = new ValidationProvider(errorsContainer, Validation);
-            DataErrorInfoProvider = new DataErrorInfoProvider<ValidationError>(errorsContainer, ObjectErrorPropertyName);
         }
 
-        public IValidationProvider ValidationProvider { get; private set; }
+        public ValidationProvider ValidationProvider { get; private set; }
 
-        public IDataErrorInfoProvider DataErrorInfoProvider { get; private set; }
+        public DataErrorInfoProvider DataErrorInfoProvider { get; private set; }
 
         public virtual bool HasErrors
         {
@@ -76,7 +83,7 @@ namespace Pellared.SalaryBook.Common
         protected override void RaisePropertyChanged<T>(string propertyName, T oldValue, T newValue, bool broadcast)
         {
             base.RaisePropertyChanged(propertyName, oldValue, newValue, broadcast);
-            ValidationProvider.Validate(); ;
+            ValidationProvider.Validate();
         }
 
         protected override void RaisePropertyChanged(string propertyName)
