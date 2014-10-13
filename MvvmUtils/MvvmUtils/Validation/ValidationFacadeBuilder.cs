@@ -44,31 +44,31 @@ namespace Pellared.MvvmUtils.Validation
             return new ValidationFacade<TError>(errorsContainer, dataErrorInfoProvider, notifyDataErrorInfoProvider, validationProvider);
         }
 
-        public ValidationFacadeBuilder<TError> WithValidation(IErrorsContainer<TError> errorsContainer)
+        public ValidationFacadeBuilder<TError> With(IErrorsContainer<TError> errorsContainer)
         {
             this.errorsContainer = errorsContainer;
             return this;
         }
 
-        public ValidationFacadeBuilder<TError> WithDataErrorInfo(IDataErrorInfo dataErrorInfo)
+        public ValidationFacadeBuilder<TError> With(IDataErrorInfo dataErrorInfo)
         {
             dataErrorInfoProvider = dataErrorInfo;
             return this;
         }
 
-        public ValidationFacadeBuilder<TError> WithNotifyDataErrorInfo(INotifyDataErrorInfo notifyDataErrorInfo)
+        public ValidationFacadeBuilder<TError> With(INotifyDataErrorInfo notifyDataErrorInfo)
         {
             notifyDataErrorInfoProvider = notifyDataErrorInfo;
             return this;
         }
 
-        public ValidationFacadeBuilder<TError> WithValidationProvider(IValidationProvider validationProvider)
+        public ValidationFacadeBuilder<TError> With(IValidationProvider validationProvider)
         {
             this.validationProvider = validationProvider;
             return this;
         }
 
-        public ValidationFacadeBuilder<TError> WithValidation(Func<IEnumerable<TError>> validation)
+        public ValidationFacadeBuilder<TError> With(Func<IEnumerable<TError>> validation)
         {
             this.validation = validation;
             return this;

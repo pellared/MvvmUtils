@@ -14,47 +14,46 @@ namespace Pellared.SalaryBook.Common
 
         protected ValidatableViewModel()
         {
-            var errorsContainer = new ErrorsContainer();
+            ValidationProvider = new ValidationFacadeBuilder<ValidationError>()
+                .With(Validation)
+                .Build();
 
-            DataErrorInfoProvider = new DataErrorInfoProvider(errorsContainer, ObjectErrorPropertyName);
-            DataErrorInfoProvider.ErrorsChanged += OnErrorsChanged;
-
-            ValidationProvider = new ValidationProvider(errorsContainer, Validation);
+            ValidationProvider.ErrorsChanged += OnErrorsChanged;
         }
 
         protected ValidatableViewModel(IMessenger messenger)
             : base(messenger)
         {
-            var errorsContainer = new ErrorsContainer();
-            
-            DataErrorInfoProvider = new DataErrorInfoProvider(errorsContainer, ObjectErrorPropertyName);
-            DataErrorInfoProvider.ErrorsChanged += OnErrorsChanged;
+            ValidationProvider = new ValidationFacadeBuilder<ValidationError>()
+                .With(Validation)
+                .Build();
 
-            ValidationProvider = new ValidationProvider(errorsContainer, Validation);
+            ValidationProvider.ErrorsChanged += OnErrorsChanged;
         }
 
         protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer)
         {
-            DataErrorInfoProvider = new DataErrorInfoProvider(errorsContainer, ObjectErrorPropertyName);
-            DataErrorInfoProvider.ErrorsChanged += OnErrorsChanged;
+            ValidationProvider = new ValidationFacadeBuilder<ValidationError>()
+                .With(errorsContainer)
+                .With(Validation)
+                .Build();
 
-            ValidationProvider = new ValidationProvider(errorsContainer, Validation);
+            ValidationProvider.ErrorsChanged += OnErrorsChanged;
         }
 
-        public ValidationProvider ValidationProvider { get; private set; }
+        public ValidationFacade<ValidationError> ValidationProvider { get; private set; }
 
-        public DataErrorInfoProvider DataErrorInfoProvider { get; private set; }
 
         public virtual bool HasErrors
         {
-            get { return DataErrorInfoProvider.HasErrors; }
+            get { return ValidationProvider.HasErrors; }
         }
 
         public virtual string Error
         {
             get
             {
-                return DataErrorInfoProvider.Error;
+                return ((IDataErrorInfo)ValidationProvider).Error;
             }
         }
 
@@ -62,7 +61,7 @@ namespace Pellared.SalaryBook.Common
         {
             get
             {
-                return DataErrorInfoProvider[columnName];
+                return ((IDataErrorInfo)ValidationProvider)[columnName];
             }
         }
 
