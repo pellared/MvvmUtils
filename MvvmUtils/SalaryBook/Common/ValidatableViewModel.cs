@@ -14,29 +14,29 @@ namespace Pellared.SalaryBook.Common
 
         private readonly DataErrorInfoProvider dataErrorInfoProvider;
 
-        protected ValidatableViewModel()
+        protected ValidatableViewModel(ArrayFormat errorFormat = ArrayFormat.First)
         {
             ErrorsContainer = new ErrorsContainer();
             ErrorsContainer.ErrorsChanged += OnErrorsChanged;
 
-            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer);
+            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer, errorFormat, ObjectErrorPropertyName);
         }
 
-        protected ValidatableViewModel(IMessenger messenger)
+        protected ValidatableViewModel(IMessenger messenger, ArrayFormat errorFormat = ArrayFormat.First)
             : base(messenger)
         {
             ErrorsContainer = new ErrorsContainer();
             ErrorsContainer.ErrorsChanged += OnErrorsChanged;
 
-            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer);
+            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer, errorFormat, ObjectErrorPropertyName);
         }
 
-        protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer)
+        protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer, ArrayFormat errorFormat = ArrayFormat.First)
         {
             ErrorsContainer = errorsContainer;
             ErrorsContainer.ErrorsChanged += OnErrorsChanged;
 
-            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer);
+            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer, errorFormat, ObjectErrorPropertyName);
         }
 
         public IErrorsContainer<ValidationError> ErrorsContainer { get; private set; }
