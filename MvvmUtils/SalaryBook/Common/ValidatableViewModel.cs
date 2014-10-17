@@ -12,48 +12,45 @@ namespace Pellared.SalaryBook.Common
     {
         public const string ObjectErrorPropertyName = "";
 
+        private readonly DataErrorInfoProvider dataErrorInfoProvider;
+
         protected ValidatableViewModel()
         {
-            ValidationProvider = new ValidationFacadeBuilder<ValidationError>()
-                .With(Validation)
-                .Build();
+            ErrorsContainer = new ErrorsContainer();
+            ErrorsContainer.ErrorsChanged += OnErrorsChanged;
 
-            ValidationProvider.ErrorsChanged += OnErrorsChanged;
+            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer);
         }
 
         protected ValidatableViewModel(IMessenger messenger)
             : base(messenger)
         {
-            ValidationProvider = new ValidationFacadeBuilder<ValidationError>()
-                .With(Validation)
-                .Build();
+            ErrorsContainer = new ErrorsContainer();
+            ErrorsContainer.ErrorsChanged += OnErrorsChanged;
 
-            ValidationProvider.ErrorsChanged += OnErrorsChanged;
+            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer);
         }
 
         protected ValidatableViewModel(IErrorsContainer<ValidationError> errorsContainer)
         {
-            ValidationProvider = new ValidationFacadeBuilder<ValidationError>()
-                .With(errorsContainer)
-                .With(Validation)
-                .Build();
+            ErrorsContainer = errorsContainer;
+            ErrorsContainer.ErrorsChanged += OnErrorsChanged;
 
-            ValidationProvider.ErrorsChanged += OnErrorsChanged;
+            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer);
         }
 
-        public ValidationFacade<ValidationError> ValidationProvider { get; private set; }
-
+        public IErrorsContainer<ValidationError> ErrorsContainer { get; private set; }
 
         public virtual bool HasErrors
         {
-            get { return ValidationProvider.HasErrors; }
+            get { return ErrorsContainer.HasErrors; }
         }
 
         public virtual string Error
         {
             get
             {
-                return ((IDataErrorInfo)ValidationProvider).Error;
+                return dataErrorInfoProvider.Error;
             }
         }
 
@@ -61,8 +58,14 @@ namespace Pellared.SalaryBook.Common
         {
             get
             {
-                return ((IDataErrorInfo)ValidationProvider)[columnName];
+                return dataErrorInfoProvider[columnName];
             }
+        }
+
+        public void Validate()
+        {
+            IEnumerable<ValidationError> errors = Validation();
+            ErrorsContainer.ClearAndSetErrors(errors);
         }
 
         protected abstract IEnumerable<ValidationError> Validation();
@@ -70,25 +73,25 @@ namespace Pellared.SalaryBook.Common
         protected override void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression)
         {
             base.RaisePropertyChanged(propertyExpression);
-            ValidationProvider.Validate();
+            Validate();
         }
 
         protected override void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression, T oldValue, T newValue, bool broadcast)
         {
             base.RaisePropertyChanged(propertyExpression, oldValue, newValue, broadcast);
-            ValidationProvider.Validate();
+            Validate();
         }
 
         protected override void RaisePropertyChanged<T>(string propertyName, T oldValue, T newValue, bool broadcast)
         {
             base.RaisePropertyChanged(propertyName, oldValue, newValue, broadcast);
-            ValidationProvider.Validate();
+            Validate();
         }
 
         protected override void RaisePropertyChanged(string propertyName)
         {
             base.RaisePropertyChanged(propertyName);
-            ValidationProvider.Validate();
+            Validate();
         }
 
         private void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)

@@ -21,7 +21,7 @@ namespace Pellared.MvvmUtils.Validation
             }
         }
 
-        public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, string objectPropertyName, Func<IEnumerable<TError>, string> errorsFormatter)
+        public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, Func<IEnumerable<TError>, string> errorsFormatter, string objectPropertyName = "")
         {
             Contract.Requires<ArgumentNullException>(errorsContainer != null, "errorsContainer");
             Contract.Requires<ArgumentNullException>(objectPropertyName != null, "objectPropertyName");
@@ -32,8 +32,8 @@ namespace Pellared.MvvmUtils.Validation
             ErrorsFormatter = errorsFormatter;
         }
 
-        public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, string objectPropertyName = "", ArrayFormat arrayFormat = ArrayFormat.First)
-            : this(errorsContainer, objectPropertyName, ArrayFormatter.GetErrorFormatter(arrayFormat) as Func<IEnumerable<TError>, string>)
+        public DataErrorInfoProvider(IErrorsContainer<TError> errorsContainer, ArrayFormat arrayFormat = ArrayFormat.First, string objectPropertyName = "")
+            : this(errorsContainer, ArrayFormatter.GetErrorFormatter(arrayFormat) as Func<IEnumerable<TError>, string>, objectPropertyName)
         {
         }
 
@@ -72,13 +72,13 @@ namespace Pellared.MvvmUtils.Validation
 
     public class DataErrorInfoProvider : DataErrorInfoProvider<ValidationError>
     {
-        public DataErrorInfoProvider(IErrorsContainer<ValidationError> errorsContainer, string objectPropertyName, Func<IEnumerable<ValidationError>, string> errorsFormatter)
-            : base(errorsContainer, objectPropertyName, errorsFormatter)
+        public DataErrorInfoProvider(IErrorsContainer<ValidationError> errorsContainer, Func<IEnumerable<ValidationError>, string> errorsFormatter, string objectPropertyName = "")
+            : base(errorsContainer, errorsFormatter, objectPropertyName)
         {
         }
 
-        public DataErrorInfoProvider(IErrorsContainer<ValidationError> errorsContainer, string objectPropertyName, ArrayFormat arrayFormat = ArrayFormat.First)
-            : base(errorsContainer, objectPropertyName, arrayFormat)
+        public DataErrorInfoProvider(IErrorsContainer<ValidationError> errorsContainer, ArrayFormat arrayFormat = ArrayFormat.First, string objectPropertyName = "")
+            : base(errorsContainer, arrayFormat, objectPropertyName)
         {
         }
     }

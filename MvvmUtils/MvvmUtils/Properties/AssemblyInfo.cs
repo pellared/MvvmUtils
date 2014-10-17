@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Pellared.Common.Mvvm")]
+[assembly: AssemblyTitle("Pellared.MvvmUtils")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Pellared.Common.Mvvm")]
+[assembly: AssemblyProduct("Pellared.MvvmUtils")]
 [assembly: AssemblyCopyright("Copyright © 2013 Robert Pająk")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

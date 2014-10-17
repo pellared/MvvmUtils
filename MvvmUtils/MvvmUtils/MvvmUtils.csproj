@@ -139,13 +139,10 @@
     <Compile Include="DialogService.cs" />
     <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\ValidationError.cs" />
-    <Compile Include="Validation\ValidationFacade.cs" />
-    <Compile Include="Validation\ValidationFacadeBuilder.cs" />
     <Compile Include="View\WindowEx.cs" />
     <Compile Include="View\ClosableWindow.xaml.cs">
       <DependentUpon>ClosableWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Validation\ValidationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\ClosableWindow.xaml">

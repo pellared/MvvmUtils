@@ -142,4 +142,39 @@ namespace Pellared.MvvmUtils.Validation
 
     public class ErrorsContainer : ErrorsContainer<ValidationError>
     { }
+
+    public static class ErrorsContainerExtensions
+    {
+        public static void ClearAndSetErrors<TError>(this IErrorsContainer<TError> errorsContainer, IEnumerable<TError> errors)
+            where TError : ValidationError
+        {
+            Ensure.NotNull(errorsContainer);
+
+            errorsContainer.ClearAllErrors();;
+            if (!errors.IsNullOrEmpty())
+            {
+                errorsContainer.SetErrors(errors);
+            };
+        }
+
+        public static IEnumerable<TError> GetErrors<TError, TProperty>(this IErrorsContainer<TError> errorsContainer, Expression<Func<TProperty>> propertySelector)
+            where TError : ValidationError
+        {
+            Ensure.NotNull(errorsContainer);
+            Ensure.NotNull(propertySelector);
+
+            string propertyName = ExpressionUtils.GetPropertyName(propertySelector);
+            return errorsContainer.GetErrors(propertyName);
+        }
+
+        public static void ClearErrors<TError, TProperty>(this IErrorsContainer<TError> errorsContainer, Expression<Func<TProperty>> propertySelector)
+            where TError : ValidationError
+        {
+            Ensure.NotNull(errorsContainer);
+            Ensure.NotNull(propertySelector);
+
+            string propertyName = ExpressionUtils.GetPropertyName(propertySelector);
+            errorsContainer.ClearErrors(propertyName);
+        }
+    }
 }

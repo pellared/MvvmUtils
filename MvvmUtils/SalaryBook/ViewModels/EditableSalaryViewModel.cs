@@ -154,11 +154,7 @@ namespace Pellared.SalaryBook.ViewModels
                 secondPhaseErrors = new ValidationError[0];
             }
 
-            ValidationProvider.Validate();
-
-            ValidationProvider.Disable();
-            RaisePropertyChanged(ObjectErrorPropertyName);
-            ValidationProvider.Enable();
+            Validate();
         }
 
         public Task ValidateAllAsync()

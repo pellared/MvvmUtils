@@ -11,6 +11,7 @@ namespace Pellared.MvvmUtils.Validation
         Multiline
     }
 
+    // TODO: object to ValidationError
     public static class ArrayFormatter
     {
         public static Func<IEnumerable<object>, string> GetErrorFormatter(ArrayFormat arrayFormat)
