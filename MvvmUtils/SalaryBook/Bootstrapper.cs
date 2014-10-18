@@ -78,11 +78,20 @@ namespace Pellared.SalaryBook
         private void RegisterDialogService()
         {
             if (windowArgs.MainWindow != null)
+            {
                 containerBuilder.RegisterInstance<IDialogService>(new DialogService(windowArgs.MainWindow));
+                containerBuilder.RegisterInstance<IWindowService>(new WindowService(windowArgs.MainWindow));
+            }
             else if (windowArgs.MainForm != null)
-                containerBuilder.RegisterInstance<IDialogService>(new DialogService(windowArgs.MainForm));
-            else
+            {
                 containerBuilder.RegisterInstance<IDialogService>(new DialogService());
+                containerBuilder.RegisterInstance<IWindowService>(new WindowService(windowArgs.MainForm));
+            }
+            else
+            {
+                containerBuilder.RegisterInstance<IDialogService>(new DialogService());
+                containerBuilder.RegisterInstance<IWindowService>(new WindowService());
+            }
         }
 
         private void RegisterNavigationService()

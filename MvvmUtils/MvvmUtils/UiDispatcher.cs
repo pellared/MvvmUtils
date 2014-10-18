@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pellared.Common;
+using System;
 using System.Threading;
 
 namespace Pellared.MvvmUtils
@@ -38,6 +39,8 @@ namespace Pellared.MvvmUtils
         /// </param>
         public void InvokeAsync(Action action)
         {
+            Ensure.NotNull(action, "action");
+
             if (synchronizationContext == SynchronizationContext.Current)
             {
                 action();
@@ -60,6 +63,8 @@ namespace Pellared.MvvmUtils
         /// </param>
         public void InvokeSync(Action action)
         {
+            Ensure.NotNull(action, "action");
+
             if (synchronizationContext == SynchronizationContext.Current)
             {
                 action();
@@ -69,6 +74,5 @@ namespace Pellared.MvvmUtils
                 synchronizationContext.Send(x => action(), null);
             }
         }
-
     }
 }

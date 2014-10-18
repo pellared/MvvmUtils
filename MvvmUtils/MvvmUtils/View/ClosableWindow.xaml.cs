@@ -1,10 +1,8 @@
-﻿using System.Windows;
+﻿using Pellared.Common;
+using System.Windows;
 
 namespace Pellared.MvvmUtils.View
 {
-    /// <summary>
-    ///     Interaction logic for ModalWindow.xaml
-    /// </summary>
     internal partial class ClosableWindow : Window
     {
         protected ClosableWindow()
@@ -15,15 +13,25 @@ namespace Pellared.MvvmUtils.View
         public ClosableWindow(IWindowViewModel viewModel, System.Windows.ResizeMode resizeMode)
             : this()
         {
-            Content = viewModel;
-            DataContext = viewModel;
+            Ensure.NotNull(viewModel, "viewModel");
+
+            ViewModel = viewModel;
             ResizeMode = resizeMode;
+        }
+
+        public IWindowViewModel ViewModel
+        {
+            get { return DataContext as IWindowViewModel; }
+            private set 
+            {
+                Content = value;
+                DataContext = value; 
+            }
         }
 
         public void Open()
         {
-            var viewModel = DataContext as IWindowViewModel;
-            if (viewModel != null)
+            if (ViewModel != null)
             {
                 Show();
             }
@@ -31,11 +39,10 @@ namespace Pellared.MvvmUtils.View
 
         public void OpenDialog()
         {
-            var viewModel = DataContext as IWindowViewModel;
-            if (viewModel != null)
+            if (ViewModel != null)
             {
                 ShowDialog();
-                viewModel.Closed = true;
+                ViewModel.Closed = true;
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Pellared.MvvmUtils.View;
+﻿using Pellared.Common;
+using Pellared.MvvmUtils.View;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
@@ -8,12 +9,7 @@ using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace Pellared.MvvmUtils
 {
-    public enum ResizeMode
-    {
-        NoResize,
-        CanMinimize,
-        CanResize
-    }
+    
 
     public enum DialogButtons
     {
@@ -23,7 +19,7 @@ namespace Pellared.MvvmUtils
         YesNoCancel
     }
 
-    public enum DialogIcons
+    public enum DialogIcon
     {
         None,
         Information,
@@ -33,7 +29,7 @@ namespace Pellared.MvvmUtils
         Warning
     }
 
-    public enum DialogResults
+    public enum DialogResult
     {
         None,
         OK,
@@ -42,22 +38,13 @@ namespace Pellared.MvvmUtils
         No
     }
 
-    public interface IWindowService
-    {
-        void Show(IWindowViewModel viewModel, ResizeMode resizeMode);
-    }
-
     public interface IDialogService
     {
-        void ShowDialog(IDialogViewModel viewModel, ResizeMode resizeMode);
-
         string ShowOpenFileDialog(string filter);
 
         string ShowSaveFileDialog(string defaultExtension, string filter);
 
-        void ShowMessage(string message, string caption, DialogIcons icon);
-
-        DialogResults ShowMessage(string message, string caption, DialogIcons icon, DialogButtons buttons);
+        DialogResult ShowMessage(string message, string caption, DialogIcon icon, DialogButtons buttons);
     }
 
     public interface IWindowViewModel
@@ -67,14 +54,9 @@ namespace Pellared.MvvmUtils
         string Title { get; }
     }
 
-    public interface IDialogViewModel : IWindowViewModel
-    {
-    }
-
-    public class DialogService : IDialogService, IWindowService
+    public class DialogService : IDialogService
     {
         private readonly Window ownerWindow;
-        private readonly Form ownerForm;
 
         public DialogService()
         {
@@ -82,63 +64,8 @@ namespace Pellared.MvvmUtils
 
         public DialogService(Window ownerWindow)
         {
+            Ensure.NotNull(ownerWindow, "ownerWindow");
             this.ownerWindow = ownerWindow;
-        }
-
-        public DialogService(Form ownerForm)
-        {
-            this.ownerForm = ownerForm;
-        }
-
-        public void Show(IWindowViewModel viewModel, ResizeMode resizeMode)
-        {
-            viewModel.Closed = false;
-            ClosableWindow window = CreateWindow(viewModel, resizeMode);
-            window.Open();
-        }
-
-        public void ShowDialog(IDialogViewModel viewModel, ResizeMode resizeMode)
-        {
-            viewModel.Closed = false;
-            ClosableWindow window = CreateWindow(viewModel, resizeMode);
-            window.OpenDialog();
-        }
-
-        private ClosableWindow CreateWindow(IWindowViewModel viewModel, ResizeMode resizeMode)
-        {
-            System.Windows.ResizeMode mode = GetMode(resizeMode);
-            var window = new ClosableWindow(viewModel, mode);
-            if (ownerWindow != null)
-            {
-                window.Owner = ownerWindow;
-                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            }
-            else if (ownerForm != null)
-            {
-                var helper = new WindowInteropHelper(window);
-                helper.Owner = ownerForm.Handle;
-                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            }
-
-            return window;
-        }
-
-        private System.Windows.ResizeMode GetMode(ResizeMode resizeMode)
-        {
-            switch (resizeMode)
-            {
-                case ResizeMode.NoResize:
-                    return System.Windows.ResizeMode.NoResize;
-
-                case ResizeMode.CanMinimize:
-                    return System.Windows.ResizeMode.CanMinimize;
-
-                case ResizeMode.CanResize:
-                    return System.Windows.ResizeMode.CanResize;
-
-                default:
-                    return System.Windows.ResizeMode.NoResize;
-            }
         }
 
         public string ShowOpenFileDialog(string filter)
@@ -180,32 +107,13 @@ namespace Pellared.MvvmUtils
             return null;
         }
 
-        /// <summary>
-        ///     Shows a standard System.Windows.MessageBox using the parameters requested
-        /// </summary>
-        /// <param name="message">The message to be displayed.</param>
-        /// <param name="caption">The heading to be displayed</param>
-        /// <param name="icon">The icon to be displayed.</param>
-        public void ShowMessage(string message, string caption, DialogIcons icon)
+        public DialogResult ShowMessage(string message, string caption, DialogIcon icon, DialogButtons buttons)
         {
-            MessageBox.Show(message, caption, MessageBoxButton.OK, GetImage(icon));
-        }
-
-        /// <summary>
-        ///     Shows a standard System.Windows.MessageBox using the parameters requested
-        ///     but will return a translated result to enable adhere to the IMessageBoxService
-        ///     implementation required.
-        ///     This abstraction allows for different frameworks to use the same ViewModels but supply
-        ///     alternative implementations of core service interfaces
-        /// </summary>
-        /// <param name="message">The message to be displayed.</param>
-        /// <param name="caption">The caption of the message box window</param>
-        /// <param name="icon">The icon to be displayed.</param>
-        /// <param name="button"></param>
-        /// <returns>CustomDialogResults results to use</returns>
-        public DialogResults ShowMessage(string message, string caption, DialogIcons icon, DialogButtons button)
-        {
-            MessageBoxResult result = MessageBox.Show(message, caption, GetButton(button), GetImage(icon));
+            MessageBoxImage dialogImage = GetImage(icon);
+            MessageBoxButton dialogButtons = GetButtons(buttons);
+            MessageBoxResult result = (ownerWindow != null)
+                ? MessageBox.Show(ownerWindow, message, caption, dialogButtons, dialogImage)
+                : MessageBox.Show(message, caption, dialogButtons, dialogImage);
             return GetResult(result);
         }
 
@@ -216,26 +124,26 @@ namespace Pellared.MvvmUtils
         /// </summary>
         /// <param name="icon">The icon to be displayed.</param>
         /// <returns>A standard WPF System.Windows.MessageBox MessageBoxImage</returns>
-        private MessageBoxImage GetImage(DialogIcons icon)
+        private MessageBoxImage GetImage(DialogIcon icon)
         {
             switch (icon)
             {
                 default:
                     return MessageBoxImage.None;
 
-                case DialogIcons.Information:
+                case DialogIcon.Information:
                     return MessageBoxImage.Information;
 
-                case DialogIcons.Question:
+                case DialogIcon.Question:
                     return MessageBoxImage.Question;
 
-                case DialogIcons.Exclamation:
+                case DialogIcon.Exclamation:
                     return MessageBoxImage.Exclamation;
 
-                case DialogIcons.Stop:
+                case DialogIcon.Stop:
                     return MessageBoxImage.Stop;
 
-                case DialogIcons.Warning:
+                case DialogIcon.Warning:
                     return MessageBoxImage.Warning;
             }
         }
@@ -245,9 +153,9 @@ namespace Pellared.MvvmUtils
         ///     This abstraction allows for different frameworks to use the same ViewModels but supply
         ///     alternative implementations of core service interfaces
         /// </summary>
-        /// <param name="btn">The button type to be displayed.</param>
+        /// <param name="btn">The buttons type to be displayed.</param>
         /// <returns>A standard WPF System.Windows.MessageBox MessageBoxButton</returns>
-        private MessageBoxButton GetButton(DialogButtons btn)
+        private MessageBoxButton GetButtons(DialogButtons btn)
         {
             switch (btn)
             {
@@ -276,28 +184,36 @@ namespace Pellared.MvvmUtils
         /// </summary>
         /// <param name="result">The standard WPF System.Windows.MessageBox MessageBoxResult</param>
         /// <returns>CustomDialogResults results to use</returns>
-        private DialogResults GetResult(MessageBoxResult result)
+        private DialogResult GetResult(MessageBoxResult result)
         {
             switch (result)
             {
                 default:
-                    return DialogResults.None;
+                    return DialogResult.None;
 
                 case MessageBoxResult.Cancel:
-                    return DialogResults.Cancel;
+                    return DialogResult.Cancel;
 
                 case MessageBoxResult.No:
-                    return DialogResults.No;
+                    return DialogResult.No;
 
                 case MessageBoxResult.None:
-                    return DialogResults.None;
+                    return DialogResult.None;
 
                 case MessageBoxResult.OK:
-                    return DialogResults.OK;
+                    return DialogResult.OK;
 
                 case MessageBoxResult.Yes:
-                    return DialogResults.Yes;
+                    return DialogResult.Yes;
             }
+        }
+    }
+
+    public static class DialogServiceExtensions
+    {
+        public static void ShowMessage(this IDialogService dialogService, string message, string caption, DialogIcon icon)
+        {
+            dialogService.ShowMessage(message, caption, icon, DialogButtons.OK);
         }
     }
 }

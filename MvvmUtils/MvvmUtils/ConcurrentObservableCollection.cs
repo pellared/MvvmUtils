@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pellared.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -16,15 +17,6 @@ namespace Pellared.MvvmUtils
         private bool suspendCollectionChangeNotification;
 
         /// <summary>
-        /// Initializes a new instance of the FastObservableCollection class.
-        /// </summary>
-        public ConcurrentObservableCollection()
-            : base()
-        {
-            suspendCollectionChangeNotification = false;
-        }
-
-        /// <summary>
         /// This event is overridden CollectionChanged event of the observable collection.
         /// </summary>
         public override event NotifyCollectionChangedEventHandler CollectionChanged;
@@ -37,7 +29,7 @@ namespace Pellared.MvvmUtils
         /// <param name="items">The source collection.</param>
         public void Add(IEnumerable<T> items)
         {
-            Contract.Requires<ArgumentNullException>(items != null, "items");
+            Ensure.NotNull(items, "items");
 
             SuspendCollectionChangeNotification();
             try
@@ -61,7 +53,7 @@ namespace Pellared.MvvmUtils
         /// <param name="items">The source collection.</param>
         public void Remove(IEnumerable<T> items)
         {
-            Contract.Requires<ArgumentNullException>(items != null, "items");
+            Ensure.NotNull(items, "items");
 
             SuspendCollectionChangeNotification();
             try

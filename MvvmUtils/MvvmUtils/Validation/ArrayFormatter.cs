@@ -29,13 +29,13 @@ namespace Pellared.MvvmUtils.Validation
             }
         }
 
-        private static string GetFirstString(IEnumerable<object> errors)
+        public static string GetFirstString(IEnumerable<object> errors)
         {
             object error = errors.FirstOrDefault();
             return error.EqualsDefault() ? null : error.ToString();
         }
 
-        private static string GetMultilineString(IEnumerable<object> errors)
+        public static string GetMultilineString(IEnumerable<object> errors)
         {
             return errors.Any() ? string.Join(Environment.NewLine, errors.Select(x => x.ToString())) : null;
         }

@@ -143,6 +143,7 @@
     <Compile Include="View\ClosableWindow.xaml.cs">
       <DependentUpon>ClosableWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\ClosableWindow.xaml">

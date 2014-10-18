@@ -21,17 +21,20 @@ namespace Pellared.SalaryBook.ViewModels
     {
         private readonly INavigationService navigationService;
         private readonly IDialogService dialogService;
+        private readonly IWindowService windowService;
         private readonly ImportExportManager importExportManager;
         private readonly IValidator<ISalary> salaryValidator;
 
         public SalaryTableViewModel(
-                INavigationService navigationService,
-                IDialogService dialogService,
-                ImportExportManager importExportManager,
-                IValidator<ISalary> salaryValidator)
+            INavigationService navigationService,
+            IDialogService dialogService,
+            IWindowService windowService,
+            ImportExportManager importExportManager,
+            IValidator<ISalary> salaryValidator)
         {
             this.navigationService = navigationService;
             this.dialogService = dialogService;
+            this.windowService = windowService;
             this.importExportManager = importExportManager;
             this.salaryValidator = salaryValidator;
 
@@ -108,7 +111,7 @@ namespace Pellared.SalaryBook.ViewModels
         {
             Salary salary = SelectedSalary.CreateEntity();
             SalaryDialogViewModel salaryDialogViewModel = new SalaryDialogViewModel(salary, dialogService);
-            dialogService.ShowDialog(salaryDialogViewModel, ResizeMode.NoResize);
+            windowService.ShowDialog(salaryDialogViewModel, ResizeMode.NoResize);
             salaryDialogViewModel.Closed = true;
         }
 
@@ -154,7 +157,7 @@ namespace Pellared.SalaryBook.ViewModels
         {
             Salary salary = SelectedSalary.CreateEntity();
             DeleteSalaryDialogViewModel deleteSalaryDialogViewModel = new DeleteSalaryDialogViewModel(salary, dialogService);
-            dialogService.ShowDialog(deleteSalaryDialogViewModel, ResizeMode.NoResize);
+            windowService.ShowDialog(deleteSalaryDialogViewModel, ResizeMode.NoResize);
             if (deleteSalaryDialogViewModel.Result)
                 Salaries.Remove(SelectedSalary);
         }

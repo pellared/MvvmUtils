@@ -4,7 +4,7 @@ using System;
 
 namespace Pellared.SalaryBook.ViewModels
 {
-    public class SalaryDialogViewModel : IDialogViewModel
+    public class SalaryDialogViewModel : IWindowViewModel
     {
         private readonly Salary salary;
         private readonly IDialogService dialogService;

@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Pellared.SalaryBook.ViewModels
 {
-    public class DeleteSalaryDialogViewModel : ViewModelBase, IDialogViewModel
+    public class DeleteSalaryDialogViewModel : ViewModelBase, IWindowViewModel
     {
         private readonly Salary salary;
         private readonly IDialogService dialogService;
@@ -59,8 +59,8 @@ namespace Pellared.SalaryBook.ViewModels
 
         private void Delete()
         {
-            DialogResults result = dialogService.ShowMessage("Czy na pewno chcesz usunąć?", "Pytanie", DialogIcons.Question, DialogButtons.YesNo);
-            if (result == DialogResults.Yes)
+            DialogResult result = dialogService.ShowMessage("Czy na pewno chcesz usunąć?", "Pytanie", DialogIcon.Question, DialogButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
                 Result = true;
                 Closed = true;
