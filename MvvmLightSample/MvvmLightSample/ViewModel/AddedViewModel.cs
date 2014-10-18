@@ -1,8 +1,8 @@
-﻿using Pellared.Utils.Mvvm.Dialog;
+﻿using Pellared.MvvmUtils;
 
 namespace MvvmLightSample.ViewModel
 {
-    public class AddedViewModel : IDialogViewModel
+    public class AddedViewModel : IWindowViewModel
     {
         public bool Closed { get; set; }
 

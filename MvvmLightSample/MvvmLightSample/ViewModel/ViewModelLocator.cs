@@ -13,7 +13,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using MvvmLightSample.Model;
-using Pellared.Utils.Mvvm.Dialog;
+using Pellared.MvvmUtils;
 
 namespace MvvmLightSample.ViewModel
 {
@@ -33,6 +33,7 @@ namespace MvvmLightSample.ViewModel
             }
 
             SimpleIoc.Default.Register<IDialogService>(() => new DialogService());
+            SimpleIoc.Default.Register<IWindowService>(() => new WindowService());
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<PersonViewModel>();
         }

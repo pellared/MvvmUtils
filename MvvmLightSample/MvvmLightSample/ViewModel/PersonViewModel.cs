@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Pellared.MvvmUtils.Validation;
+using System.Collections.Generic;
 
 namespace MvvmLightSample.ViewModel
 {
@@ -21,14 +22,16 @@ namespace MvvmLightSample.ViewModel
             set { Set(() => Name, ref _name, value); }
         }
 
-        protected override IEnumerable<PropertyError> Validation()
+        protected override IEnumerable<ValidationError> Validation()
         {
+            var errors = new List<ValidationError>();
+
             if (string.IsNullOrWhiteSpace(Name))
             {
-                return PropertyError.Create(() => Name, "Name cannot be empty");
+                errors.Add(ValidationError.Create(() => Name, "Name cannot be empty"));
             }
 
-            return null;
+            return errors;
         }
     }
 }

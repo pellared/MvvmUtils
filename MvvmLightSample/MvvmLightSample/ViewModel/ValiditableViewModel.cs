@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using Pellared.Utils.Mvvm.ViewModel;
+using Pellared.MvvmUtils.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,10 +11,7 @@ namespace MvvmLightSample.ViewModel
 {
     public abstract class ValidatableViewModel : ViewModelBase, IDataErrorInfo
     {
-        private DataErrorInfoProvider<PropertyError> dataErrorInfoProvider;
-        private ErrorsContainer<PropertyError> errorsContainer;
-        private ValidationProvider<PropertyError> validationProvider;
-
+        private DataErrorInfoProvider dataErrorInfoProvider;
         private bool validationOnPropertyChangedEnabled;
 
         protected ValidatableViewModel()
@@ -30,12 +27,15 @@ namespace MvvmLightSample.ViewModel
 
         private void Initialize()
         {
-            errorsContainer = new ErrorsContainer<PropertyError>(OnErrorsChanged);
-            dataErrorInfoProvider = new DataErrorInfoProvider<PropertyError>(ArrayFormat.First, errorsContainer);
-            validationProvider = new ValidationProvider<PropertyError>(errorsContainer, Validation, error => error.PropertyName);
+            ErrorsContainer = new ErrorsContainer();
+            ErrorsContainer.ErrorsChanged += OnErrorsChanged;
+
+            dataErrorInfoProvider = new DataErrorInfoProvider(ErrorsContainer);
 
             validationOnPropertyChangedEnabled = true;
         }
+
+        public ErrorsContainer ErrorsContainer { get; private set; }
 
         public bool ValidationOnPropertyChangedEnabled
         {
@@ -50,41 +50,39 @@ namespace MvvmLightSample.ViewModel
                 }
                 else
                 {
-                    errorsContainer.ClearAllErrors();
+                    ErrorsContainer.ClearAllErrors();
                 }
             }
         }
 
         public virtual bool HasErrors
         {
-            get { return DataErrorInfoProvider.HasErrors; }
+            get { return dataErrorInfoProvider.HasErrors; }
         }
 
         public virtual string Error
         {
             get
             {
-                return DataErrorInfoProvider.Error;
+                return dataErrorInfoProvider.Error;
             }
-        }
-
-        protected DataErrorInfoProvider<PropertyError> DataErrorInfoProvider
-        {
-            get { return dataErrorInfoProvider; }
         }
 
         public virtual string this[string columnName]
         {
             get
             {
-                return DataErrorInfoProvider[columnName];
+                return dataErrorInfoProvider[columnName];
             }
         }
 
         public virtual void Validate()
         {
-            validationProvider.Validate();
+            IEnumerable<ValidationError> errors = Validation();
+            ErrorsContainer.ClearAndSetErrors(errors);
         }
+
+        protected abstract IEnumerable<ValidationError> Validation();
 
         protected override void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression)
         {
@@ -110,11 +108,14 @@ namespace MvvmLightSample.ViewModel
             ValidateOnPropertyChanged();
         }
 
-        protected abstract IEnumerable<PropertyError> Validation();
-
-        protected void OnErrorsChanged(string propertyName)
+        protected void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)
         {
-            if (propertyName == DataErrorInfoProvider.ObjectPropertyName)
+            OnErrorsChanged(e.PropertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            if (propertyName == dataErrorInfoProvider.ObjectPropertyName)
             {
                 // object error
                 propertyName = "Error";
