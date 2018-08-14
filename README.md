@@ -13,7 +13,7 @@ MVVM Utils is a set of classes which extends existing MVVM Frameworks such as MV
 * **MvvmUtils**
   * **Pellared.Common** - small, but universal utlility library (you can check the code by your own)
   * **MvvmUtils** - **MVVM Utils library**
-  * **SalaryBook** - a sample application where I test the MVVM Utils (uses MVVM Light ,but with ViewModel first approach, and FluentValidation)
+  * **SalaryBook** - a sample application where I test the MVVM Utils (uses MVVM Light, but with ViewModel first approach and FluentValidation)
 
 ## Resources
 * Docs: https://mvvmutils.codeplex.com/documentation
